@@ -9,26 +9,7 @@ export default defineConfig({
 	plugins: [
 		react(),
 		tailwindcss(),
-		svgr({
-			svgoConfig: {
-				multipass: true,
-				plugins: [
-					{
-						name: 'preset-default',
-						params: {
-							overrides: {
-								removeViewBox: false
-							}
-						}
-					},
-					'removeXMLProcInst',
-					'removeComments',
-					'removeMetadata',
-					'removeDoctype',
-					'cleanupIDs'
-				]
-			}
-		}),
+		svgr(),
 		visualizer({
 			open: true,
 			filename: 'stats.html',

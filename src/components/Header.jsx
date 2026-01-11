@@ -1,4 +1,4 @@
-import Logo from '../assets/img/logo.svg?react';
+import Logo from '../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import { Url } from './style';
 
@@ -8,7 +8,7 @@ export default function Header() {
 			<div className='w-7xl h-full px-5 flex justify-between'>
 				<nav className='w-max flex gap-5 items-center'>
 					<Link to='/'>
-						<Logo width={140} />
+						<img className='h-20' src={Logo} alt='' />
 					</Link>
 					<Url className='page' to='/'>
 						주민 명부
