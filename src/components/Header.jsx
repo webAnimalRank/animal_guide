@@ -8,7 +8,7 @@ export default function Header() {
 			<div className='w-7xl h-full px-5 flex justify-between'>
 				<nav className='w-max flex gap-5 items-center'>
 					<Link to='/'>
-						<Logo className='w-40 h-full' />
+						<Logo width={140} />
 					</Link>
 					<Url className='page' to='/'>
 						주민 명부
