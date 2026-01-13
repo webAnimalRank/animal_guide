@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { Url, Page } from './style';
 
 const links = [
-	{ to: '/villager', label: '주민 명부' },
-	{ to: '/popularity', label: '인기 투표' },
-	{ to: '/board', label: '커뮤니티' }
+	{ to: 'villager', label: '주민 명부' },
+	{ to: 'popularity', label: '인기 투표' },
+	{ to: 'board', label: '커뮤니티' }
 ];
 
 export default function Header() {
