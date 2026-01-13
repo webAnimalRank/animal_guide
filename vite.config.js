@@ -21,5 +21,5 @@ export default defineConfig({
 			plugins: visualizer()
 		}
 	},
-	base: '/animal_guide/'
+	base: '/animal_guide'
 });
