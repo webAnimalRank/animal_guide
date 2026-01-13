@@ -10,8 +10,8 @@ const birthData = [
 
 export default function BirthDay() {
 	return (
-		<Box className='border-(--pink) w-100 bg-[#FFEEEEaa]'>
-			<Title3 className='birth'>5월 생일</Title3>
+		<Box className='shadow-(--shadowP) w-100'>
+			<Title3 className='birth border-(--pink)'>5월 생일</Title3>
 			<ul className='flex flex-col gap-2'>
 				{birthData.map((item, index) => (
 					<li key={index} className='h-15 flex items-center gap-4 pr-2'>

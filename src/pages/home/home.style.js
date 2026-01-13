@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Title3 = styled.h3.attrs({
-	className: 'font-extrabold text-3xl flex items-center gap-2 border-b-3 border-solid pb-2'
+	className: 'font-extrabold text-3xl flex items-center gap-2 border-b-2 border-solid pb-2'
 })`
 	&::before {
 		content: '';
@@ -10,14 +10,8 @@ export const Title3 = styled.h3.attrs({
 		aspect-ratio: 1;
 		background: center / contain no-repeat;
 	}
-	&.star {
-		border-color: var(--y);
-	}
 	&.star::before {
 		background-image: url('./star.svg');
-	}
-	&.birth {
-		border-color: var(--pink);
 	}
 	&.birth::before {
 		background-image: url('./cake.svg');
@@ -25,22 +19,24 @@ export const Title3 = styled.h3.attrs({
 `;
 
 export const Rank = styled.div.attrs({
-	className: 'flex gap-2 items-center font-extrabold border-b-3 border-solid pb-2'
-})``;
+	className: 'flex gap-2 items-center font-bold p-2 rounded-xl border-solid border-[#ffffff40]'
+})`
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+`;
 
 export const Menu = styled(Link).attrs({
 	className:
-		'font-extrabold text-xl flex justify-center gap-2 w-40 p-4 bg-[#ffffffaa] rounded-2xl border-solid border-3'
+		'font-extrabold text-xl flex justify-center gap-2 w-40 p-4 bg-(image:--glass) rounded-2xl border-solid border-1 border-white/10'
 })`
-	transition: border-color 0.2s ease-out;
+	transition: color 0.1s ease-out;
 	&:nth-child(1):hover {
-		border-color: #5fa0d7;
+		color: #5fa0d7;
 	}
 	&:nth-child(2):hover {
-		border-color: #11a983;
+		color: #11a983;
 	}
 	&:nth-child(3):hover {
-		border-color: #E99090;
+		color: #e99090;
 	}
 	&::before {
 		content: '';

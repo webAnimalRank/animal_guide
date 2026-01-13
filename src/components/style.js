@@ -44,5 +44,5 @@ export const Url = styled(Link).attrs({
 `;
 
 export const Box = styled.div.attrs({
-	className: 'rounded-3xl p-5 border-solid border-3 flex flex-col gap-4'
+	className: 'rounded-3xl p-5 flex flex-col gap-4 bg-(image:--glass)'
 })``;
