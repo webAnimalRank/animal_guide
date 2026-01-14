@@ -10,7 +10,7 @@ const links = [
 
 export default function Header() {
 	return (
-		<header className='fixed inset-x-0 h-20 bg-(image:--header) shadow-(--shadowB) flex justify-center'>
+		<header className='fixed z-10 inset-x-0 h-20 bg-(image:--header) shadow-(--shadowB) flex justify-center backdrop-blur-[2px]'>
 			<div className='w-7xl h-full px-5 flex justify-between'>
 				<nav className='w-max flex gap-5 items-center'>
 					<NavLink to='/'>

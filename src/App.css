@@ -10,6 +10,8 @@
 :root {
 	--header: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
 	--glass: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
+	--glass2: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.7));
+	--shadow: 0 0 4px rgba(0, 0, 0, 0.25);
 	--shadowB: 0 2px 4px rgba(0, 0, 0, 0.25);
 	--shadowY: 2px 2px 4px #be9c68;
 	--shadowP: 2px 2px 4px var(--pink);
