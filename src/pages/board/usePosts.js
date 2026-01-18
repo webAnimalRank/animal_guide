@@ -11,7 +11,7 @@ export function usePosts(page = 0, size = 30) {
 		const tempPosts = Array.from({ length: size }, (_, i) => ({
 			id: page * size + i + 1,
 			title: `게시글 제목 ${page * size + i + 1}`,
-			writer: `호엔 ${((page * size + i) % 5) + 1}`,
+			writer: `단테${((page * size + i) % 5) + 1}`,
 			createdAt: new Date(Date.now() - i * 86400000).toISOString().split('T')[0]
 		}));
 

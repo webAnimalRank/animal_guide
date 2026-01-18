@@ -51,7 +51,7 @@ export const Page = styled(Url).attrs({
 `;
 
 export const Box = styled.div.attrs({
-	className: 'rounded-3xl p-5 flex flex-col gap-4 bg-(image:--glass)'
+	className: 'rounded-3xl p-5 flex flex-col gap-4 bg-(image:--glass) backdrop-blur-[3px]'
 })``;
 
 export const Wrap = styled.div.attrs({

@@ -28,7 +28,7 @@ export const Rank = styled.div.attrs({
 
 export const Menu = styled(Link).attrs({
 	className:
-		'font-extrabold text-xl flex justify-center gap-2 w-40 p-4 bg-(image:--glass) rounded-2xl border-solid border-1 border-white/10 shadow-(--shadow)'
+		'font-extrabold text-xl flex justify-center gap-2 w-40 p-4 bg-(image:--glass) rounded-2xl border-solid border-1 border-white/10 shadow-(--shadow) backdrop-blur-[3px]'
 })`
 	text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 	transition: color 0.1s ease-out;
