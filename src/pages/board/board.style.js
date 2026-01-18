@@ -1,20 +1,30 @@
 import styled from 'styled-components';
 
 export const TabWrap = styled.div.attrs({
-	className: 'flex gap-2 bg-(image:--glass) w-max p-1.5 rounded-full shadow-(--shadow) self-center'
+	className: 'flex gap-2 w-max self-center'
 })``;
 
 export const TabBtn = styled.button.attrs({
 	type: 'button',
-	className: 'rounded-full px-3 h-10 font-extrabold text-xl opacity-70'
+	className: 'rounded-full px-3 h-10 font-extrabold text-xl relative'
 })`
-	&.active {
-		border: 1px solid rgba(255, 255, 255, 0.3);
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border-radius: inherit;
+		border: 1px solid transparent;
+		border-color: rgba(255, 255, 255, 0.3);
 		background: var(--glass2);
 		box-shadow: var(--shadow);
-		opacity: 1;
+		opacity: 0;
+		transition: opacity 0.2s ease-out;
 	}
-	&:hover {
+	&:hover::before {
+		opacity: 0.5;
+	}
+	&.active::before {
 		opacity: 1;
 	}
 `;

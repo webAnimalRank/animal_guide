@@ -6,7 +6,6 @@ import {
 	useReactTable
 } from '@tanstack/react-table';
 import { PageBtn } from './board.style';
-import { Page } from '../../components/style';
 
 const columnHelper = createColumnHelper();
 
