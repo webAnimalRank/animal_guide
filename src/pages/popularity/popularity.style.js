@@ -30,6 +30,11 @@ export const SelectBox = styled.label.attrs({
 	&:has(:checked) {
 		background-color: yellowgreen;
 	}
+	&:has(:checked) .txt {
+		background-color: rgba(255, 255, 255, 0.8);
+		color: yellowgreen;
+		text-shadow: 0 0 8px white;
+	}
 	&:hover .txt {
 		opacity: 1;
 	}

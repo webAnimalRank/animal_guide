@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Field = styled.label.attrs({
@@ -19,7 +20,7 @@ export const Btn = styled.button.attrs({
 	}
 `;
 
-export const Btn2 = styled.button.attrs({
+export const Btn2 = styled(Link).attrs({
 	type: 'button',
 	className: 'w-max self-center text-(--p) font-extrabold text-lg relative'
 })`

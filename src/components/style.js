@@ -25,10 +25,13 @@ export const Url = styled(NavLink).attrs({
 	&.login:hover::after {
 		animation: ${move} 0.7s ease-out infinite;
 	}
+	&:hover:not(.page) {
+		font-weight: 900;
+	}
 `;
 
 export const Page = styled(Url).attrs({
-	className: 'relative'
+	className: 'page relative'
 })`
 	&::after {
 		content: '';

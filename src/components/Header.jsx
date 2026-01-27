@@ -26,7 +26,9 @@ export default function Header() {
 					<Url className='login' to='/login'>
 						로그인
 					</Url>
-					<Url to='/'>회원가입</Url>
+					<Url to='/sign'>회원가입</Url>
+					{/* <Url to='/'>이름 님</Url>
+					<Url to='/'>로그아웃</Url> */}
 				</nav>
 			</div>
 		</header>
