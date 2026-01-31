@@ -40,7 +40,7 @@ export const PageBtn = styled.button.attrs({
 `;
 
 export const MLine = styled.div.attrs({
-	className: 'border-b border-(--p) h-12 font-semibold flex items-center'
+	className: 'border-b border-(--text) h-12 font-semibold flex items-center'
 })`
 	span {
 		font-size: var(--text-sm);

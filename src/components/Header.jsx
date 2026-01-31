@@ -1,6 +1,6 @@
 import Logo from '../assets/img/logo.png';
 import { NavLink } from 'react-router-dom';
-import { Url, Page, Menu } from './style';
+import { Url, Page, Menu, Head } from './style';
 import { Links2 } from '../pages/home/Links';
 import { useState } from 'react';
 
@@ -14,7 +14,7 @@ export default function Header() {
 	const [menu, setMenu] = useState(false);
 
 	return (
-		<header className='z-10 inset-x-0 h-20 sm:bg-(image:--header) sm:shadow-(--shadowB) flex justify-center backdrop-blur-[2px]'>
+		<Head>
 			<div className='w-7xl h-full px-5 flex justify-between max-sm:justify-center items-center'>
 				<Menu onClick={() => setMenu(!menu)} />
 				<nav className='w-max flex gap-5 items-center'>
@@ -39,6 +39,6 @@ export default function Header() {
 				</nav>
 				{menu && <Links2 />}
 			</div>
-		</header>
+		</Head>
 	);
 }

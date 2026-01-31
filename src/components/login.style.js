@@ -14,9 +14,9 @@ export const Btn = styled.button.attrs({
 	type: 'button',
 	className: 'rounded-2xl bg-(--p) p-3 text-white font-extrabold text-xl mt-5'
 })`
-	transition: opacity 0.1s ease-out;
+	transition: background-color 0.1s ease-out;
 	&:hover {
-		opacity: 0.8;
+		background-color: var(--bg);
 	}
 `;
 
@@ -30,10 +30,10 @@ export const Btn2 = styled(Link).attrs({
 		top: 100%;
 		inset-inline: 0;
 		height: 2px;
-		background-color: var(--p);
+		background-color: var(--bg);
 		scale: 0 1;
 		transition: scale 0.2s ease-out;
-    transform-origin: left;
+		transform-origin: left;
 	}
 	&:hover::after {
 		scale: 1 1;

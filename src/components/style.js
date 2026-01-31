@@ -8,17 +8,23 @@ const move = keyframes`
 80% { translate: 0 5px; }
 `;
 
+export const Head = styled.header.attrs({
+	className: 'z-50 fixed inset-x-0 h-20 flex justify-center pb-1'
+})`
+	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+	background: url('${base}/header.svg') bottom / contain repeat-x;
+`;
+
 export const Menu = styled.button.attrs({
 	type: 'button',
 	className: 'size-10 absolute left-5 z-30 rounded-full shadow-(--shadow) hidden max-sm:block'
 })`
-	background:
-		url('${base}/menu.svg') center / 70% no-repeat,
-		var(--glass);
+	mask: url('${base}/menu.svg') center / 70% no-repeat;
+	background-color: var(--bg);
 `;
 
 export const Url = styled(NavLink).attrs({
-	className: 'font-bold text-lg max-sm:hidden'
+	className: 'font-bold text-lg text-white/80 max-sm:hidden'
 })`
 	&.login {
 		display: flex;
@@ -29,7 +35,8 @@ export const Url = styled(NavLink).attrs({
 		content: '';
 		width: 22px;
 		aspect-ratio: 1;
-		background: url('${base}/login.svg') center / contain no-repeat;
+		mask: url('${base}/login.svg') center / contain no-repeat;
+		background-color: var(--bg);
 	}
 	&.login:hover::after {
 		animation: ${move} 0.7s ease-out infinite;
@@ -75,5 +82,6 @@ export const Box = styled.div.attrs({
 })``;
 
 export const Wrap = styled.div.attrs({
-	className: 'max-w-7xl w-full min-h-0 flex-1 self-center p-10 max-sm:p-4 pt-6 bg-white/15 backdrop-blur-[3px] flex flex-col gap-5 overflow-hidden'
+	className:
+		'max-w-7xl w-full min-h-0 flex-1 self-center p-6 pt-26 max-sm:p-4 max-sm:pt-26 bg-white/15 backdrop-blur-[3px] flex flex-col gap-5 overflow-hidden'
 })``;
