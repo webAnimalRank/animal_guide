@@ -1,10 +1,9 @@
-import { Wrap } from '../../components/style';
-import { CardWrap, Mini } from './villager.style';
+import { CardWrap, Mini, Wrap2 } from './villager.style';
 import { char } from '../../temp-data/data';
 
 export default function Villager() {
 	return (
-		<Wrap>
+		<Wrap2>
 			<CardWrap>
 				{char.map((v, i) => (
 					<Mini key={i}>
@@ -13,6 +12,6 @@ export default function Villager() {
 					</Mini>
 				))}
 			</CardWrap>
-		</Wrap>
+		</Wrap2>
 	);
 }

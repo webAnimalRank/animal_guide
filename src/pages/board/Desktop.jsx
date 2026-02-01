@@ -1,6 +1,13 @@
 import { flexRender } from '@tanstack/react-table';
 
 export default function DeskTop({ table }) {
+  const cols = [
+    { key: 'id', className: 'w-12' },
+    { key: 'title', className: 'flex-1 text-left' },
+    { key: 'writer', className: 'w-12' },
+    { key: 'createdAt', className: 'w-24' },
+  ];
+  
   return (
     <div className="w-full border-collapse hidden sm:flex flex-col">
       {table.getHeaderGroups().map((headerGroup) => (
@@ -23,10 +30,11 @@ export default function DeskTop({ table }) {
           key={row.id}
           className="py-2 flex text-xs font-semibold border-b border-(--c)"
         >
-          <span className="w-12">{row.original.id}</span>
-          <span className="flex-1 text-left">{row.original.title}</span>
-          <span className="w-12">{row.original.writer}</span>
-          <span className="w-24">{row.original.createdAt}</span>
+          {cols.map((col) => (
+            <span key={col.key} className={col.className}>
+              {row.original[col.key]}
+            </span>
+          ))}
         </div>
       ))}
 

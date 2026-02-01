@@ -17,7 +17,7 @@ export const Head = styled.header.attrs({
 
 export const Menu = styled.button.attrs({
 	type: 'button',
-	className: 'size-10 absolute left-5 z-30 rounded-full shadow-(--shadow) hidden max-sm:block'
+	className: 'size-10 absolute left-5 z-30 rounded-full shadow-(--shadow) sm:hidden'
 })`
 	mask: url('${base}/menu.svg') center / 70% no-repeat;
 	background-color: var(--bg);
