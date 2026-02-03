@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 // 목록 조회 훅
 export function useVillagers() {
   const [data, setData] = useState([]);       // 목록 데이터 (그리드용)
@@ -12,7 +14,7 @@ export function useVillagers() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:8080/api/villagers');
+        const response = await fetch(`${API_URL}/api/villagers`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -57,7 +59,7 @@ export function useVillagerDetail(villagerNo, enabled = true) {
         setError(null);
 
         const response = await fetch(
-          `http://localhost:8080/api/villagers/${villagerNo}`
+          `${API_URL}/api/villagers/${villagerNo}`
         );
 
         if (!response.ok) {

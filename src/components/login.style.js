@@ -5,7 +5,7 @@ export const Form = styled.form.attrs({
   className: 'flex flex-col w-80 gap-4'
 })`
   @media (max-width: 480px) {
-		width: 15rem;
+    width: 15rem;
     gap: 0.5rem;
   }
 `;
@@ -14,6 +14,7 @@ export const Field = styled.label.attrs({
   className: 'bg-white rounded-2xl p-4'
 })`
   input {
+    font-family: san-serif;
     font-weight: 700;
     width: 100%;
   }
@@ -23,8 +24,8 @@ export const Field = styled.label.attrs({
 `;
 
 export const Btn = styled.button.attrs({
-	type: 'submit',
-	className: 'rounded-2xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
+  type: 'submit',
+  className: 'rounded-2xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
 })`
   border: 3px solid var(--c);
   transition: background-color 0.1s ease-out;
