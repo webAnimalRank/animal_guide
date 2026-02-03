@@ -58,7 +58,7 @@ export default function Sign() {
 					value={pw}
 					onChange={(e) => setPw(e.target.value)}/>
 				</Field>
-				<button type='submit'>회원 가입</button>
+				<Btn>회원 가입</Btn>
 			</form>
 		</>
 	);

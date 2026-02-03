@@ -23,8 +23,8 @@ export const Field = styled.label.attrs({
 `;
 
 export const Btn = styled.button.attrs({
-  type: 'button',
-  className: 'rounded-2xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
+	type: 'submit',
+	className: 'rounded-2xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
 })`
   border: 3px solid var(--c);
   transition: background-color 0.1s ease-out;
