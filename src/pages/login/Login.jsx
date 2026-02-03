@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Field, Btn, Btn2 } from '../../components/login.style';
+import { Field, Btn, Btn2, Form } from '../../components/login.style';
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function Login() {
 	return (
 		<>
 			<h2 className='font-extrabold text-2xl'>로그인</h2>
-			<form className='flex flex-col w-80 max-sm:w-60 gap-4'>
+			<Form>
 				<Field>
 					<input type='text' name='id' placeholder='아이디' />
 				</Field>
@@ -20,7 +20,7 @@ export default function Login() {
 				</Field>
 				<Btn onClick={logIn}>로그인</Btn>
 				<Btn2 to='/sign'>회원 가입</Btn2>
-			</form>
+			</Form>
 		</>
 	);
 }

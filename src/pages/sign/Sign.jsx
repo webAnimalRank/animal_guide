@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Field, Btn } from '../../components/login.style';
+import { Field, Btn, Form } from '../../components/login.style';
 
 export default function Sign() {
 	const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function Sign() {
 	return (
 		<>
 			<h2 className='font-extrabold text-2xl'>회원 가입</h2>
-			<form className='flex flex-col w-80 max-sm:w-60 gap-4'>
+			<Form>
 				<Field>
 					<input type='text' name='name' placeholder='별명' />
 				</Field>
@@ -24,8 +24,8 @@ export default function Sign() {
 				<Field>
 					<input type='password' name='pw' placeholder='비밀번호' />
 				</Field>
-				<Btn onClick={signUp}>회원 가입</Btn>
-			</form>
+				<Btn type='submit' onClick={signUp}>회원 가입</Btn>
+			</Form>
 		</>
 	);
 }

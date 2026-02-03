@@ -113,9 +113,10 @@ export const Wrap = styled.div.attrs({
 })``;
 
 export const Login = styled.div.attrs({
-	className: 'h-full flex flex-col items-center gap-20 max-sm:gap-10 pt-20'
+	className: 'h-full flex flex-col items-center gap-20 pt-20'
 })`
 	@media (max-width: 480px) {
 		padding-top: 3rem;
+		gap: 2.5rem;
 	}
 `;
