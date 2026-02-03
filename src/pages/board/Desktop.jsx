@@ -14,7 +14,7 @@ export default function DeskTop({ table }) {
       {table.getHeaderGroups().map((headerGroup) => (
         <div
           key={headerGroup.id}
-          className="border-y-2 border-(--c) flex py-2 text-xs font-semibold"
+          className="border-y-2 border-(--c) flex py-2 text-xs font-bold"
         >
           {headerGroup.headers.map((header) => (
             <div

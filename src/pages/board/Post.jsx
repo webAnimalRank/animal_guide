@@ -3,12 +3,12 @@ import { Wrap } from '../../components/style';
 
 export default function Post() {
   return (
-    <Wrap>
-      <div className="flex">
+    <Wrap className='font-(family-name:--f)'>
+      <div className="flex font-medium">
         <Link to="/board">뒤로</Link>
       </div>
-      <h3 className="bg-white/20 rounded-sm py-2 px-4 text-left">제목</h3>
-      <div className="flex justify-between border-b pb-2 px-4">
+      <h3 className="bg-white/20 rounded-md py-2 px-4 text-left font-semibold">제목</h3>
+      <div className="flex justify-between border-b pb-2 px-4 font-medium">
         <span>작성자</span>
         <span>시간</span>
       </div>

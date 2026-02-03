@@ -18,3 +18,10 @@
 	font-weight: 900;
 	src: url('./NEXON\ Lv2\ Gothic\ OTF\ Bold.otf') format('opentype');
 }
+@font-face {
+	font-family: Pretendard;
+	font-weight: 45 920;
+	font-style: normal;
+	font-display: swap;
+	src: url('./PretendardVariable.woff2') format('woff2-variations');
+}

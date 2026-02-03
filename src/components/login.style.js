@@ -14,7 +14,7 @@ export const Field = styled.label.attrs({
   className: 'bg-white rounded-2xl p-4'
 })`
   input {
-    font-family: san-serif;
+    font-family: Pretendard;
     font-weight: 700;
     width: 100%;
   }
