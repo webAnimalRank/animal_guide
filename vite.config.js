@@ -5,36 +5,37 @@ import svgr from 'vite-plugin-svgr';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
-	plugins: [
-		react(),
-		tailwindcss(),
-		svgr(),
-		visualizer({
-			open: true,
-			filename: 'stats.html',
-			gzipSize: true
-		})
-	],
-	build: {
-		rollupOptions: {
-			plugins: visualizer()
-		}
-	},
-	base: '/animal_guide',
+  plugins: [
+    react(),
+    tailwindcss(),
+    svgr(),
+    visualizer({
+      open: true,
+      filename: 'stats.html',
+      gzipSize: true
+    })
+  ],
+  build: {
+    rollupOptions: {
+      plugins: visualizer()
+    }
+  },
+  base: '/animal_guide',
 
-	// ✅ 추가
-	server: {
-		proxy: {
-			'/api': {
-				target: 'http://localhost:8080',
-				changeOrigin: true,
-				secure: false
-			},
-			'/images': {
-				target: 'http://localhost:8080',
-				changeOrigin: true,
-				secure: false
-			}
-		}
-	}
+  // ✅ 추가
+  server: {
+    host: '0.0.0.0'
+    // proxy: {
+    // 	'/api': {
+    // 		target: `http://${API_URL}:8080`,
+    // 		changeOrigin: true,
+    // 		secure: false
+    // 	},
+    // 	'/images': {
+    // 		target: `http://${API_URL}:8080`,
+    // 		changeOrigin: true,
+    // 		secure: false
+    // 	}
+    // }
+  }
 });

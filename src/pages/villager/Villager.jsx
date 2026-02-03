@@ -12,15 +12,8 @@ const formatBirthday = (birthString) => {
 const getGenderLabel = (sex) => (sex === 1 ? '남자' : '여자');
 
 const getName = (data) => {
-  return `${data.villagerName} | ${data.villagerNameEn} | ${data.villagerNameJp}`
-}
-
-const DetailItem = ({ label, value }) => (
-  <li className="flex gap-5 items-center text-xl max-sm:text-base">
-    <List>{label}</List>
-    {value}
-  </li>
-);
+  return `${data.villagerName} | ${data.villagerNameEn} | ${data.villagerNameJp}`;
+};
 
 const getDetailData = (detail) => [
   { label: '이름', value: getName(detail) },
@@ -117,12 +110,14 @@ export default function Villager() {
                 </Glass>
 
                 <ul className="flex flex-col justify-between max-md:gap-5 max-sm:gap-3">
-                  {getDetailData(detail).map((item, idx) => (
-                    <DetailItem
-                      key={idx}
-                      label={item.label}
-                      value={item.value}
-                    />
+                  {getDetailData(detail).map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-5 items-center text-xl max-sm:text-base"
+                    >
+                      <List>{item.label}</List>
+                      {item.value}
+                    </li>
                   ))}
                 </ul>
               </>

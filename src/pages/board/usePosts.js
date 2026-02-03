@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 /**
  * 게시판 목록 조회 훅
  *
@@ -48,7 +50,7 @@ export function usePosts({
         });
 
         const response = await fetch(
-          `http://localhost:8080/api/boards?${qs.toString()}`
+          `${API_URL}/api/boards?${qs.toString()}`
         );
 
         if (!response.ok) {
