@@ -98,7 +98,11 @@ export default function Villager() {
 
                   <li className='flex gap-5 items-center text-xl max-sm:text-base'>
                     <List>{list[3]}</List>
-                    {detail.villagerBirth}
+                    {detail.villagerBirth 
+                    ? (() => { const [month, day] = detail.villagerBirth.split("-");
+                      return `${Number(month)}월 ${Number(day)}일`;
+                    })()
+                    : ""}
                   </li>
 
                   <li className='flex gap-5 items-center text-xl max-sm:text-base'>
