@@ -71,33 +71,33 @@ export default function DataTable({ data, meta, page, setPage, size }) {
 	const pages = [];
 	for (let p = startPage; p <= endPage; p++) pages.push(p);
 
+	const start = [
+		{ id: 'first', setPage: 1 },
+		{ id: 'prev', setPage: page - 1 }
+	];
+
+	const end = [
+		{ id: 'next', setPage: page + 1 },
+		{ id: 'last', setPage: totalPages }
+	];
+
 	return (
 		<div className='flex flex-col flex-1 min-h-0 font-(family-name:--f)'>
 			<Mobile table={table} pageSize={size} />
 			<DeskTop table={table} pageSize={size} />
 
 			<div className='mt-6 flex justify-center gap-2 flex-wrap'>
-				<PageBtn onClick={() => setPage(1)} disabled={page === 1}>
-					처음
-				</PageBtn>
-
-				<PageBtn onClick={() => setPage(page - 1)} disabled={page === 1}>
-					이전
-				</PageBtn>
-
+				{start.map((p) => (
+					<PageBtn key={p.id} className={p.id} onClick={() => setPage(p.setPage)} disabled={page === 1} />
+				))}
 				{pages.map((p) => (
 					<PageBtn key={p} onClick={() => setPage(p)} disabled={p === page} className={p === page ? 'active' : ''}>
 						{p}
 					</PageBtn>
 				))}
-
-				<PageBtn onClick={() => setPage(page + 1)} disabled={page >= totalPages}>
-					다음
-				</PageBtn>
-
-				<PageBtn onClick={() => setPage(totalPages)} disabled={page >= totalPages}>
-					끝
-				</PageBtn>
+				{end.map((p) => (
+					<PageBtn key={p.id} className={p.id} onClick={() => setPage(p.setPage)} disabled={page >= totalPages} />
+				))}
 			</div>
 		</div>
 	);

@@ -40,7 +40,7 @@ export default function Board() {
   };
 
   return (
-    <Wrap className="gap-7">
+    <Wrap className="gap-5">
       <TabWrap>
         <TabBtn
           className={activeTab === 'notice' ? 'active' : ''}

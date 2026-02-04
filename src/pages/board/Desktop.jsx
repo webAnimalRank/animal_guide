@@ -39,14 +39,6 @@ export default function DeskTop({ table }) {
           ))}
         </Link>
       ))}
-
-      {Array.from({ length: 20 - table.getRowModel().rows.length }).map(
-        (_, index) => (
-          <div key={index} className="py-2 text-xs border-b border-(--c)">
-            아직 작성된 글이 없습니다.
-          </div>
-        )
-      )}
     </div>
   );
 }

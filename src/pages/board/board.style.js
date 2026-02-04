@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+const base = '/animal_guide';
 
 export const TabWrap = styled.div.attrs({
 	className: 'flex gap-6 w-max self-center'
@@ -18,31 +21,49 @@ export const TabBtn = styled.button.attrs({
 
 export const PageBtn = styled.button.attrs({
 	type: 'button',
-	className: 'text-sm font-bold disabled:opacity-50 relative'
+	className: 'text-sm font-bold relative rounded-md size-7'
 })`
+	background: center / contain no-repeat;
+
+	&.active {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+	&:is(.first, .prev) {
+		scale: -1;
+	}
+	&:is(.next, .prev) {
+		background-image: url(${base}/angle.svg);
+	}
+	&:is(.last, .first) {
+		background-image: url(${base}/angle2.svg);
+	}
+	&:disabled:not(.active) {
+		opacity: 0.5;
+	}
 	&:disabled:hover {
 		cursor: default;
 	}
-	&::after {
-		content: '';
-		position: absolute;
-		top: 100%;
-		inset-inline: 0;
-		height: 1px;
-		background: var(--p);
-		scale: 0 1;
-		transition: scale 0.2s ease-out;
-		transform-origin: left;
-	}
-	&:not(:disabled):hover::after {
-		scale: 1 1;
+	&:not(:disabled):hover {
+		background-color: rgba(255, 255, 255, 0.2);
 	}
 `;
 
 export const MLine = styled.div.attrs({
-	className: 'border-b border-(--c) h-12 font-semibold flex items-center'
+	className: 'border-b border-(--c) py-1 flex-0 font-semibold flex items-center hover:bg-white/20'
 })`
 	span {
 		font-size: var(--text-sm);
+	}
+`;
+
+export const Undo = styled(Link).attrs({
+	to: '/board',
+	className: 'font-semibold flex items-center gap-1 hover:opacity-70'
+})`
+	&::before {
+		content: '';
+		width: 1.5rem;
+		aspect-ratio: 1;
+		background: url(${base}/undo.svg) center / contain no-repeat;
 	}
 `;
