@@ -19,17 +19,23 @@ export const Fold = styled.button.attrs({
 	}
 `;
 
-export const Form = styled(Scroll).attrs({
-	as: 'form',
-	className:
-		'grid gap-x-8 gap-y-4 grid-flow-col justify-items-center max-lg:grid-flow-row self-center pt-4 pb-20 mx-20 max-lg:mx-0 text-lg font-bold relative'
+export const Form = styled.form.attrs({
+	className: 'flex gap-6 w-full p-2 text-lg font-bold max-sm:flex-col'
 })``;
+
+export const EditList = styled.div.attrs({
+	className: 'grid grid-cols-2 gap-4 flex-1'
+})`
+	@media (max-width: 480px) {
+		grid-template-columns: 1fr;
+	}
+`;
 
 export const Label = styled.label.attrs({
 	className: 'w-full flex flex-col gap-2 items-start'
 })``;
 
 export const Edit = styled.button.attrs({
-	type: 'button',
-	className: 'text-white bg-(--c) absolute max-lg:static justify-self-end bottom-0 right-0 rounded-lg py-1 px-3 max-lg:mt-3'
+	type: 'submit',
+	className: 'w-max self-end text-white bg-(--c) rounded-lg py-1 px-3 mr-2'
 })``;

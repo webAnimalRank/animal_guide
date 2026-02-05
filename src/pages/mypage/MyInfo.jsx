@@ -1,5 +1,5 @@
-import { Glass } from '../../components/style';
-import { Edit, Form, Label } from './mypage.style';
+import { Glass, Scroll } from '../../components/style';
+import { Edit, EditList, Form, Label } from './mypage.style';
 import mini from '../../assets/img/tom_icon.png';
 
 const data = [
@@ -11,22 +11,26 @@ const data = [
 
 export default function MyInfo() {
 	return (
-		<Form>
-			<div className='row-span-2 flex flex-col gap-4 w-35 p-4 pl-0 font-extrabold text-2xl'>
-				<Glass className='rounded-full p-4'>
-					<img src={mini} alt='' />
-				</Glass>
-				id
-			</div>
-			{data.map((d) => (
-				<Label key={d.label}>
-					{d.label}
-					<Glass className='px-4 py-2 rounded-xl flex items-center font-semibold'>
-						<input type={d.type} defaultValue={d.value} className='w-full font-(family-name:--f)' />
+		<Scroll className='flex flex-col gap-4 px-20 max-lg:px-10 max-sm:px-5'>
+			<Form>
+				<div className='flex flex-col justify-center items-center self-center gap-4 font-extrabold text-2xl max-md:w-25 max-sm:text-xl'>
+					<Glass className='rounded-full p-2'>
+						<img src={mini} alt='' />
 					</Glass>
-				</Label>
-			))}
+					id
+				</div>
+				<EditList>
+					{data.map((d) => (
+						<Label key={d.label}>
+							<span>{d.label}</span>
+							<Glass className='px-4 py-2 rounded-xl flex items-center font-semibold w-full'>
+								<input type={d.type} defaultValue={d.value} className='w-full font-(family-name:--f)' />
+							</Glass>
+						</Label>
+					))}
+				</EditList>
+			</Form>
 			<Edit>수정</Edit>
-		</Form>
+		</Scroll>
 	);
 }
