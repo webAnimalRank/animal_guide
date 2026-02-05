@@ -2,7 +2,8 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import { Link } from 'react-router-dom';
 import Logo from './assets/img/logo.png';
-import { Box, Login } from './components/style';
+import { Box } from './components/style';
+import { Login } from './components/login.style';
 
 export function L() {
 	return (

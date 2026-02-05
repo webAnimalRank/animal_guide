@@ -48,13 +48,9 @@ export const PageBtn = styled.button.attrs({
 	}
 `;
 
-export const MLine = styled.div.attrs({
+export const Line = styled(Link).attrs({
 	className: 'border-b border-(--c) py-1 flex-0 font-semibold flex items-center hover:bg-white/20'
-})`
-	span {
-		font-size: var(--text-sm);
-	}
-`;
+})``;
 
 export const Undo = styled(Link).attrs({
 	to: '/board',

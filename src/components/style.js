@@ -122,11 +122,6 @@ export const Wrap2 = styled(Wrap)`
 	}
 `;
 
-export const Login = styled.div.attrs({
-	className: 'h-full flex flex-col items-center gap-20 pt-20'
-})`
-	@media (max-width: 480px) {
-		padding-top: 3rem;
-		gap: 2.5rem;
-	}
-`;
+export const Btn = styled.button.attrs({
+	className: 'text-white bg-(--c) rounded-lg font-bold hover:bg-(--c2)'
+})``;

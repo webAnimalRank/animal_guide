@@ -1,26 +1,39 @@
-import { useState } from 'react';
-import { Wrap } from '../../components/style';
+import React, { useState } from 'react';
+import { Scroll, Wrap2 } from '../../components/style';
 import { Fold } from './mypage.style';
 import MyInfo from './MyInfo';
 import MyPost from './MyPost';
 
 export default function MyPage() {
-	const [isInfo, setIsInfo] = useState(false);
-	const [isPost, setIsPost] = useState(false);
+	const [sections, setSections] = useState({
+		info: false,
+		post: false
+	});
+
+	const toggleSection = (key) => {
+		setSections((prev) => ({
+			...prev,
+			[key]: !prev[key]
+		}));
+	};
+
+	const sectionData = [
+		{ key: 'info', title: '내 정보', component: MyInfo },
+		{ key: 'post', title: '내 작성글', component: MyPost }
+	];
 
 	return (
-		<Wrap className='px-40 pt-30 pb-20 max-xl:px-20 max-lg:px-10 max-md:px-5'>
-			<Fold onClick={() => setIsInfo(!isInfo)} className={!isInfo ? 'fold' : ''}>
-				<h3>내 정보</h3>
-			</Fold>
-
-			{isInfo && <MyInfo />}
-
-			<Fold onClick={() => setIsPost(!isPost)} className={!isPost ? 'fold' : ''}>
-				<h3>내 작성글</h3>
-			</Fold>
-
-			{isPost && <MyPost />}
-		</Wrap>
+		<Wrap2>
+			<Scroll className='py-20 px-20 max-lg:px-10 max-md:px-2 flex flex-col gap-4'>
+				{sectionData.map(({ key, title, component: Component }) => (
+					<React.Fragment key={key}>
+						<Fold onClick={() => toggleSection(key)} className={!sections[key] ? 'fold' : ''}>
+							<h3 className='max-sm:text-xl'>{title}</h3>
+						</Fold>
+						{sections[key] && <Component />}
+					</React.Fragment>
+				))}
+			</Scroll>
+		</Wrap2>
 	);
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CardWrap } from '../villager/villager.style';
-import { Glass } from '../../components/style';
+import { Btn, Glass } from '../../components/style';
 
 const base = '/animal_guide';
 
@@ -17,8 +17,7 @@ export const SelectWrap = styled(CardWrap).attrs({
 
 export const SelectBox = styled(Glass).attrs({
 	as: 'label',
-	className:
-		'pt-4 pb-2 px-7 w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden'
+	className: 'pt-4 pb-2 px-7 w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden'
 })`
 	background-color: rgba(255, 255, 255, 0.3);
 	@media (max-width: 480px) {
@@ -69,8 +68,7 @@ export const CheckWrap = styled.div.attrs({
 `;
 
 export const CheckBox = styled(Glass).attrs({
-	className:
-		'size-full pb-2 flex flex-col justify-center font-bold text-lg relative'
+	className: 'size-full pb-2 flex flex-col justify-center font-bold text-lg relative'
 })`
 	@media (max-width: 480px) {
 		width: 100%;
@@ -100,20 +98,15 @@ export const Close = styled.button.attrs({
 	}
 `;
 
-export const Submit = styled.button.attrs({
+export const Submit = styled(Btn).attrs({
 	type: 'button',
-	className: 'self-end h-max py-2 px-4 rounded-lg font-bold max-sm:w-full text-white text-shadow-(--shadow2)'
+	className: 'self-end h-max py-2 px-4 max-sm:w-full'
 })`
-	background-color: var(--c);
 	&:disabled {
 		pointer-events: none;
 		background: rgba(0, 0, 0, 0.3);
 		color: rgba(255, 255, 255, 0.6);
 		text-shadow: initial;
 		box-shadow: initial;
-	}
-	transition: background-color 0.1s ease-out;
-	&:hover {
-		background-color: var(--c2);
 	}
 `;
