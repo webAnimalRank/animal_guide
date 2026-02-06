@@ -1,12 +1,9 @@
 #root {
-	position: fixed;
-	inset: 0;
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	text-align: center;
 	font-family: 'Nexon Lv2 Gothic', sans-serif;
-	overflow-y: auto;
 }
 
 #root::-webkit-scrollbar {

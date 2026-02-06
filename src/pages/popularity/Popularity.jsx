@@ -26,7 +26,7 @@ export default function Popularity() {
   };
 
   return (
-    <Wrap className="relative h-full!">
+    <Wrap className="h-0! fixed max-sm:inset-0">
       <h2 className="font-bold text-2xl">5월의 인기투표</h2>
       <div className="flex-1 min-h-0 bg-(--c2) rounded-2xl relative">
         <SelectWrap>

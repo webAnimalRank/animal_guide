@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Login = styled.div.attrs({
-	className: 'h-full flex flex-col items-center gap-20 pt-20'
+	className: 'fixed inset-0 flex flex-col items-center gap-20 pt-20'
 })`
 	@media (max-width: 480px) {
 		padding-top: 3rem;
@@ -44,7 +44,6 @@ export const Btn = styled.button.attrs({
 `;
 
 export const Btn2 = styled(Link).attrs({
-	type: 'button',
 	className: 'w-max self-center font-extrabold text-lg relative'
 })`
 	&::after {
