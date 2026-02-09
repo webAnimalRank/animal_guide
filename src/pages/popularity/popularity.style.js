@@ -17,7 +17,8 @@ export const SelectWrap = styled(CardWrap).attrs({
 
 export const SelectBox = styled(Glass).attrs({
 	as: 'label',
-	className: 'pt-4 pb-2 px-7 w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden'
+	className:
+		'pt-4 pb-2 px-7 w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name'
 })`
 	background-color: rgba(255, 255, 255, 0.3);
 	@media (max-width: 480px) {
@@ -100,7 +101,7 @@ export const Close = styled.button.attrs({
 
 export const Submit = styled(Btn).attrs({
 	type: 'button',
-	className: 'self-end h-max py-2 px-4 max-sm:w-full'
+	className: 'self-end max-sm:w-full text-lg'
 })`
 	&:disabled {
 		pointer-events: none;

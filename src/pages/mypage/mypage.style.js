@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Btn } from '../../components/style';
+import { SelectBox } from '../popularity/popularity.style';
 
 const base = '/animal_guide';
 
@@ -38,9 +39,30 @@ export const Label = styled.label.attrs({
 
 export const Edit = styled(Btn).attrs({
 	type: 'submit',
-	className: 'w-max self-end py-1 px-3 mr-2'
+	className: 'w-max self-end -translate-x-2'
 })``;
 
 export const Tag = styled.span.attrs({
 	className: 'bg-(--c) text-white rounded-md text-xs py-1 px-2'
+})``;
+
+export const Action = styled.button.attrs({
+	type: 'button',
+	className: 'size-3 hover:opacity-70'
+})`
+	background: url(${base}/fold.svg) center / contain no-repeat;
+	&.prev {
+		rotate: -90deg;
+	}
+	&.next {
+		rotate: 90deg;
+	}
+	&:disabled {
+		opacity: 0.3;
+	}
+`;
+
+export const ResultBox = styled(SelectBox).attrs({
+	as: 'div',
+	className: 'h-50 aspect-3/4 cursor-default!'
 })``;
