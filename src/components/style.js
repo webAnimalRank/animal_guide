@@ -109,7 +109,7 @@ export const Box = styled.div.attrs({
 
 export const Wrap = styled.div.attrs({
 	className:
-		'max-w-7xl w-full h-max min-h-full px-6 pt-26 pb-6 max-sm:px-4 max-sm:pt-26 bg-white/15 flex flex-col gap-5'
+		'max-w-7xl w-full h-max min-h-full px-6 pt-26 pb-6 max-sm:px-4 bg-white/15 flex flex-col gap-5'
 })``;
 
 export const Btn = styled.button.attrs({
