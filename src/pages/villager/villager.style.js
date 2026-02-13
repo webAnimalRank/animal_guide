@@ -43,9 +43,14 @@ export const Card = styled.div.attrs({
 	}
 `;
 
+export const Load = styled.div.attrs({
+	className: 'absolute w-28 top-[50%] aspect-square -translate-y-1/2 rounded-full animate-spin opacity-30'
+})`
+	background: url(${base}/load.svg) center / contain no-repeat;
+`;
+
 export const List = styled(Glass).attrs({
-	className:
-		'rounded-full py-2 px-4 text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
+	className: 'rounded-full py-2 px-4 text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
 })`
 	&::before {
 		content: '';
@@ -55,7 +60,7 @@ export const List = styled(Glass).attrs({
 	}
 	@media (max-width: 480px) {
 		font-size: 0.75rem;
-    padding: 0.4rem 0.75rem;
+		padding: 0.4rem 0.75rem;
 	}
 `;
 

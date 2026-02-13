@@ -1,11 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock-upgrade';
-import { Card, Close, List } from './villager.style';
+import { Card, Close, List, Load } from './villager.style';
 import { Glass } from '../../components/style';
 import { useVillagerDetail } from './useVillagers';
 import { getDetailData } from './villager.config';
 
 export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
+	const [imgLoad, setImgLoad] = useState(false);
 	const dialogRef = useRef(null);
 	const { data: detail, loading, error } = useVillagerDetail(selectedNo, isOpen);
 
@@ -17,6 +18,7 @@ export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
 		} else {
 			dialog.close();
 			enableBodyScroll(dialog);
+			setImgLoad(false);
 		}
 		return () => enableBodyScroll(dialog);
 	}, [isOpen]);
@@ -29,8 +31,14 @@ export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
 					{error && <div className='p-10 text-center text-red-500'>에러 발생</div>}
 					{!loading && detail && (
 						<>
-							<Glass className='h-full aspect-2/3 p-6 flex justify-center'>
-								<img className='object-contain' src={detail.villagerImage} alt='' />
+							<Glass className='h-full aspect-2/3 p-6 flex justify-center relative'>
+								{!imgLoad && <Load />}
+								<img
+									className={`object-contain ${imgLoad ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+									src={detail.villagerImage}
+									onLoad={() => setImgLoad(true)}
+									alt=''
+								/>
 							</Glass>
 							<ul className='flex flex-col justify-between max-md:gap-5'>
 								{getDetailData(detail).map((item, i) => (
