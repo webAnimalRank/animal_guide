@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Wrap } from '../../components/style';
 import { Fold } from './mypage.style';
 import MyInfo from './MyInfo';
 import MyPost from './MyPost';
 import MyPick from './MyPick';
+import axios from 'axios';
 
 export default function MyPage() {
 	const sectionData = [
@@ -19,6 +20,17 @@ export default function MyPage() {
 			[key]: !prev[key]
 		}));
 	};
+
+	// 로그인한 회원 정보 가져오기
+	const [member, setMember] = useState(null);
+	
+	useEffect(() => {
+		axios.get('http://localhost:8080/api/members/me')
+			.then(res => setMember(res.data))
+			.catch(() => setMember(null));
+	}, []);
+
+	if (!member) return <p>로그인이 필요합니다.</p>;
 
 	return (
 		<Wrap className='px-20 max-lg:px-10 max-md:px-5 max-sm:px-2'>

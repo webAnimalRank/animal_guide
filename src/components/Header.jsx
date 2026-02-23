@@ -1,8 +1,9 @@
 import Logo from '../assets/img/logo.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Url, Page, Menu, Head } from './style';
 import { Links2 } from '../pages/home/Links';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const links = [
 	{ to: 'villager', label: '주민 명부' },
@@ -12,6 +13,29 @@ const links = [
 
 export default function Header() {
 	const [menu, setMenu] = useState(false);
+	const [member, setMember] = useState(null); // 로그인 정보
+  	const navigate = useNavigate(); //useNavigate 추가로 import됨
+
+	// 세션 체크
+  	useEffect(() => {
+    axios.get('http://localhost:8080/api/members/me')
+      .then(res => setMember(res.data))
+      .catch(() => setMember(null)); // 로그인 안 됨
+  	}, []);
+
+  	const handleLogout = () => {
+    axios.post('http://localhost:8080/api/members/logout') // 로그아웃 API
+      .then(() => {
+        setMember(null);
+		alert('로그아웃 되었습니다.')
+        navigate('/'); // 홈으로 이동
+      })
+	  .catch(err => {
+        console.error('로그아웃 실패', err);
+        alert('로그아웃 실패');
+      });
+	  
+  	};
 
 	return (
 		<Head>
@@ -28,14 +52,26 @@ export default function Header() {
 					))}
 				</nav>
 				<nav className='w-max flex gap-5 items-center'>
-					<Url className='login' to='/login'>
+					{/* <Url className='login' to='/login'>
 						로그인
 					</Url>
 					<Url className='sign' to='/sign'>
 						회원가입
-					</Url>
+					</Url> */}
 					{/* <Url to='/'>이름 님</Url>
 					<Url to='/'>로그아웃</Url> */}
+					{member ? (
+        				<>
+            				<Url>{member.memberName} 님 환영합니다.</Url>
+            				<Url to='/mypage'>마이페이지</Url>
+            				<Url as='button' onClick={handleLogout}>로그아웃</Url>
+        				</>
+					) : (
+						<>
+							<Url className='login' to='/login'>로그인</Url>
+							<Url className='sign' to='/sign'>회원가입</Url>
+						</>
+					)}
 				</nav>
 				{menu && <Links2 />}
 			</div>

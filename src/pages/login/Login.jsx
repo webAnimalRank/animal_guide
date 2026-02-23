@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Field, Btn, Btn2, Form } from '../../components/login.style';
 import { useState } from 'react';
-import { loginMember } from '../member/memberApi';
+import axios from 'axios';
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -13,19 +13,18 @@ export default function Login() {
 		e.preventDefault();
 		console.log('로그인 시도 : ',{id, pw});
 		console.log("🔥 API_URL:", import.meta.env.VITE_API_BASE_URL);
-
-
 		try {
-			const res = await loginMember({ memberId: id, memberPw: pw },
-				{ headers: {"Content-Type": "application/json"}}
-			);
-			localStorage.setItem('token', res.data.token); // JWT 등 저장
+			await axios.post('http://localhost:8080/api/members/login', {
+				memberId: id,
+				memberPw: pw
+			});
+			console.log("로그인 성공!");
 			alert('로그인 성공!');
-			navigate('/');
+			navigate('/'); // 로그인 후 홈 이동
 		} catch (err) {
 			console.error('로그인 실패:', err);
 			alert('아이디 또는 비밀번호가 틀렸습니다.');
-			}
+		}
 		};
 
 	return (

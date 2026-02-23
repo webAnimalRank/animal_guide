@@ -5,6 +5,10 @@ import App from './App.jsx';
 import './index.css';
 import './assets/fonts/font.css';
 
+// 세션 쿠키 전송 전역 설정
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<BrowserRouter basename='/animal_guide'>
