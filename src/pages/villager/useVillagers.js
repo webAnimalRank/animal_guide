@@ -8,7 +8,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
  * sex: '' | 0 | 1
  * birthMonth: '' | '01'~'12' | 1~12
  */
-export function useVillagersSearch({ type = '', sex = '', birthMonth = '', keyword = '' } = {}) {
+export function useVillagersSearch({ type = '', sex = '', birthMonth = '', debut = '', keyword = '' } = {}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,13 +23,16 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '', keywo
       const mm = String(birthMonth).padStart(2, '0');
       params.set('birthMonth', mm);
     }
+    if (debut && String(debut).trim() !== '') {
+      params.set('debut', String(debut).trim());
+    }
     if (keyword && String(keyword).trim() !== '') {
       params.set('keyword', String(keyword).trim());
     }
 
     const s = params.toString();
     return s ? `?${s}` : '';
-  }, [type, sex, birthMonth, keyword]);
+  }, [type, sex, birthMonth, debut, keyword]);
 
   useEffect(() => {
     const fetchVillagers = async () => {
