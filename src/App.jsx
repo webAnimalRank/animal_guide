@@ -19,6 +19,7 @@ function App() {
 				<Route path='popularity' element={<Popularity />} />
 				<Route path='board' element={<Board />} />
 				<Route path='board/post' element={<Post />} />
+				<Route path='board/post/:boardNo' element={<Post />} />
 				<Route path='mypage' element={<MyPage />} />
 			</Route>
 			<Route path='/' element={<L0 />}>

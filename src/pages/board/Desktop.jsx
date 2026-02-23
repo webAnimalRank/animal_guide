@@ -21,7 +21,7 @@ export default function DeskTop({ table }) {
 				</div>
 			))}
 			{table.getRowModel().rows.map((row) => (
-				<Line to='post' key={row.id} className='py-2 text-xs'>
+				<Line to={`post/${row.original.id}`} key={row.id} className='py-2 text-xs'>
 					{cols.map((col) => (
 						<span key={col.key} className={col.className}>
 							{row.original[col.key]}

@@ -8,7 +8,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
  * sex: '' | 0 | 1
  * birthMonth: '' | '01'~'12' | 1~12
  */
-export function useVillagersSearch({ type = '', sex = '', birthMonth = '' } = {}) {
+export function useVillagersSearch({ type = '', sex = '', birthMonth = '', debut = '', keyword = '' } = {}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,10 +23,16 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '' } = {}
       const mm = String(birthMonth).padStart(2, '0');
       params.set('birthMonth', mm);
     }
+    if (debut && String(debut).trim() !== '') {
+      params.set('debut', String(debut).trim());
+    }
+    if (keyword && String(keyword).trim() !== '') {
+      params.set('keyword', String(keyword).trim());
+    }
 
     const s = params.toString();
     return s ? `?${s}` : '';
-  }, [type, sex, birthMonth]);
+  }, [type, sex, birthMonth, debut, keyword]);
 
   useEffect(() => {
     const fetchVillagers = async () => {
@@ -42,7 +48,8 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '' } = {}
         const mapped = (result ?? []).map((v) => ({
           villagerNo: v.villagerNo,
           villagerName: v.villagerName,
-          villagerImageIcon: v.villagerImageIcon
+          villagerImageIcon: v.villagerImageIcon,
+          villagerBirth: v.villagerBirth
         }));
 
         setData(mapped);
@@ -58,6 +65,36 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '' } = {}
   }, [queryString]);
 
   return { data, loading, error };
+}
+
+export function useVillagerTypes() {
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchVillagerTypes = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_URL}/api/villagers/types`);
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const result = await response.json();
+        setTypeOptions(Array.isArray(result) ? result : []);
+      } catch (err) {
+        setError(err);
+        setTypeOptions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVillagerTypes();
+  }, []);
+
+  return { typeOptions, loading, error };
 }
 
 /**

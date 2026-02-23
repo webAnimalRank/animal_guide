@@ -30,16 +30,12 @@ to { opacity: 1 }
 
 export const Card = styled.div.attrs({
 	className:
-		'flex flex-col h-90 p-10 max-sm:p-5 rounded-4xl flex-row gap-8 max-sm:gap-5 backdrop-blur-xl font-bold opacity-0 max-md:h-auto max-md:w-120 max-md:flex-col max-sm:w-100 font-(family-name:--f)'
+		'flex flex-col h-90 p-10 max-sm:p-6 rounded-4xl flex-row gap-8 max-sm:gap-5 backdrop-blur-xl font-bold opacity-0 max-md:h-auto max-md:w-120 max-md:flex-col max-sm:w-100 font-(family-name:--f) bg-(--c)/60 shadow-(--shadow) text-white/80'
 })`
-	border: 1px solid var(--c);
-	background-color: #776644;
-	color: rgba(255, 255, 255, 0.8);
-	box-shadow: 0 0 4px var(--c);
 	animation: ${fade} 0.2s ease-out forwards;
 	@media (max-width: 480px) {
 		width: 20rem;
-		padding: 1rem;
+		padding: 1rem 1.4rem;
 	}
 `;
 
@@ -50,8 +46,8 @@ export const Load = styled.div.attrs({
 	background: url(${base}/load.svg) center / contain no-repeat;
 `;
 
-export const List = styled(Glass).attrs({
-	className: 'rounded-full py-2 px-4 text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
+export const List = styled.div.attrs({
+	className: 'text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
 })`
 	&::before {
 		content: '';
@@ -60,45 +56,49 @@ export const List = styled(Glass).attrs({
 		background: url(${base}/link2.svg) center / contain no-repeat;
 	}
 	@media (max-width: 480px) {
-		font-size: 0.75rem;
-		padding: 0.4rem 0.75rem;
+		font-size: 0.8rem;
+		padding-right: 0.75rem;
 	}
 `;
 
-export const Close = styled(Glass).attrs({
-	as: 'button',
+export const Close = styled.button.attrs({
 	type: 'button',
-	className: 'rounded-full px-4 py-2 backdrop-blur-3xl text-sm font-bold opacity-0 outline-none'
+	className: 'text-sm font-bold opacity-0 outline-none text-white text-shadow-(--shadow)'
 })`
-	box-shadow: 0 0 4px var(--c);
 	transition: background-color 0.1s ease-out;
-	background-color: rgba(255, 255, 255, 0.5);
-	&:hover {
-		background-color: rgba(255, 255, 255, 0.8);
-	}
 	animation: ${fade} 0.2s ease-out forwards;
 `;
 
-export const Nav = styled(Glass).attrs({
-	as: 'nav',
+export const Nav = styled.nav.attrs({
+	className: 'sticky top-26 flex items-center justify-between z-10 px-1'
+})``;
+
+export const SelectWrap = styled.div.attrs({
 	className:
-		'sticky top-26 flex items-center justify-between gap-2 py-2 px-4 rounded-full z-10 backdrop-blur-3xl bg-white/60'
+		'flex gap-4 max-sm:gap-3 font-bold ml-auto max-sm:absolute top-full right-1 max-sm:flex-col max-sm:translate-y-2 backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow) rounded-lg px-4 max-sm:px-3 py-2'
 })``;
 
 export const Select = styled.select.attrs({
-	className: 'appearance-none cursor-pointer border-b pr-5'
+	className: 'appearance-none cursor-pointer border-b pr-5 text-white font-medium'
 })`
-	background: url(${base}/fold.svg) right / 0.6rem no-repeat;
+	background: url(${base}/fold_w.svg) right / 0.6rem no-repeat;
 `;
 
 export const Search = styled.input.attrs({
 	type: 'search',
-	className: 'outline-none text-(--c) font-bold w-60'
+	className:
+		'outline-none text-(--c) font-bold w-50 py-2 px-4 rounded-full backdrop-blur-3xl bg-white/80 shadow-(--shadow)'
 })``;
 
 export const Filter = styled.button.attrs({
 	type: 'button',
-	className: 'w-6 aspect-square bg-(--c) sm:hidden'
+	className:
+		'w-10 rounded-full aspect-square sm:hidden flex items-center justify-center backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow)'
 })`
-	mask: url(${base}/filter.svg) center / contain no-repeat;
+	&::after {
+		content: '';
+		width: 70%;
+		aspect-ratio: 1;
+		background: url(${base}/filter.svg) center / contain no-repeat;
+	}
 `;
