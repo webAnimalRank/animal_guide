@@ -79,7 +79,7 @@ export const SelectWrap = styled.div.attrs({
 })``;
 
 export const Select = styled.select.attrs({
-	className: 'appearance-none cursor-pointer border-b pr-5 text-white'
+	className: 'appearance-none cursor-pointer border-b pr-5 text-white font-medium'
 })`
 	background: url(${base}/fold_w.svg) right / 0.6rem no-repeat;
 `;

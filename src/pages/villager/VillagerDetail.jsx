@@ -61,7 +61,7 @@ export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
                     {item.label === '이름' ? (
                       <div className="flex gap-2 items-center">
                         {item.value.villagerName}
-                        <span className="text-base">
+                        <span className="text-base max-sm:text-sm">
                           ({item.value.villagerNameEn} /{' '}
                           {item.value.villagerNameJp})
                         </span>

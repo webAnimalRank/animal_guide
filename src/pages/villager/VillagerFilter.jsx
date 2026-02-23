@@ -26,7 +26,7 @@ export default function VillagerFilter({ filterConfigs, keyword, setKeyword, onR
 						}}
 					>
 						{f.options.map((opt) => (
-							<option key={opt.value} value={opt.value}>
+							<option key={opt.value} value={opt.value} className='bg-(--c2)'>
 								{opt.label}
 							</option>
 						))}
