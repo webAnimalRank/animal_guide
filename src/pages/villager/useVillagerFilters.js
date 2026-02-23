@@ -25,12 +25,14 @@ export const useVillagerFilters = (onFilterChange) => {
 	const [type, setType] = useState('');
 	const [sex, setSex] = useState('');
 	const [birthMonth, setBirthMonth] = useState('');
+	const [keyword, setKeyword] = useState('');
 
 	const resetFilters = () => {
 		setType('');
 		setSex('');
 		setBirthMonth('');
-		onFilterChange(); // 필터 변경 시 모달 닫기 등 추가 로직 실행용
+		setKeyword('');
+		onFilterChange();
 	};
 
 	const filterConfigs = [
@@ -39,5 +41,5 @@ export const useVillagerFilters = (onFilterChange) => {
 		{ key: 'birthMonth', value: birthMonth, setState: setBirthMonth, label: '생일', options: filterBirth }
 	];
 
-	return { filters: { type, sex, birthMonth }, filterConfigs, resetFilters };
+	return { filters: { type, sex, birthMonth, keyword }, filterConfigs, resetFilters, keyword, setKeyword };
 };

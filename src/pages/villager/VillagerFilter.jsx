@@ -1,12 +1,20 @@
 import { useState } from 'react';
 import { Filter, Nav, Search, Select, SelectWrap } from './villager.style';
 
-export default function VillagerFilter({ filterConfigs, onReset, onChange }) {
+export default function VillagerFilter({ filterConfigs, keyword, setKeyword, onReset, onChange }) {
 	const [isFilter, setIsFilter] = useState(false);
 
 	return (
 		<Nav>
-			<Search name='search' placeholder='주민 이름을 검색하세요' />
+			<Search
+				name='search'
+				placeholder='주민 이름을 검색하세요'
+				value={keyword}
+				onChange={(e) => {
+					setKeyword(e.target.value);
+					onChange();
+				}}
+			/>
 			<SelectWrap className={isFilter ? '' : 'max-sm:hidden'}>
 				{filterConfigs.map((f) => (
 					<Select
@@ -14,7 +22,7 @@ export default function VillagerFilter({ filterConfigs, onReset, onChange }) {
 						value={f.value}
 						onChange={(e) => {
 							f.setState(e.target.value);
-							onChange(); // 모달 닫기 등 부모의 추가 로직
+							onChange();
 						}}
 					>
 						{f.options.map((opt) => (
