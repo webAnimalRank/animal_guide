@@ -47,7 +47,7 @@ export const Load = styled.div.attrs({
 `;
 
 export const List = styled.div.attrs({
-	className: 'pr-3 text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap border-r-2 border-white/40'
+	className: 'text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
 })`
 	&::before {
 		content: '';

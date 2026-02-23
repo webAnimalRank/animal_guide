@@ -11,7 +11,7 @@ const getName = (data) => {
 };
 
 export const getDetailData = (detail) => [
-	{ label: '이름', value: getName(detail) },
+	{ label: '이름', value: detail },
 	{ label: '성별', value: getGenderLabel(detail.villagerSex) },
 	{ label: '종족', value: detail.villagerTypeName },
 	{ label: '생일', value: formatBirthday(detail.villagerBirth) },
