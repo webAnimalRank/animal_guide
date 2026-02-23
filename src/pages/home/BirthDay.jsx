@@ -11,7 +11,11 @@ const formatBirthday = (birth) => {
 export default function BirthDay() {
 	const currentMonth = new Date().getMonth() + 1;
 	const { data: villagers, loading, error } = useVillagersSearch({ birthMonth: currentMonth });
-	const monthVillagers = (villagers ?? []).slice(0, 3);
+	const monthVillagers = [...(villagers ?? [])].sort((a, b) => {
+		const aDay = Number(String(a?.villagerBirth ?? '').split('-')[1]) || 99;
+		const bDay = Number(String(b?.villagerBirth ?? '').split('-')[1]) || 99;
+		return aDay - bDay;
+	});
 
 	return (
 		<Box className='shadow-(--shadowP) w-100 max-sm:w-full'>
