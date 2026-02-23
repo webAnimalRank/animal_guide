@@ -63,6 +63,36 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '', keywo
   return { data, loading, error };
 }
 
+export function useVillagerTypes() {
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchVillagerTypes = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_URL}/api/villagers/types`);
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const result = await response.json();
+        setTypeOptions(Array.isArray(result) ? result : []);
+      } catch (err) {
+        setError(err);
+        setTypeOptions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVillagerTypes();
+  }, []);
+
+  return { typeOptions, loading, error };
+}
+
 /**
  * ✅ 상세 조회 훅 (기존 그대로)
  */

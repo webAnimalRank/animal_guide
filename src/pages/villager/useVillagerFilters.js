@@ -1,11 +1,4 @@
-import { useState } from 'react';
-
-const filterType = [
-	{ value: '', label: '종족' },
-	{ value: '1', label: '개' },
-	{ value: '2', label: '개구리' },
-	{ value: '3', label: '개미핥기' }
-];
+import { useMemo, useState } from 'react';
 
 const filterSex = [
 	{ value: '', label: '성별' },
@@ -21,11 +14,22 @@ const filterBirth = [
 	}))
 ];
 
-export const useVillagerFilters = (onFilterChange) => {
+export const useVillagerFilters = (onFilterChange, typeOptions = []) => {
 	const [type, setType] = useState('');
 	const [sex, setSex] = useState('');
 	const [birthMonth, setBirthMonth] = useState('');
 	const [keyword, setKeyword] = useState('');
+
+	const filterType = useMemo(
+		() => [
+			{ value: '', label: '종족' },
+			...typeOptions.map((opt) => ({
+				value: String(opt.type),
+				label: opt.typeName
+			}))
+		],
+		[typeOptions]
+	);
 
 	const resetFilters = () => {
 		setType('');

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Wrap } from '../../components/style';
 import { CardWrap, Mini } from './villager.style';
-import { useVillagersSearch } from './useVillagers';
+import { useVillagerTypes, useVillagersSearch } from './useVillagers';
 import { useVillagerFilters } from './useVillagerFilters';
 import VillagerFilter from './VillagerFilter';
 import VillagerDetail from './VillagerDetail';
@@ -15,7 +15,8 @@ export default function Villager() {
 		setSelectedNo(null);
 	};
 
-	const { filters, filterConfigs, resetFilters, keyword, setKeyword } = useVillagerFilters(closeModal);
+	const { typeOptions } = useVillagerTypes();
+	const { filters, filterConfigs, resetFilters, keyword, setKeyword } = useVillagerFilters(closeModal, typeOptions);
 	const { data: villagers, loading, error } = useVillagersSearch(filters);
 
 	return (
