@@ -6,10 +6,6 @@ const formatBirthday = (birthString) => {
 
 const getGenderLabel = (sex) => (sex === 1 ? '남자' : '여자');
 
-const getName = (data) => {
-	return `${data.villagerName} | ${data.villagerNameEn} | ${data.villagerNameJp}`;
-};
-
 export const getDetailData = (detail) => [
 	{ label: '이름', value: detail },
 	{ label: '성별', value: getGenderLabel(detail.villagerSex) },
