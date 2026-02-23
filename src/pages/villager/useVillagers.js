@@ -45,7 +45,8 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '', keywo
         const mapped = (result ?? []).map((v) => ({
           villagerNo: v.villagerNo,
           villagerName: v.villagerName,
-          villagerImageIcon: v.villagerImageIcon
+          villagerImageIcon: v.villagerImageIcon,
+          villagerBirth: v.villagerBirth
         }));
 
         setData(mapped);
