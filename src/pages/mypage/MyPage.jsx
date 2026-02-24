@@ -6,6 +6,8 @@ import MyPost from './MyPost';
 import MyPick from './MyPick';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function MyPage() {
 	const sectionData = [
 		{ key: 'info', title: '내 정보', component: MyInfo },
@@ -23,10 +25,11 @@ export default function MyPage() {
 
 	// 로그인한 회원 정보 가져오기
 	const [member, setMember] = useState(null);
-	
+
 	useEffect(() => {
-		axios.get('http://localhost:8080/api/members/me')
-			.then(res => setMember(res.data))
+		axios
+			.get(`${API_URL}/api/members/me`)
+			.then((res) => setMember(res.data))
 			.catch(() => setMember(null));
 	}, []);
 
