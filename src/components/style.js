@@ -108,10 +108,44 @@ export const Box = styled.div.attrs({
 })``;
 
 export const Wrap = styled.div.attrs({
-	className:
-		'max-w-7xl w-full h-max min-h-full px-6 pt-26 pb-6 max-sm:px-4 bg-white/15 flex flex-col gap-5'
+	className: 'max-w-7xl w-full h-max min-h-full px-6 pt-26 pb-6 max-sm:px-4 bg-white/15 flex flex-col gap-5'
 })``;
 
 export const Btn = styled.button.attrs({
 	className: 'text-white bg-(--c) rounded-lg px-3 py-1 font-bold hover:bg-(--c2)'
 })``;
+
+export const PageBtn = styled.button.attrs({
+	type: 'button',
+	className: 'text-sm font-bold relative rounded-md size-7'
+})`
+	background: center / contain no-repeat;
+
+	&.active {
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+	&:is(.first, .prev) {
+		scale: -1;
+	}
+	&:is(.next, .prev) {
+		background-image: url(${base}/angle.svg);
+	}
+	&:is(.last, .first) {
+		background-image: url(${base}/angle2.svg);
+	}
+	&:disabled:not(.active) {
+		opacity: 0.5;
+	}
+	&:disabled:hover {
+		cursor: default;
+	}
+	&:not(:disabled):hover {
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+`;
+
+export const Loading = styled.div.attrs({
+	className: 'aspect-square animate-spin opacity-30'
+})`
+	background: url(${base}/load.svg) center / contain no-repeat;
+`;

@@ -1,14 +1,47 @@
-import { Box } from '../../components/style';
-import { Title3 } from './home.style';
+import { Box, PageBtn } from '../../components/style';
+import { List, Load, Title3 } from './home.style';
 import { useVillagersSearch } from '../villager/useVillagers';
+import { useState, useEffect } from 'react';
 
 const formatBirthday = (birth) => {
 	if (!birth || typeof birth !== 'string' || !birth.includes('-')) return '-';
 	const [month, day] = birth.split('-');
-	return `${Number(month)}월 ${Number(day)}일`;
+	return `${Number(day)}일`;
+};
+
+const BirthList = ({ isToday, src, alt, name, birth }) => {
+	const [isLoad, setIsLoad] = useState(false);
+
+	useEffect(() => {
+		requestAnimationFrame(() => {
+			setIsLoad(true);
+		});
+	}, []);
+
+	return (
+		<List
+			className={`${isToday ? 'today' : ''} ${isLoad ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+		>
+			{!isLoad && (
+				<div className='h-14 max-md:h-12 p-2'>
+					<Load />
+				</div>
+			)}
+			<img
+				className={`h-14 max-md:h-12 aspect-square object-contain`}
+				src={src}
+				alt={alt}
+				onLoad={() => setIsLoad(true)}
+			/>
+			<span className='text-2xl max-md:text-xl font-extrabold'>{name}</span>
+			<span className='text-lg font-bold ml-auto'>{formatBirthday(birth)}</span>
+		</List>
+	);
 };
 
 export default function BirthDay() {
+	const [currentPage, setCurrentPage] = useState(1);
+	const itemsPerPage = 5;
 	const currentMonth = new Date().getMonth() + 1;
 	const { data: villagers, loading, error } = useVillagersSearch({ birthMonth: currentMonth });
 	const monthVillagers = [...(villagers ?? [])].sort((a, b) => {
@@ -17,27 +50,61 @@ export default function BirthDay() {
 		return aDay - bDay;
 	});
 
+	const totalPages = Math.ceil(monthVillagers.length / itemsPerPage);
+	const startIndex = (currentPage - 1) * itemsPerPage;
+	const displayedVillagers = monthVillagers.slice(startIndex, startIndex + itemsPerPage);
+
+	const today = new Date();
+	const todayMonth = today.getMonth() + 1;
+	const todayDay = today.getDate();
+
+	const isItemToday = (birth) => {
+		const [m, d] = String(birth ?? '').split('-');
+		return Number(m) === todayMonth && Number(d) === todayDay;
+	};
+
+	const statusMessage = loading
+		? '불러오는 중...'
+		: error
+			? '데이터를 불러오지 못했습니다.'
+			: monthVillagers.length === 0
+				? `${currentMonth}월 생일 주민이 없습니다.`
+				: null;
+
 	return (
-		<Box className='shadow-(--shadowP) w-100 max-sm:w-full'>
+		<Box className='shadow-(--shadowP) w-100 max-sm:w-full h-min'>
 			<Title3 className='birth border-(--pink)'>{currentMonth}월 생일</Title3>
-			<ul className='flex flex-col gap-2 max-md:gap-0'>
-				{loading && <li className='h-15 flex items-center text-lg font-bold'>불러오는 중...</li>}
-				{!loading && error && (
-					<li className='h-15 flex items-center text-lg font-bold'>데이터를 불러오지 못했습니다.</li>
-				)}
-				{!loading &&
-					!error &&
-					monthVillagers.map((item) => (
-						<li key={item.villagerNo} className='h-15 flex items-center gap-4 max-md:gap-2 pr-2'>
-							<img className='h-14 max-md:h-12 object-contain' src={item.villagerImageIcon} alt={item.villagerName} />
-							<span className='text-2xl max-md:text-xl font-extrabold'>{item.villagerName}</span>
-							<span className='text-lg font-bold ml-auto'>{formatBirthday(item.villagerBirth)}</span>
-						</li>
+			<ul className='grid grid-rows-[repeat(5,3.75rem)] gap-2 max-md:gap-0 items-center'>
+				{statusMessage && <li className='text-lg font-bold'>{statusMessage}</li>}
+				{!statusMessage &&
+					displayedVillagers.map((item) => (
+						<BirthList
+							key={item.villagerNo}
+							isToday={isItemToday(item.villagerBirth)}
+							src={item.villagerImageIcon}
+							alt={item.villagerName}
+							name={item.villagerName}
+							birth={item.villagerBirth}
+						/>
 					))}
-				{!loading && !error && monthVillagers.length === 0 && (
-					<li className='h-15 flex items-center text-lg font-bold'>{currentMonth}월 생일 주민이 없습니다.</li>
-				)}
 			</ul>
+			{!loading && !error && monthVillagers.length > 0 && (
+				<div className='flex gap-2 justify-center items-center'>
+					<PageBtn
+						onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+						disabled={currentPage === 1}
+						className='prev'
+					/>
+					<span className='text-sm font-bold'>
+						{currentPage} / {totalPages}
+					</span>
+					<PageBtn
+						onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+						disabled={currentPage === totalPages}
+						className='next'
+					/>
+				</div>
+			)}
 		</Box>
 	);
 }

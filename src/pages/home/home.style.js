@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Glass } from '../../components/style';
+import { Glass, Loading } from '../../components/style';
 
 const base = '/animal_guide';
 
@@ -68,3 +68,15 @@ export const Tab = styled(Link).attrs({
 	flex: 1;
 	padding: 0;
 `;
+
+export const List = styled.li.attrs({
+	className: 'flex items-center gap-4 max-md:gap-2 pr-3 rounded-xl'
+})`
+	&.today {
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+`;
+
+export const Load = styled(Loading).attrs({
+	className: 'h-full'
+})``;

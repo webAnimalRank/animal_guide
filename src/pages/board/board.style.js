@@ -19,35 +19,6 @@ export const TabBtn = styled.button.attrs({
 	}
 `;
 
-export const PageBtn = styled.button.attrs({
-	type: 'button',
-	className: 'text-sm font-bold relative rounded-md size-7'
-})`
-	background: center / contain no-repeat;
-
-	&.active {
-		background-color: rgba(255, 255, 255, 0.2);
-	}
-	&:is(.first, .prev) {
-		scale: -1;
-	}
-	&:is(.next, .prev) {
-		background-image: url(${base}/angle.svg);
-	}
-	&:is(.last, .first) {
-		background-image: url(${base}/angle2.svg);
-	}
-	&:disabled:not(.active) {
-		opacity: 0.5;
-	}
-	&:disabled:hover {
-		cursor: default;
-	}
-	&:not(:disabled):hover {
-		background-color: rgba(255, 255, 255, 0.2);
-	}
-`;
-
 export const Line = styled(Link).attrs({
 	className: 'border-b border-(--c) py-1 flex-0 font-semibold flex items-center hover:bg-white/20'
 })``;

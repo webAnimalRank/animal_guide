@@ -1,6 +1,5 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-
-import { PageBtn } from './board.style';
+import { PageBtn } from '../../components/style';
 import Mobile from './Mobile';
 import DeskTop from './Desktop';
 

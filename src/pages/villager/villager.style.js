@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Glass, Scroll } from '../../components/style';
+import { Glass, Loading, Scroll } from '../../components/style';
 
 const base = '/animal_guide';
 
@@ -39,12 +39,9 @@ export const Card = styled.div.attrs({
 	}
 `;
 
-export const Load = styled.div.attrs({
-	className:
-		'absolute w-24 top-[50%] aspect-square -translate-y-1/2 rounded-full animate-spin opacity-30 max-md:w-20 max-sm:w-16'
-})`
-	background: url(${base}/load.svg) center / contain no-repeat;
-`;
+export const Load = styled(Loading).attrs({
+	className: 'absolute w-24 top-[50%] -translate-y-1/2 max-md:w-20 max-sm:w-16'
+})``;
 
 export const List = styled.div.attrs({
 	className: 'text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
