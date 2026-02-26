@@ -41,49 +41,43 @@ export default function Header() {
 	};
 
 	return (
-		<Head>
-			<div className='w-7xl h-full px-5 flex justify-between max-md:justify-center items-center'>
-				<Menu onClick={() => setMenu(!menu)} />
-				<nav className='w-max h-full flex gap-5 items-center'>
-					<NavLink className='h-full py-4 pr-4' to='/'>
-						<img className='h-full' src={Logo} alt='' />
-					</NavLink>
-					{links.map((link, index) => (
-						<Page key={index} className={({ isActive }) => (isActive ? 'active' : '')} to={link.to}>
-							{link.label}
-						</Page>
-					))}
-				</nav>
-				<nav className='w-max flex gap-5 items-center'>
-					{/* <Url className='login' to='/login'>
-						로그인
-					</Url>
-					<Url className='sign' to='/sign'>
-						회원가입
-					</Url> */}
-					{/* <Url to='/'>이름 님</Url>
-					<Url to='/'>로그아웃</Url> */}
-					{member ? (
-						<>
-							<Url>{member.memberName} 님 환영합니다.</Url>
-							<Url to='/mypage'>마이페이지</Url>
-							<Url as='button' onClick={handleLogout}>
-								로그아웃
-							</Url>
-						</>
-					) : (
-						<>
-							<Url className='login' to='/login'>
-								로그인
-							</Url>
-							<Url className='sign' to='/sign'>
-								회원가입
-							</Url>
-						</>
-					)}
-				</nav>
-				{menu && <Links2 />}
-			</div>
-		</Head>
+		<>
+			<Head>
+				<div className='w-7xl h-full px-5 flex justify-between max-md:justify-center items-center'>
+					<Menu onClick={() => setMenu(!menu)} />
+					<nav className='w-max h-full flex gap-5 items-center'>
+						<NavLink className='h-full py-4 pr-4' to='/'>
+							<img className='h-full' src={Logo} alt='' />
+						</NavLink>
+						{links.map((link, index) => (
+							<Page key={index} className={({ isActive }) => (isActive ? 'active' : '')} to={link.to}>
+								{link.label}
+							</Page>
+						))}
+					</nav>
+					<nav className='w-max flex gap-5 items-center'>
+						{member ? (
+							<>
+								<Url>{member.memberName} 님 환영합니다.</Url>
+								<Url to='/mypage'>마이페이지</Url>
+								<Url as='button' onClick={handleLogout}>
+									로그아웃
+								</Url>
+							</>
+						) : (
+							<>
+								<Url className='login' to='/login'>
+									로그인
+								</Url>
+								<Url className='sign' to='/sign'>
+									회원가입
+								</Url>
+							</>
+						)}
+					</nav>
+				</div>
+			</Head>
+			{menu && <Links2 onClose={() => setMenu(false)} />}
+		</>
 	);
 }

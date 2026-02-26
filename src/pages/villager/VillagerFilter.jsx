@@ -15,7 +15,7 @@ export default function VillagerFilter({ filterConfigs, keyword, setKeyword, onR
 					onChange();
 				}}
 			/>
-			<SelectWrap className={isFilter ? '' : 'max-sm:hidden'}>
+			<SelectWrap className={isFilter ? '' : 'hide'}>
 				{filterConfigs.map((f) => (
 					<Select
 						key={f.key}

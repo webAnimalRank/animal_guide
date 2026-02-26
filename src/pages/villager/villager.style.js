@@ -72,8 +72,19 @@ export const Nav = styled.nav.attrs({
 
 export const SelectWrap = styled.div.attrs({
 	className:
-		'flex gap-4 max-sm:gap-3 font-bold ml-auto max-sm:absolute top-full right-1 max-sm:flex-col max-sm:translate-y-2 backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow) rounded-lg px-4 max-sm:px-3 py-2'
-})``;
+		'flex gap-4 font-bold ml-auto top-full right-1 backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow) rounded-lg px-4 py-2'
+})`
+	@media (max-width: 880px) {
+		&.hide {
+			display: none;
+		}
+		position: absolute;
+		gap: 0.75rem;
+		translate: 0 0.5rem;
+		flex-direction: column;
+		padding-inline: 0.75rem;
+	}
+`;
 
 export const Select = styled.select.attrs({
 	className: 'appearance-none cursor-pointer border-b pr-5 text-white font-medium'
@@ -90,12 +101,15 @@ export const Search = styled.input.attrs({
 export const Filter = styled.button.attrs({
 	type: 'button',
 	className:
-		'w-10 rounded-full aspect-square sm:hidden flex items-center justify-center backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow)'
+		'w-10 rounded-full aspect-square flex items-center justify-center backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow)'
 })`
 	&::after {
 		content: '';
 		width: 70%;
 		aspect-ratio: 1;
 		background: url(${base}/filter.svg) center / contain no-repeat;
+	}
+	@media (min-width: 880px) {
+		display: none;
 	}
 `;
