@@ -76,7 +76,3 @@ export const List = styled.li.attrs({
 		background-color: rgba(255, 255, 255, 0.5);
 	}
 `;
-
-export const Load = styled(Loading).attrs({
-	className: 'h-full'
-})``;

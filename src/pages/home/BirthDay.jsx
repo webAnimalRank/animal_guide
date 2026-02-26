@@ -1,5 +1,5 @@
 import { Box, PageBtn } from '../../components/style';
-import { List, Load, Title3 } from './home.style';
+import { List, Title3 } from './home.style';
 import { useVillagersSearch } from '../villager/useVillagers';
 import { useState, useEffect } from 'react';
 
@@ -22,11 +22,6 @@ const BirthList = ({ isToday, src, alt, name, birth }) => {
 		<List
 			className={`${isToday ? 'today' : ''} ${isLoad ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
 		>
-			{!isLoad && (
-				<div className='h-14 max-md:h-12 p-2'>
-					<Load />
-				</div>
-			)}
 			<img
 				className={`h-14 max-md:h-12 aspect-square object-contain`}
 				src={src}
