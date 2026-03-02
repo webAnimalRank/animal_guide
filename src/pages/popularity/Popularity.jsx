@@ -119,7 +119,7 @@ export default function Popularity() {
 
 							return (
 								<SelectBox key={v.villagerNo}>
-									<img src={v.villagerImageIcon} alt={v.villagerName} className='min-h-0 flex-1 object-contain' />
+									<img src={v.villagerImage} alt={v.villagerName} className='min-h-0 flex-1 object-contain' />
 									<span className='name'>{v.villagerName}</span>
 									<input
 										type='checkbox'
