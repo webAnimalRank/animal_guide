@@ -11,20 +11,30 @@ export default function MyPost() {
 	const [member, setMember] = useState(null);
 
 	useEffect(() => {
-		// 로그인된 유저 정보 가져오기
+    // 내 로그인 정보 확인
+    axios.get(`${API_URL}/api/members/me`)
+        .then(res => console.log('회원 정보:', res.data))
+        .catch(err => console.log('회원 정보 불러오기 실패', err));
+}, []);
+
+
+	useEffect(() => {
 		getMyInfo()
 			.then((res) => {
 				setMember(res.data);
-				return axios.get(`${API_URL}/api/boards?search=writer&keyword=${res.data.memberNo}`, { withCredentials: true });
+
+				return axios.get(`${API_URL}/api/boards/my`, {
+					withCredentials: true
+				});
 			})
 			.then((res) => {
-				setPosts(res.data.items || []); // BoardPageResponse 구조에 맞춰 items 사용
+				setPosts(res.data); // 그냥 배열
 			})
 			.catch(() => {
 				setPosts([]);
 				setMember(null);
 			});
-	}, []);
+	}, []);;
 
 	const edit = (boardNo) => {
 		console.log('수정', boardNo);
