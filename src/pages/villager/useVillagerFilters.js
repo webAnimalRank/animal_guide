@@ -19,15 +19,10 @@ const filterDebut = [
 	{ value: 'DNM', label: '동물의 숲 (닌텐도 64)' },
 	{ value: 'DNM+', label: '동물의 숲+ (게임큐브)' },
 	{ value: 'E_PLUS', label: '동물의 숲 e+ (게임큐브)' },
-	{ value: 'AC (GC)', label: '동물의 숲 (게임큐브)' },
 	{ value: 'WW', label: '놀러오세요 동물의 숲 (닌텐도 DS)' },
 	{ value: 'CF', label: '타운으로 놀러가요 동물의 숲 (Wii)' },
 	{ value: 'NL', label: '튀어나와요 동물의 숲 (닌텐도 3DS)' },
-	{ value: 'HHD', label: '해피 홈 디자이너 (닌텐도 3DS)' },
-	{ value: 'AF', label: '아미보 페스티벌 (Wii U)' },
-	{ value: 'PC', label: '포켓 캠프 (iOS / Android)' },
 	{ value: 'NH', label: '모여봐요 동물의 숲 (닌텐도 스위치)' },
-	{ value: 'HHP', label: '해피 홈 파라다이스 (닌텐도 스위치, DLC)' }
 ];
 
 export const useVillagerFilters = (onFilterChange, typeOptions = []) => {

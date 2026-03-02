@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 import { Wrap } from '../../components/style';
 import { SelectBox, SelectWrap, Txt, CheckBox, Submit, Close, CheckWrap } from './popularity.style';
 
@@ -24,7 +24,7 @@ export default function Popularity() {
 				const [villagerRes, statusRes] = await Promise.all([
 					fetch(`${API_URL}/api/villagers`),
 					fetch(`${API_URL}/api/villagers/votes/me`, {
-						headers: getAuthHeaders()
+						credentials: 'include'
 					})
 				]);
 
@@ -68,19 +68,13 @@ export default function Popularity() {
 			return;
 		}
 
-		const token = localStorage.getItem('token');
-		if (!token) {
-			alert('로그인 후 투표할 수 있습니다.');
-			return;
-		}
-
 		try {
 			setSubmitting(true);
 			const res = await fetch(`${API_URL}/api/villagers/votes`, {
 				method: 'POST',
+				credentials: 'include',
 				headers: {
-					'Content-Type': 'application/json',
-					...getAuthHeaders()
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ villagerNos: selectedIds })
 			});
@@ -155,8 +149,7 @@ export default function Popularity() {
 						Array.from({ length: remainingVotes - selectedIds.length }).map((_, i) => (
 							<CheckBox key={`empty-${i}`} className='pt-4 gap-2 empty'>
 								<div className='flex-1 aspect-square self-center border-2 border-dashed opacity-50 rounded-xl' />
-								선택 가능
-							</CheckBox>
+								선택 가능							</CheckBox>
 						))}
 				</CheckWrap>
 				<Submit disabled={!canSubmit} onClick={submitVotes}>
@@ -167,8 +160,5 @@ export default function Popularity() {
 	);
 }
 
-function getAuthHeaders() {
-	const token = localStorage.getItem('token');
-	if (!token) return {};
-	return { Authorization: `Bearer ${token}` };
-}
+
+
