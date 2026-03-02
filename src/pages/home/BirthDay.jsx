@@ -1,7 +1,7 @@
 import { Box, PageBtn } from '../../components/style';
 import { List, Title3 } from './home.style';
 import { useVillagersSearch } from '../villager/useVillagers';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const formatBirthday = (birth) => {
 	if (!birth || typeof birth !== 'string' || !birth.includes('-')) return '-';
@@ -11,12 +11,6 @@ const formatBirthday = (birth) => {
 
 const BirthList = ({ isToday, src, alt, name, birth }) => {
 	const [isLoad, setIsLoad] = useState(false);
-
-	useEffect(() => {
-		requestAnimationFrame(() => {
-			setIsLoad(true);
-		});
-	}, []);
 
 	return (
 		<List
@@ -67,7 +61,7 @@ export default function BirthDay() {
 				: null;
 
 	return (
-		<Box className='shadow-(--shadowP) w-100 max-sm:w-full h-min'>
+		<Box className='w-100 max-sm:w-full h-min'>
 			<Title3 className='birth border-(--pink)'>{currentMonth}월 생일</Title3>
 			<ul className='grid grid-rows-[repeat(5,3.75rem)] gap-2 max-md:gap-0 items-center'>
 				{statusMessage && <li className='text-lg font-bold'>{statusMessage}</li>}

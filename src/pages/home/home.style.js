@@ -65,7 +65,6 @@ export const Menu = styled(Glass).attrs({
 export const Tab = styled(Link).attrs({
 	className: 'h-15 flex justify-center items-center font-bold'
 })`
-	flex: 1;
 	padding: 0;
 `;
 
@@ -73,6 +72,7 @@ export const List = styled.li.attrs({
 	className: 'flex items-center gap-4 max-md:gap-2 pr-3 rounded-xl'
 })`
 	&.today {
-		background-color: rgba(255, 255, 255, 0.5);
+		background-color: rgba(255, 255, 255, 0.1);
+		color: var(--pink);
 	}
 `;

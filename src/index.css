@@ -5,7 +5,7 @@
 	font-weight: 400;
 
 	/* color-scheme: light dark; */
-	color: var(--c);
+	color: rgba(255, 255, 255, 0.6);
 	background-color: var(--c);
 
 	font-synthesis: none;
@@ -21,7 +21,7 @@ body {
 	min-width: 320px;
 	min-height: 100vh;
 	height: 100%;
-	background-color: rgba(255, 255, 255, 0.5);
+	/* background-color: rgba(255, 255, 255, 0.05); */
 }
 
 button {

@@ -10,18 +10,14 @@ export const CardWrap = styled(Scroll).attrs({
 	grid-auto-rows: min-content;
 `;
 
-export const Mini = styled(Glass).attrs({
-	as: 'button',
+export const Mini = styled.button.attrs({
 	type: 'button',
-	className: 'w-full pb-2 font-extrabold'
+	className: 'w-full p-1 font-extrabold border border-white/30 rounded-md text-white/60 hover:bg-(--p)/30'
 })`
 	img {
 		width: 100%;
 	}
 	transition: background-color 0.2s ease-out;
-	&:hover {
-		background-color: rgba(255, 255, 255, 0.4);
-	}
 `;
 
 const fade = keyframes`
@@ -67,12 +63,12 @@ export const Close = styled.button.attrs({
 `;
 
 export const Nav = styled.nav.attrs({
-	className: 'sticky top-26 flex items-center justify-between z-10 px-1'
+	className: 'sticky top-23 max-sm:top-17 flex items-center justify-between z-10 px-1'
 })``;
 
 export const SelectWrap = styled.div.attrs({
 	className:
-		'flex gap-4 font-bold ml-auto top-full right-1 backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow) rounded-lg px-4 py-2'
+		'flex gap-4 font-bold ml-auto top-full right-1 bg-(--c2) shadow-(--shadow) rounded-lg px-4 py-2'
 })`
 	@media (max-width: 880px) {
 		&.hide {
@@ -101,7 +97,7 @@ export const Search = styled.input.attrs({
 export const Filter = styled.button.attrs({
 	type: 'button',
 	className:
-		'w-10 rounded-full aspect-square flex items-center justify-center backdrop-blur-3xl bg-(--c)/50 shadow-(--shadow)'
+		'w-10 rounded-full aspect-square flex items-center justify-center bg-(--c2) shadow-(--shadow)'
 })`
 	&::after {
 		content: '';

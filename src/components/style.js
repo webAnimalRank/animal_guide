@@ -9,10 +9,9 @@ const move = keyframes`
 `;
 
 export const Head = styled.header.attrs({
-	className: 'z-50 fixed w-full h-20 flex justify-center pb-1'
+	className: 'z-50 fixed w-full h-[70px] flex justify-center pb-1 max-sm:h-[50px] bg-(--cw)'
 })`
 	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
-	background: url('${base}/header.svg') bottom / contain repeat-x;
 `;
 
 export const Menu = styled.button.attrs({
@@ -24,7 +23,7 @@ export const Menu = styled.button.attrs({
 `;
 
 export const Url = styled(NavLink).attrs({
-	className: 'font-bold text-lg text-white/80 max-md:hidden'
+	className: 'font-bold'
 })`
 	&.login {
 		display: flex;
@@ -41,18 +40,18 @@ export const Url = styled(NavLink).attrs({
 	&.login:hover::after {
 		animation: ${move} 0.7s ease-out infinite;
 	}
-	&:hover:not(.page) {
-		font-weight: 900;
-	}
 	@media (max-width: 48rem) {
 		&.login {
+			font-size: 0;
+		}
+		&.sign {
 			display: none;
 		}
 	}
 `;
 
 export const Page = styled(Url).attrs({
-	className: 'page relative'
+	className: 'page relative max-md:hidden'
 })`
 	&::after {
 		content: '';
@@ -104,11 +103,11 @@ export const Scroll = styled.div.attrs({
 `;
 
 export const Box = styled.div.attrs({
-	className: 'rounded-3xl p-5 h-max flex flex-col gap-4 bg-(image:--glass) backdrop-blur-[3px]'
+	className: 'rounded-3xl p-5 h-max flex flex-col gap-4 bg-white/10 shadow-(--shadow)'
 })``;
 
 export const Wrap = styled.div.attrs({
-	className: 'max-w-7xl w-full h-max min-h-full px-6 pt-26 pb-6 max-sm:px-4 bg-white/15 flex flex-col gap-5'
+	className: 'max-w-7xl w-full h-max min-h-full px-6 pt-23 max-sm:pt-16 pb-6 max-sm:px-4 flex flex-col gap-5'
 })``;
 
 export const Btn = styled.button.attrs({
@@ -122,7 +121,7 @@ export const PageBtn = styled.button.attrs({
 	background: center / contain no-repeat;
 
 	&.active {
-		background-color: rgba(255, 255, 255, 0.5);
+		background-color: rgba(255, 255, 255, 0.1);
 	}
 	&:is(.first, .prev) {
 		scale: -1;
@@ -134,15 +133,19 @@ export const PageBtn = styled.button.attrs({
 		background-image: url(${base}/angle2.svg);
 	}
 	&:disabled:not(.active) {
-		opacity: 0.5;
+		opacity: 0.3;
 	}
 	&:disabled:hover {
 		cursor: default;
 	}
 	&:not(:disabled):hover {
-		background-color: rgba(255, 255, 255, 0.5);
+		background-color: rgba(255, 255, 255, 0.1);
 	}
 `;
+
+export const Icon = styled.button.attrs({
+	className: 'size-12 max-sm:size-9 p-0.5 rounded-full hover:bg-white/10'
+})``;
 
 export const Loading = styled.div.attrs({
 	className: 'aspect-square animate-spin opacity-30'

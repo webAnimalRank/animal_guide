@@ -16,16 +16,16 @@ export function Links2({ onClose }) {
 	};
 
 	return (
-		<nav className='bg-(--c2) text-white/60 shadow-(--shadow) justify-between flex flex-col gap-3 fixed inset-10 z-50 md:hidden'>
-			<Tab to='villager' onClick={handleClick}>
+		<nav className='bg-(--c2)/90 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 z-50 md:hidden'>
+			<Menu to='villager' onClick={handleClick}>
 				주민 명부
-			</Tab>
-			<Tab to='popularity' onClick={handleClick}>
+			</Menu>
+			<Menu to='popularity' onClick={handleClick}>
 				인기 투표
-			</Tab>
-			<Tab to='board' onClick={handleClick}>
+			</Menu>
+			<Menu to='board' onClick={handleClick}>
 				커뮤니티
-			</Tab>
+			</Menu>
 			<Tab to='login' onClick={handleClick}>
 				로그인
 			</Tab>

@@ -9,6 +9,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Result() {
 	const [top3, setTop3] = useState([]);
+	const month = new Date().getMonth() + 1;
 
 	useEffect(() => {
 		const load = async () => {
@@ -45,8 +46,8 @@ export default function Result() {
 	const topImage = top3[0]?.villagerImage || tom;
 
 	return (
-		<Box className='shadow-(--shadowY) w-120 max-sm:w-full'>
-			<Title3 className='star border-(--y)'>이달의 주민</Title3>
+		<Box className='w-120 max-sm:w-full'>
+			<Title3 className='star border-(--y)'>{month}월의 인기 주민</Title3>
 			<img className='h-60 max-md:h-50 object-contain' src={topImage} alt='이달의 주민' />
 			{rankData.length === 0 && <div className='font-bold text-lg py-3'>아직 투표 결과가 없습니다.</div>}
 			{rankData.map(({ rank, icon, name, votes, shadow }) => (
