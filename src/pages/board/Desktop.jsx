@@ -12,7 +12,7 @@ export default function DeskTop({ table }) {
 	return (
 		<div className='w-full border-collapse hidden sm:flex flex-col'>
 			{table.getHeaderGroups().map((headerGroup) => (
-				<div key={headerGroup.id} className='border-y-2 border-(--c) flex py-2 text-xs font-bold'>
+				<div key={headerGroup.id} className='border-y-2 border-white/30 flex py-2 text-xs font-bold'>
 					{headerGroup.headers.map((header) => (
 						<div key={header.id} style={{ ...header.column.columnDef.headerStyle }}>
 							{flexRender(header.column.columnDef.header, header.getContext())}

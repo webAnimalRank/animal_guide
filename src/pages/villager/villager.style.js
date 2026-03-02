@@ -12,7 +12,7 @@ export const CardWrap = styled(Scroll).attrs({
 
 export const Mini = styled.button.attrs({
 	type: 'button',
-	className: 'w-full p-1 font-extrabold border border-white/30 rounded-md text-white/60 hover:bg-(--p)/30'
+	className: 'w-full p-1 font-extrabold border border-white/20 rounded-md text-white/60 hover:bg-(--p)/30'
 })`
 	img {
 		width: 100%;
@@ -68,7 +68,7 @@ export const Nav = styled.nav.attrs({
 
 export const SelectWrap = styled.div.attrs({
 	className:
-		'flex gap-4 font-bold ml-auto top-full right-1 bg-(--c2) shadow-(--shadow) rounded-lg px-4 py-2'
+		'flex gap-4 font-bold ml-auto top-full right-1 bg-(--cw) shadow-(--shadow) rounded-lg px-4 py-2'
 })`
 	@media (max-width: 880px) {
 		&.hide {
@@ -83,21 +83,21 @@ export const SelectWrap = styled.div.attrs({
 `;
 
 export const Select = styled.select.attrs({
-	className: 'appearance-none cursor-pointer border-b pr-5 text-white font-medium'
+	className: 'appearance-none cursor-pointer border-b pr-5 font-medium'
 })`
-	background: url(${base}/fold_w.svg) right / 0.6rem no-repeat;
+	background: url(${base}/fold_w.svg) right / 10px no-repeat;
 `;
 
 export const Search = styled.input.attrs({
 	type: 'search',
 	className:
-		'outline-none text-(--c) font-bold w-50 py-2 px-4 rounded-full backdrop-blur-3xl bg-white/80 shadow-(--shadow)'
+		'outline-none font-bold w-50 py-2 px-4 rounded-lg bg-white/60 text-(--c) backdrop-blur-3xl shadow-(--shadow)'
 })``;
 
 export const Filter = styled.button.attrs({
 	type: 'button',
 	className:
-		'w-10 rounded-full aspect-square flex items-center justify-center bg-(--c2) shadow-(--shadow)'
+		'w-10 rounded-full aspect-square flex items-center justify-center bg-(--cw) shadow-(--shadow)'
 })`
 	&::after {
 		content: '';

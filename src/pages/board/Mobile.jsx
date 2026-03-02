@@ -2,7 +2,7 @@ import { Line } from './board.style';
 
 export default function Mobile({ table }) {
 	return (
-		<div className='w-full flex flex-col sm:hidden border-t-2 border-(--c)'>
+		<div className='w-full flex flex-col sm:hidden border-t-2 border-white/30'>
 			{table.getRowModel().rows.map((row) => (
 				<Line to={`post/${row.original.id}`} key={row.id} className='w-full flex-col gap-2'>
 					<span className='w-full text-sm text-left font-bold'>{row.original.title}</span>

@@ -16,13 +16,13 @@ const filterBirth = [
 
 const filterDebut = [
 	{ value: '', label: '데뷔' },
-	{ value: 'DNM', label: '동물의 숲 (닌텐도 64)' },
-	{ value: 'DNM+', label: '동물의 숲+ (게임큐브)' },
-	{ value: 'E_PLUS', label: '동물의 숲 e+ (게임큐브)' },
-	{ value: 'WW', label: '놀러오세요 동물의 숲 (닌텐도 DS)' },
-	{ value: 'CF', label: '타운으로 놀러가요 동물의 숲 (Wii)' },
-	{ value: 'NL', label: '튀어나와요 동물의 숲 (닌텐도 3DS)' },
-	{ value: 'NH', label: '모여봐요 동물의 숲 (닌텐도 스위치)' },
+	{ value: 'DNM', label: '동물의 숲' },
+	{ value: 'DNM+', label: '동물의 숲+' },
+	{ value: 'E_PLUS', label: '동물의 숲 e+' },
+	{ value: 'WW', label: '놀러오세요 동물의 숲' },
+	{ value: 'CF', label: '타운으로 놀러가요 동물의 숲' },
+	{ value: 'NL', label: '튀어나와요 동물의 숲' },
+	{ value: 'NH', label: '모여봐요 동물의 숲' },
 ];
 
 export const useVillagerFilters = (onFilterChange, typeOptions = []) => {

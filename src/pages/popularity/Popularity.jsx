@@ -108,7 +108,7 @@ export default function Popularity() {
 		<Wrap className='h-0! fixed max-sm:inset-0'>
 			<h2 className='font-bold text-2xl self-start'>주민 인기 투표</h2>
 			<span className='self-start'>이번 달 남은 투표: {remainingVotes} / {MAX}</span>
-			<div className='flex-1 min-h-0 bg-(--c2) rounded-2xl relative'>
+			<div className='flex-1 min-h-0 bg-white/10 rounded-2xl relative'>
 				<SelectWrap>
 					{loading && <div className='p-4 font-bold'>불러오는 중...</div>}
 					{!loading &&

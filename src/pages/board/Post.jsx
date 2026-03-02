@@ -28,13 +28,13 @@ export default function Post() {
 
 			{isValidBoardNo && !loading && !error && data && (
 				<>
-					<h3 className='bg-white/20 rounded-md py-2 px-4 text-left font-semibold'>{title}</h3>
+					<h3 className='bg-white/10 rounded-md py-2 px-4 text-left font-semibold'>{title}</h3>
 					<div className='flex justify-between border-b pb-2 px-4 font-medium'>
 						<span>{writer}</span>
 						<span>{createdAt}</span>
 					</div>
 
-					<div className='bg-white/20 rounded-2xl min-h-0 flex-1 p-4 text-left whitespace-pre-wrap'>{content}</div>
+					<div className='bg-white/10 rounded-2xl min-h-0 flex-1 p-4 text-left whitespace-pre-wrap'>{content}</div>
 				</>
 			)}
 

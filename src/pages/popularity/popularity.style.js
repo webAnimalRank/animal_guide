@@ -15,12 +15,10 @@ export const SelectWrap = styled(CardWrap).attrs({
 	}
 `;
 
-export const SelectBox = styled(Glass).attrs({
-	as: 'label',
+export const SelectBox = styled.label.attrs({
 	className:
-		'pt-4 pb-2 px-7 w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name'
+		'pt-2 pb-1 px-7 rounded-xl w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name bg-white/10'
 })`
-	background-color: rgba(255, 255, 255, 0.3);
 	@media (max-width: 480px) {
 		gap: 0.3rem;
 		padding-inline: 0;
@@ -34,7 +32,7 @@ export const SelectBox = styled(Glass).attrs({
 		cursor: default;
 	}
 	&:has(:checked) {
-		background-color: var(--p);
+		background-color: rgba(255, 255, 255, 0.3);
 	}
 	&:has(:checked) .txt {
 		background-color: var(--c);
@@ -47,15 +45,14 @@ export const SelectBox = styled(Glass).attrs({
 	}
 `;
 
-export const Txt = styled(Glass).attrs({
+export const Txt = styled.div.attrs({
 	className:
-		'txt rounded-none absolute inset-x-0 bottom-0 py-2 flex items-center justify-center font-bold text-xl opacity-0 text-white text-shadow-(--shadow2)'
+		'txt rounded-none absolute inset-x-0 bottom-0 py-2 flex items-center justify-center font-bold text-xl opacity-0 text-white text-shadow-(--shadow2) bg-(--p)'
 })`
 	@media (max-width: 480px) {
 		font-size: 0.9rem;
 		padding-block: 0.3rem;
 	}
-	background-color: var(--p);
 	transition: opacity 0.1s ease-out;
 `;
 
