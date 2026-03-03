@@ -20,7 +20,7 @@ export const Form = styled.form.attrs({
 `;
 
 export const Field = styled.label.attrs({
-	className: 'bg-white rounded-2xl p-4'
+	className: 'bg-white/20 rounded-2xl p-4'
 })`
 	input {
 		font-family: Pretendard;

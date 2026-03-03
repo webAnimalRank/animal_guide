@@ -32,22 +32,19 @@ export const SelectBox = styled.label.attrs({
 		cursor: default;
 	}
 	&:has(:checked) {
-		background-color: rgba(255, 255, 255, 0.3);
-	}
-	&:has(:checked) .txt {
-		background-color: var(--c);
+		background-color: color-mix(in oklab, var(--p) 30%, transparent);
 	}
 	&:hover .txt {
 		opacity: 1;
 	}
 	&:has(:disabled) .txt {
-		background-color: slategray;
+		background-color: var(--cw);
 	}
 `;
 
 export const Txt = styled.div.attrs({
 	className:
-		'txt rounded-none absolute inset-x-0 bottom-0 py-2 flex items-center justify-center font-bold text-xl opacity-0 text-white text-shadow-(--shadow2) bg-(--p)'
+		'txt rounded-none absolute inset-x-0 bottom-0 py-2 flex items-center justify-center font-bold text-xl opacity-0 text-white text-shadow-(--shadow2) bg-(--c2)'
 })`
 	@media (max-width: 480px) {
 		font-size: 0.9rem;
@@ -86,10 +83,10 @@ export const Close = styled.button.attrs({
 	className: 'absolute w-8 max-sm:w-7 aspect-square top-0 right-0 rounded-full'
 })`
 	transition: background-color 0.1s ease-out;
-	background: var(--c) url(${base}/close.svg) center / 80% no-repeat;
+	background: var(--c2) url(${base}/close.svg) center / 80% no-repeat;
 	translate: 40% -40%;
 	&:hover {
-		background-color: var(--c2);
+		background-color: var(--cw);
 	}
 	@media (max-width: 480px) {
 		width: 1.4rem;
@@ -102,9 +99,6 @@ export const Submit = styled(Btn).attrs({
 })`
 	&:disabled {
 		pointer-events: none;
-		background: rgba(0, 0, 0, 0.3);
-		color: rgba(255, 255, 255, 0.6);
-		text-shadow: initial;
-		box-shadow: initial;
+		opacity: 0.5;
 	}
 `;

@@ -27,12 +27,9 @@ export const Rank = styled.div.attrs({
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
-export const Menu = styled(Glass).attrs({
-	as: Link,
-	className: 'font-extrabold text-xl flex items-center justify-center gap-2 w-40 p-4'
+export const Menu = styled(Link).attrs({
+	className: 'font-bold text-xl flex items-center justify-center gap-2 w-40 p-4 bg-white/20 rounded-xl'
 })`
-	text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-	transition: color 0.1s ease-out;
 	&:nth-child(1):hover {
 		color: #5fa0d7;
 	}
