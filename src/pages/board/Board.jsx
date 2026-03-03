@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Wrap } from '../../components/style';
+import { Btn, Wrap } from '../../components/style';
 import { TabWrap, TabBtn } from './board.style';
 import DataTable from './DataTable';
 import { usePosts } from './usePosts';
+import { Link } from 'react-router-dom';
 
 export default function Board() {
-
   // 공지/자유 탭 상태
   const [activeTab, setActiveTab] = useState('notice');
 
@@ -26,7 +26,7 @@ export default function Board() {
     search,
     keyword,
     page,
-    size,
+    size
   });
 
   /**
@@ -40,21 +40,26 @@ export default function Board() {
   };
 
   return (
-    <Wrap className="gap-5">
-      <TabWrap>
-        <TabBtn
-          className={activeTab === 'notice' ? 'active' : ''}
-          onClick={() => changeTab('notice')}
-        >
-          공지사항
-        </TabBtn>
-        <TabBtn
-          className={activeTab === 'free' ? 'active' : ''}
-          onClick={() => changeTab('free')}
-        >
-          자유 게시판
-        </TabBtn>
-      </TabWrap>
+    <Wrap className="gap-5 relative">
+      <div className="flex justify-between">
+        <TabWrap>
+          <TabBtn
+            className={activeTab === 'notice' ? 'active' : ''}
+            onClick={() => changeTab('notice')}
+          >
+            공지사항
+          </TabBtn>
+          <TabBtn
+            className={activeTab === 'free' ? 'active' : ''}
+            onClick={() => changeTab('free')}
+          >
+            자유 게시판
+          </TabBtn>
+        </TabWrap>
+        <Btn as={Link} to="write">
+          글 작성
+        </Btn>
+      </div>
 
       {loading ? (
         <div>Loading...</div>
