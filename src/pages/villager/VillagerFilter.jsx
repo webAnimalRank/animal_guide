@@ -13,7 +13,7 @@ export default function VillagerFilter({ filterConfigs, keyword, setKeyword, onR
 				value={keyword}
 				onChange={(e) => {
 					setKeyword(e.target.value);
-					onChange();
+					onChange?.();
 				}}
 			/>
 			<SelectWrap className={isFilter ? '' : 'hide'}>
@@ -23,7 +23,7 @@ export default function VillagerFilter({ filterConfigs, keyword, setKeyword, onR
 						value={f.value}
 						onChange={(e) => {
 							f.setState(e.target.value);
-							onChange();
+							onChange?.();
 						}}
 					>
 						{f.options.map((opt) => (

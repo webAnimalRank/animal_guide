@@ -16,7 +16,7 @@ export default function Villager() {
 	};
 
 	const { typeOptions } = useVillagerTypes();
-	const { filters, filterConfigs, resetFilters, keyword, setKeyword } = useVillagerFilters(closeModal, typeOptions);
+	const { filters, filterConfigs, resetFilters, keyword, setKeyword } = useVillagerFilters(typeOptions, closeModal);
 	const { data: villagers, loading, error } = useVillagersSearch(filters);
 
 	return (

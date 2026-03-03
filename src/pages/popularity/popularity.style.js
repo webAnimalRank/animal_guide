@@ -17,7 +17,7 @@ export const SelectWrap = styled(CardWrap).attrs({
 
 export const SelectBox = styled.label.attrs({
   className:
-    'pt-2 pb-1 px-7 rounded-xl w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name bg-white/10'
+    'p-2 pb-1 aspect-3/4 rounded-xl w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name bg-white/10'
 })`
   @media (max-width: 480px) {
     gap: 0.3rem;

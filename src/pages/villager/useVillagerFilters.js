@@ -22,10 +22,10 @@ const filterDebut = [
 	{ value: 'WW', label: '놀러오세요 동물의 숲' },
 	{ value: 'CF', label: '타운으로 놀러가요 동물의 숲' },
 	{ value: 'NL', label: '튀어나와요 동물의 숲' },
-	{ value: 'NH', label: '모여봐요 동물의 숲' },
+	{ value: 'NH', label: '모여봐요 동물의 숲' }
 ];
 
-export const useVillagerFilters = (onFilterChange, typeOptions = []) => {
+export const useVillagerFilters = (typeOptions = [], onFilterChange) => {
 	const [type, setType] = useState('');
 	const [sex, setSex] = useState('');
 	const [birthMonth, setBirthMonth] = useState('');
@@ -49,7 +49,7 @@ export const useVillagerFilters = (onFilterChange, typeOptions = []) => {
 		setBirthMonth('');
 		setDebut('');
 		setKeyword('');
-		onFilterChange();
+		onFilterChange?.();
 	};
 
 	const filterConfigs = [
