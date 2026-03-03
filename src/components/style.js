@@ -152,3 +152,9 @@ export const Loading = styled.div.attrs({
 })`
 	background: url(${base}/load.svg) center / contain no-repeat;
 `;
+
+export const Search = styled.input.attrs({
+	type: 'search',
+	className:
+		'outline-none font-bold w-50 py-2 px-4 rounded-lg bg-white/60 text-(--c) backdrop-blur-3xl shadow-(--shadow)'
+})``;

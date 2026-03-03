@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Filter, Nav, Search, Select, SelectWrap } from './villager.style';
+import { Filter, Nav, Select, SelectWrap } from './villager.style';
+import { Search } from '../../components/style';
 
 export default function VillagerFilter({ filterConfigs, keyword, setKeyword, onReset, onChange }) {
 	const [isFilter, setIsFilter] = useState(false);

@@ -88,12 +88,6 @@ export const Select = styled.select.attrs({
 	background: url(${base}/fold_w.svg) right / 10px no-repeat;
 `;
 
-export const Search = styled.input.attrs({
-	type: 'search',
-	className:
-		'outline-none font-bold w-50 py-2 px-4 rounded-lg bg-white/60 text-(--c) backdrop-blur-3xl shadow-(--shadow)'
-})``;
-
 export const Filter = styled.button.attrs({
 	type: 'button',
 	className:
