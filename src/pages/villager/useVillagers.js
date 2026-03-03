@@ -49,6 +49,7 @@ export function useVillagersSearch({ type = '', sex = '', birthMonth = '', debut
           villagerNo: v.villagerNo,
           villagerName: v.villagerName,
           villagerImageIcon: v.villagerImageIcon,
+          villagerImage: v.villagerImage,
           villagerBirth: v.villagerBirth
         }));
 

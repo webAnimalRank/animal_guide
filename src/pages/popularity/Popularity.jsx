@@ -1,5 +1,5 @@
 ﻿import { useEffect, useMemo, useState } from 'react';
-import { Search, Wrap } from '../../components/style';
+import { Wrap } from '../../components/style';
 import {
   SelectBox,
   SelectWrap,
@@ -10,17 +10,15 @@ import {
   CheckWrap
 } from './popularity.style';
 import { useVillagerFilters } from '../villager/useVillagerFilters';
-import { useVillagerTypes } from '../villager/useVillagers';
+import { useVillagerTypes, useVillagersSearch } from '../villager/useVillagers';
 import VillagerFilter from '../villager/VillagerFilter';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 const MAX = 3;
 
 export default function Popularity() {
-  const [villagers, setVillagers] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [remainingVotes, setRemainingVotes] = useState(MAX);
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const { typeOptions } = useVillagerTypes();
 
@@ -28,6 +26,7 @@ export default function Popularity() {
 
   const { filters, filterConfigs, resetFilters, keyword, setKeyword } =
     useVillagerFilters(closeModal, typeOptions);
+  const { data: villagers, loading, error } = useVillagersSearch(filters);
 
   const selectedVillagers = useMemo(() => {
     const byId = new Map(villagers.map((v) => [v.villagerNo, v]));
@@ -37,19 +36,9 @@ export default function Popularity() {
   useEffect(() => {
     const load = async () => {
       try {
-        setLoading(true);
-        const [villagerRes, statusRes] = await Promise.all([
-          fetch(`${API_URL}/api/villagers`),
-          fetch(`${API_URL}/api/villagers/votes/me`, {
-            credentials: 'include'
-          })
-        ]);
-
-        if (!villagerRes.ok) {
-          throw new Error('주민 목록 조회 실패');
-        }
-        const villagerData = await villagerRes.json();
-        setVillagers(Array.isArray(villagerData) ? villagerData : []);
+        const statusRes = await fetch(`${API_URL}/api/villagers/votes/me`, {
+          credentials: 'include'
+        });
 
         if (statusRes.ok) {
           const statusData = await statusRes.json();
@@ -59,10 +48,7 @@ export default function Popularity() {
         }
       } catch (e) {
         console.error(e);
-        setVillagers([]);
         setRemainingVotes(MAX);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -136,7 +122,11 @@ export default function Popularity() {
         />
         <SelectWrap>
           {loading && <div className="p-4 font-bold">불러오는 중...</div>}
+          {!loading && error && (
+            <div className="p-4 font-bold text-red-500">목록 조회에 실패했습니다.</div>
+          )}
           {!loading &&
+            !error &&
             villagers.map((v) => {
               const isChecked = selectedIds.includes(v.villagerNo);
               const isFull = selectedIds.length >= remainingVotes;
