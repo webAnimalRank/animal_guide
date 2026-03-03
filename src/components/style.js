@@ -80,34 +80,13 @@ export const Glass = styled.div.attrs({
 	className: 'bg-(image:--glass2) shadow-(--shadow) rounded-2xl border-solid border-1 border-white/10'
 })``;
 
-export const Scroll = styled.div.attrs({
-	className: 'overflow-y-auto'
-})`
-	&::-webkit-scrollbar {
-		width: 1.4rem;
-		background-color: transparent;
-		border-radius: 20px;
-	}
-	&::-webkit-scrollbar-thumb {
-		background-color: rgba(255, 255, 255, 0.8);
-		border-radius: 2rem;
-		border: 0.6rem solid transparent;
-		background-clip: padding-box;
-	}
-
-	@media (max-width: 480px) {
-		&::-webkit-scrollbar {
-			display: none;
-		}
-	}
-`;
-
 export const Box = styled.div.attrs({
 	className: 'rounded-3xl p-5 h-max flex flex-col gap-4 bg-white/10 shadow-(--shadow)'
 })``;
 
 export const Wrap = styled.div.attrs({
-	className: 'max-w-7xl w-full h-max min-h-full px-6 pt-23 max-sm:pt-16 pb-6 max-sm:pb-4 max-sm:px-4 flex flex-col gap-5'
+	className:
+		'max-w-7xl w-full h-max min-h-full px-6 pt-23 max-sm:pt-16 pb-6 max-sm:pb-4 max-sm:px-4 flex flex-col gap-5'
 })``;
 
 export const Btn = styled.button.attrs({

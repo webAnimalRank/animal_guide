@@ -1,9 +1,9 @@
 import styled, { keyframes } from 'styled-components';
-import { Glass, Loading, Scroll } from '../../components/style';
+import { Loading } from '../../components/style';
 
 const base = '/animal_guide';
 
-export const CardWrap = styled(Scroll).attrs({
+export const CardWrap = styled.div.attrs({
 	className: 'w-full grid gap-2 p-1'
 })`
 	grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
