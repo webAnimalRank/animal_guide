@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Loading } from '../../components/style';
+import { Btn, Loading } from '../../components/style';
 
 const base = '/animal_guide';
 
@@ -26,9 +26,9 @@ to { opacity: 1 }
 
 export const Card = styled.div.attrs({
 	className:
-		'flex flex-col h-90 p-10 max-sm:p-6 rounded-4xl flex-row gap-8 max-sm:gap-5 backdrop-blur-xl font-bold opacity-0 max-md:h-auto max-md:w-120 max-md:flex-col max-sm:w-100 font-(family-name:--f) bg-(--c)/60 shadow-(--shadow) text-white/80'
+		'flex flex-col h-90 p-10 max-sm:p-6 rounded-4xl flex-row gap-8 max-sm:gap-5 backdrop-blur-xl font-bold opacity-0 max-md:h-auto max-md:w-120 max-md:flex-col max-sm:w-100 font-(family-name:--f) bg-(--c)/60 shadow-(--shadowW) text-white/80'
 })`
-	animation: ${fade} 0.2s ease-out forwards;
+	animation: ${fade} 0.3s ease-out forwards;
 	@media (max-width: 480px) {
 		width: 20rem;
 		padding: 1rem 1.4rem;
@@ -54,12 +54,12 @@ export const List = styled.div.attrs({
 	}
 `;
 
-export const Close = styled.button.attrs({
+export const Close = styled(Btn).attrs({
 	type: 'button',
-	className: 'text-sm font-bold opacity-0 outline-none text-white text-shadow-(--shadow)'
+	className: 'text-sm outline-none'
 })`
 	transition: background-color 0.1s ease-out;
-	animation: ${fade} 0.2s ease-out forwards;
+	animation: ${fade} 0.3s ease-out forwards;
 `;
 
 export const Nav = styled.nav.attrs({

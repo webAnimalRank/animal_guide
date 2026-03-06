@@ -19,7 +19,7 @@
 	--glass: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
 	--glass2: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6));
 	--shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-	--shadowW: 0 0 4px rgba(255, 255, 255, 1);
+	--shadowW: 0 0 4px rgba(255, 255, 255, 0.4);
 	--shadow2: 0 0 4px rgba(0, 0, 0, 0.8);
 	--shadowB: 0 2px 4px rgba(0, 0, 0, 0.25);
 	--gold: #efb70030;

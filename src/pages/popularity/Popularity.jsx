@@ -45,11 +45,13 @@ export default function Popularity() {
 
 	return (
 		<Wrap className='h-0! fixed max-sm:inset-0'>
-			<h2 className='font-bold text-2xl self-start'>{POPULARITY_MESSAGES.TITLE}</h2>
-			<span className='self-start'>
-				{POPULARITY_MESSAGES.INSTRUCTION} <strong>{maxVotes}명</strong>
-				{POPULARITY_MESSAGES.INSTRUCTION_END}
-			</span>
+			<div className='flex justify-between items-center relative'>
+				<h2 className='font-bold text-2xl self-start'>{POPULARITY_MESSAGES.TITLE}</h2>
+				<span className='peer'>투표 방법</span>
+				<div className='absolute z-50 right-0 top-full p-2 bg-(--c) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible peer-hover:visible'>
+					가장 마음에 드는 주민 <strong>{maxVotes}명</strong>을 선택하고 <strong>투표 완료</strong> 버튼을 눌러주세요.
+				</div>
+			</div>
 			<div className='flex-1 min-h-0 bg-white/10 rounded-2xl relative flex flex-col gap-2 p-2'>
 				<VillagerFilter {...filterProps} />
 				<VillagerList {...villagerListProps} />
