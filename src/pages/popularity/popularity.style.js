@@ -4,6 +4,38 @@ import { Btn, Glass } from '../../components/style';
 
 const base = '/animal_guide';
 
+export const TipBox = styled.div.attrs({
+	tabIndex: 0
+})``;
+
+export const Tip = styled.button.attrs({
+	type: 'button',
+	className: 'pr-6'
+})`
+	background: url(${base}/tip.svg) right center / 20px no-repeat;
+`;
+
+export const Close = styled.button.attrs({
+	type: 'button',
+	className: 'w-full mt-2 text-xs border py-1 rounded-sm'
+})`
+	@media (min-width: 480px) {
+		display: none;
+	}
+`;
+
+export const TipText = styled.div.attrs({
+	className:
+		'absolute z-50 right-0 top-full p-2 bg-(--c) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible'
+})`
+	${TipBox}:hover & {
+		visibility: visible;
+	}
+	&:has(${Close}:active) {
+		visibility: hidden;
+	}
+`;
+
 export const SelectWrap = styled(CardWrap).attrs({
 	className: 'h-full gap-2 rounded-2xl overflow-y-auto'
 })`
@@ -86,7 +118,7 @@ export const CheckBox = styled(Glass).attrs({
 	}
 `;
 
-export const Close = styled.button.attrs({
+export const Cancel = styled.button.attrs({
 	type: 'button',
 	className: 'absolute w-8 max-sm:w-7 aspect-square top-0 right-0 rounded-full'
 })`

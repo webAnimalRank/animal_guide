@@ -1,4 +1,4 @@
-import { CheckBox, Close } from './popularity.style';
+import { CheckBox, Cancel } from './popularity.style';
 
 /**
  * 선택된 주민 박스
@@ -8,7 +8,7 @@ export function SelectedVillagerBox({ villager, onRemove }) {
 		<CheckBox key={villager.villagerNo}>
 			<img className='object-contain min-h-0 flex-1' src={villager.villagerImageIcon} alt={villager.villagerName} />
 			{villager.villagerName}
-			<Close onClick={() => onRemove(villager)} aria-label={`${villager.villagerName} 제거`} />
+			<Cancel onClick={() => onRemove(villager)} aria-label={`${villager.villagerName} 제거`} />
 		</CheckBox>
 	);
 }

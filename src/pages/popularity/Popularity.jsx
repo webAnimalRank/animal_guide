@@ -1,12 +1,12 @@
 ﻿import { Wrap } from '../../components/style';
-import { Submit } from './popularity.style';
+import { Close, Submit, Tip, TipBox, TipText } from './popularity.style';
 import { useVillagerFilters } from '../villager/useVillagerFilters';
 import { useVillagerTypes, useVillagersSearch } from '../villager/useVillagers';
 import VillagerFilter from '../villager/VillagerFilter';
 import { usePopularityVotes } from './usePopularityVotes';
 import { VillagerList } from './VillagerList';
 import { SelectionPanel } from './SelectionPanel';
-import { POPULARITY_MESSAGES, POPULARITY_CONFIG } from './popularity.constants';
+import { POPULARITY_MESSAGES } from './popularity.constants';
 
 export default function Popularity() {
 	const { typeOptions } = useVillagerTypes();
@@ -47,10 +47,13 @@ export default function Popularity() {
 		<Wrap className='h-0! fixed max-sm:inset-0'>
 			<div className='flex justify-between items-center relative'>
 				<h2 className='font-bold text-2xl self-start'>{POPULARITY_MESSAGES.TITLE}</h2>
-				<span className='peer'>투표 방법</span>
-				<div className='absolute z-50 right-0 top-full p-2 bg-(--c) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible peer-hover:visible'>
-					가장 마음에 드는 주민 <strong>{maxVotes}명</strong>을 선택하고 <strong>투표 완료</strong> 버튼을 눌러주세요.
-				</div>
+				<TipBox>
+					<Tip>투표 방법</Tip>
+					<TipText>
+						가장 마음에 드는 주민 <strong>{maxVotes}명</strong>을 선택하고 <strong>투표 완료</strong> 버튼을 눌러주세요.
+						<Close>닫기</Close>
+					</TipText>
+				</TipBox>
 			</div>
 			<div className='flex-1 min-h-0 bg-white/10 rounded-2xl relative flex flex-col gap-2 p-2'>
 				<VillagerFilter {...filterProps} />
