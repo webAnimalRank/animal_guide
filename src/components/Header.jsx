@@ -14,27 +14,28 @@ const links = [
 	{ to: 'board', label: '커뮤니티' }
 ];
 
-export default function Header() {
+export default function Header({ member, setMember }) {
+	// const [member, setMember] = useState(null); // 로그인 정보 -> 전역관리로 바꿔서 삭제
 	const [menu, setMenu] = useState(false);
-	const [member, setMember] = useState(null); // 로그인 정보
-	const navigate = useNavigate(); //useNavigate 추가로 import됨
 	const [isIcon, setIsIcon] = useState(false);
+	const navigate = useNavigate(); //useNavigate 추가로 import됨
 
-	// 세션 체크
-	useEffect(() => {
-		axios
-			.get(`${API_URL}/api/members/me`)
-			.then((res) => setMember(res.data))
-			.catch(() => setMember(null)); // 로그인 안 됨
-	}, []);
+	// 세션 체크 -> 전역관리로 바꿔서 삭제
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`${API_URL}/api/members/me`)
+	// 		.then((res) => setMember(res.data))
+	// 		.catch(() => setMember(null)); // 로그인 안 됨
+	// }, []);
 
 	const handleLogout = () => {
 		axios
-			.post(`${API_URL}/api/members/logout`) // 로그아웃 API
+			.post(`${API_URL}/api/members/logout`)
 			.then(() => {
 				setMember(null);
 				alert('로그아웃 되었습니다.');
 				navigate('/'); // 홈으로 이동
+				window.location.reload();
 			})
 			.catch((err) => {
 				console.error('로그아웃 실패', err);

@@ -2,10 +2,10 @@ import { Glass } from '../../components/style';
 import { Edit, EditList, Form, Label } from './mypage.style';
 import mini from '../../assets/img/tom_icon.png';
 import { useEffect, useState } from 'react';
-import { getMyInfo } from '../member/memberApi';
+import { getMyInfo, updateMember } from '../member/memberApi';
 
-export default function MyInfo() {
-	const [member, setMember] = useState(null);
+export default function MyInfo({ member, setMember }) {
+	// const [member, setMember] = useState(null); -> 전역관리로 바꿈
 	const [data, setData] = useState([
 		{ label: '별명', type: 'text', value: '' },
 		{ label: '이메일', type: 'email', value: '' },
@@ -13,26 +13,67 @@ export default function MyInfo() {
 		{ label: '비밀번호 확인', type: 'password', value: '' }
   	]);
 
-	useEffect(() => {
-		// 로그인된 유저 정보 가져오기
-		getMyInfo()
-		.then(res => {
-			setMember(res.data);
+  useEffect(() => {
+    if (member) {
+			setData([
+				{ label: '별명', type: 'text', value: member.memberName },
+				{ label: '이메일', type: 'email', value: member.memberEmail },
+				{ label: '비밀번호', type: 'password', value: '' },
+				{ label: '비밀번호 확인', type: 'password', value: '' }
+			]);
+		}
+  }, [member]);
 
-        // 폼에 값 세팅
+  if (!member) return <div>회원정보 찾을 수 없음</div>;
+
+  const handleChange = (index, value) => {
+    const newData = [...data];
+    newData[index].value = value;
+    setData(newData);
+  };
+
+  const handleUpdate = () => {
+    // 비밀번호 확인
+    if (data[2].value !== data[3].value) {
+      alert("비밀번호가 일치하지 않습니다");
+      return;
+    }
+
+    const updateData = {
+      memberName: data[0].value,
+      memberEmail: data[1].value
+    };
+
+    if(data[2].value){
+      updateData.memberPw = data[2].value;
+    }
+
+    updateMember(member.memberNo, updateData)
+      .then(() => {
+
+        const newMember = {
+          ...member,
+          memberName: data[0].value,
+          memberEmail: data[1].value
+        };
+
+        setMember(newMember);
+
         setData([
-          { label: '별명', type: 'text', value: res.data.memberName },
-          { label: '이메일', type: 'email', value: res.data.memberEmail },
+          { label: '별명', type: 'text', value: newMember.memberName },
+          { label: '이메일', type: 'email', value: newMember.memberEmail },
           { label: '비밀번호', type: 'password', value: '' },
           { label: '비밀번호 확인', type: 'password', value: '' }
         ]);
+
+        alert("회원정보 수정 완료");
+        //window.location.reload();
+
       })
       .catch(() => {
-        setMember(null); // 로그인 안 된 상태
+        alert("수정 실패");
       });
-  }, []);
-
-  if (!member) return <div>회원정보 찾을 수 없음</div>;
+  };
 
 	return (
 		<div className='flex flex-col gap-4 px-20 max-lg:px-10 max-sm:px-5'>
@@ -44,17 +85,22 @@ export default function MyInfo() {
 					{member.memberId}
 				</div>
 				<EditList>
-					{data.map((d) => (
+					{data.map((d, i) => (
 						<Label key={d.label}>
 							<span>{d.label}</span>
 							<div className='px-4 py-2 rounded-xl flex items-center font-semibold w-full max-sm:rounded-lg bg-white/20'>
-								<input type={d.type} defaultValue={d.value} className='w-full font-(family-name:--f)' />
+								<input
+                  type={d.type}
+                  value={d.value}
+                  onChange={(e) => handleChange(i, e.target.value)}
+                  className='w-full font-(family-name:--f)'
+                />
 							</div>
 						</Label>
 					))}
 				</EditList>
 			</Form>
-			<Edit>수정</Edit>
+			<Edit onClick={handleUpdate}>수정</Edit>
 		</div>
 	);
 }
