@@ -1,19 +1,42 @@
 import { CheckWrap } from './popularity.style';
-import { SelectedVillagerBox, EmptyVoteSlot } from './SelectedVillagerBox';
 import { POPULARITY_MESSAGES } from './popularity.constants';
+import { usePopularityStore } from './useStore';
+import { CheckBox, Cancel } from './popularity.style';
 
-/**
- * 선택된 주민들 표시 영역
- */
-export function SelectionPanel({ selectedVillagers, selectedIds, remainingVotes, onRemove }) {
+/* 선택된 주민 박스 */
+function Selected({ villager, onRemove }) {
+	return (
+		<CheckBox key={villager.villagerNo}>
+			<img className='object-contain min-h-0 flex-1' src={villager.villagerImageIcon} alt={villager.villagerName} />
+			{villager.villagerName}
+			<Cancel onClick={() => onRemove(villager)} aria-label={`${villager.villagerName} 제거`} />
+		</CheckBox>
+	);
+}
+
+/* 선택 가능한 빈 슬롯 */
+function Empty({ label = '선택 가능' }) {
+	return (
+		<CheckBox className='pt-4 gap-2 empty'>
+			<div className='flex-1 aspect-square self-center border-2 border-dashed opacity-50 rounded-xl' />
+			{label}
+		</CheckBox>
+	);
+}
+
+export function SelectionPanel() {
+	const { selectedIds, selectedVillagerCache, remainingVotes, toggleVillager } = usePopularityStore();
+
+	const selectedVillagers = selectedIds.map((id) => selectedVillagerCache.get(id)).filter(Boolean);
+
 	return (
 		<CheckWrap>
 			{selectedVillagers.map((villager) => (
-				<SelectedVillagerBox key={villager.villagerNo} villager={villager} onRemove={onRemove} />
+				<Selected key={villager.villagerNo} villager={villager} onRemove={(v) => toggleVillager(v, false)} />
 			))}
 			{selectedIds.length < remainingVotes &&
 				Array.from({ length: remainingVotes - selectedIds.length }).map((_, i) => (
-					<EmptyVoteSlot key={`empty-${i}`} label={POPULARITY_MESSAGES.EMPTY_OPTION} />
+					<Empty key={`empty-${i}`} label={POPULARITY_MESSAGES.EMPTY_OPTION} />
 				))}
 		</CheckWrap>
 	);

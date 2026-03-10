@@ -26,10 +26,12 @@ export const Close = styled.button.attrs({
 
 export const TipText = styled.div.attrs({
 	className:
-		'absolute z-50 right-0 top-full p-2 bg-(--c) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible'
+		'absolute z-50 right-0 top-full p-2 bg-(--c) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible opacity-0'
 })`
+	transition: opacity 0.2s ease-out;
 	${TipBox}:hover & {
 		visibility: visible;
+		opacity: 1;
 	}
 	&:has(${Close}:active) {
 		visibility: hidden;

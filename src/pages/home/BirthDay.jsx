@@ -1,7 +1,7 @@
 import { Box, PageBtn } from '../../components/style';
 import { List, Title3 } from './home.style';
-import { useVillagersSearch } from '../villager/useVillagers';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useVillagerStore } from '../villager/useStore';
 
 const formatBirthday = (birth) => {
 	if (!birth || typeof birth !== 'string' || !birth.includes('-')) return '-';
@@ -32,12 +32,20 @@ export default function BirthDay() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 5;
 	const currentMonth = new Date().getMonth() + 1;
-	const { data: villagers, loading, error } = useVillagersSearch({ birthMonth: currentMonth });
-	const monthVillagers = [...(villagers ?? [])].sort((a, b) => {
-		const aDay = Number(String(a?.villagerBirth ?? '').split('-')[1]) || 99;
-		const bDay = Number(String(b?.villagerBirth ?? '').split('-')[1]) || 99;
-		return aDay - bDay;
-	});
+
+	const { birthdayVillagers, birthdayLoading, birthDayError, fetchBirthdayVillagers } = useVillagerStore();
+
+	useEffect(() => {
+		fetchBirthdayVillagers(currentMonth);
+	}, []);
+
+	const monthVillagers = useMemo(() => {
+		return [...birthdayVillagers].sort((a, b) => {
+			const aDay = Number(a?.villagerBirth?.split('-')[1]) || 99;
+			const bDay = Number(b?.villagerBirth?.split('-')[1]) || 99;
+			return aDay - bDay;
+		});
+	}, [birthdayVillagers]);
 
 	const totalPages = Math.ceil(monthVillagers.length / itemsPerPage);
 	const startIndex = (currentPage - 1) * itemsPerPage;
@@ -52,9 +60,9 @@ export default function BirthDay() {
 		return Number(m) === todayMonth && Number(d) === todayDay;
 	};
 
-	const statusMessage = loading
+	const statusMessage = birthdayLoading
 		? '불러오는 중...'
-		: error
+		: birthDayError
 			? '데이터를 불러오지 못했습니다.'
 			: monthVillagers.length === 0
 				? `${currentMonth}월 생일 주민이 없습니다.`
@@ -77,7 +85,7 @@ export default function BirthDay() {
 						/>
 					))}
 			</ul>
-			{!loading && !error && monthVillagers.length > 0 && (
+			{!birthdayLoading && !birthDayError && monthVillagers.length > 0 && (
 				<div className='flex gap-2 justify-center items-center'>
 					<PageBtn
 						onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

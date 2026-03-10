@@ -2,16 +2,10 @@ const DEBUT_LABEL_MAP = {
 	DNM: '동물의 숲',
 	'DNM+': '동물의 숲+',
 	E_PLUS: '동물의 숲 e+',
-	'AC (GC)': '동물의 숲 (게임큐브)',
-	'AC(GC)': '동물의 숲 (게임큐브)',
 	WW: '놀러오세요 동물의 숲',
 	CF: '타운으로 놀러가요 동물의 숲',
 	NL: '튀어나와요 동물의 숲',
-	HHD: '해피 홈 디자이너 (닌텐도 3DS)',
-	AF: '아미보 페스티벌 (Wii U)',
-	PC: '포켓 캠프 (iOS / Android)',
-	NH: '모여봐요 동물의 숲',
-	HHP: '해피 홈 파라다이스 (닌텐도 스위치, DLC)'
+	NH: '모여봐요 동물의 숲'
 };
 
 const formatBirthday = (birthString) => {

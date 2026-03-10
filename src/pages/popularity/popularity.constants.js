@@ -7,12 +7,3 @@ export const POPULARITY_MESSAGES = {
 	SUBMIT_READY: '투표 완료',
 	SUBMITTING: '처리 중...'
 };
-
-export const POPULARITY_CONFIG = {
-	MAX_VOTES: 3,
-	BUTTON_STATES: {
-		DESELECT: '해제',
-		UNAVAILABLE: '선택 불가',
-		SELECT: '선택'
-	}
-};
