@@ -3,13 +3,13 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock-upgrade';
 import { Card, Close, List, Load } from './villager.style';
 import { Glass } from '../../components/style';
 import { getDetailData } from './villager.config';
-import { useVillagerStore } from './useStore';
+import { useVillagerDetailStore } from './useDetailStore';
 
 export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
 	const [imgLoad, setImgLoad] = useState(false);
 	const dialogRef = useRef(null);
 
-	const { detail, detailLoading, detailError, fetchVillagerDetail, clearDetail } = useVillagerStore();
+	const { detail, detailLoading, detailError, fetchVillagerDetail, clearDetail } = useVillagerDetailStore();
 
 	useEffect(() => {
 		if (isOpen && selectedNo) {

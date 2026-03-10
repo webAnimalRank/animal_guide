@@ -78,13 +78,7 @@ export const useVillagerStore = create((set, get) => ({
 					...typeOptions.map((opt) => ({ value: String(opt.type), label: opt.typeName }))
 				]
 			},
-			{
-				key: 'sex',
-				value: filters.sex,
-				setState: (val) => setFilter('sex', val),
-				label: '성별',
-				options: filterSex
-			},
+			{ key: 'sex', value: filters.sex, setState: (val) => setFilter('sex', val), label: '성별', options: filterSex },
 			{
 				key: 'birthMonth',
 				value: filters.birthMonth,
@@ -100,48 +94,5 @@ export const useVillagerStore = create((set, get) => ({
 				options: filterDebut
 			}
 		];
-	},
-
-	// 상세 조회용
-	detail: null,
-	detailLoading: false,
-	detailError: null,
-
-	// 상세 데이터 가져오기 액션
-	fetchVillagerDetail: async (villagerNo) => {
-		if (!villagerNo) return;
-
-		set({ detailLoading: true, detailError: null, detail: null });
-		try {
-			const response = await fetch(`${API_URL}/api/villagers/${villagerNo}`);
-			if (!response.ok) throw new Error('상세 정보 조회 실패');
-
-			const data = await response.json();
-			set({ detail: data, detailLoading: false });
-		} catch (err) {
-			set({ detailError: err, detailLoading: false });
-		}
-	},
-
-	// 상세 데이터 초기화 (모달 닫을 때 사용)
-	clearDetail: () => set({ detail: null, detailError: null }),
-
-	// 생일 전용
-	birthdayVillagers: [],
-	birthdayLoading: false,
-	birthdayError: null,
-
-	fetchBirthdayVillagers: async (month) => {
-		set({ birthdayLoading: true, birthdayError: null });
-
-		try {
-			const res = await fetch(`${API_URL}/api/villagers/search?birthMonth=${String(month).padStart(2, '0')}`);
-			if (!res.ok) throw new Error('데이터를 불러오는 데 실패했습니다.');
-
-			const data = await res.json();
-			set({ birthdayVillagers: data, birthdayLoading: false });
-		} catch (err) {
-			set({ birthdayError: err, birthdayLoading: false });
-		}
 	}
 }));

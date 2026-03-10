@@ -1,7 +1,7 @@
 import { Box, PageBtn } from '../../components/style';
 import { List, Title3 } from './home.style';
 import { useEffect, useMemo, useState } from 'react';
-import { useVillagerStore } from '../villager/useStore';
+import { useBirthdayStore } from './useStore';
 
 const formatBirthday = (birth) => {
 	if (!birth || typeof birth !== 'string' || !birth.includes('-')) return '-';
@@ -33,7 +33,7 @@ export default function BirthDay() {
 	const itemsPerPage = 5;
 	const currentMonth = new Date().getMonth() + 1;
 
-	const { birthdayVillagers, birthdayLoading, birthDayError, fetchBirthdayVillagers } = useVillagerStore();
+	const { birthdayVillagers, birthdayLoading, birthDayError, fetchBirthdayVillagers } = useBirthdayStore();
 
 	useEffect(() => {
 		fetchBirthdayVillagers(currentMonth);
