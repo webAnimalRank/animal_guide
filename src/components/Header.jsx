@@ -35,7 +35,6 @@ export default function Header({ member, setMember }) {
 				setMember(null);
 				alert('로그아웃 되었습니다.');
 				navigate('/'); // 홈으로 이동
-				window.location.reload();
 			})
 			.catch((err) => {
 				console.error('로그아웃 실패', err);
