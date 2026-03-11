@@ -9,8 +9,9 @@ export default function MyInfo({ member, setMember }) {
 	const [data, setData] = useState([
 		{ label: '별명', type: 'text', value: '' },
 		{ label: '이메일', type: 'email', value: '' },
-		{ label: '비밀번호', type: 'password', value: '' },
-		{ label: '비밀번호 확인', type: 'password', value: '' }
+		{ label: '새 비밀번호', type: 'password', value: '' },
+		{ label: '새 비밀번호 확인', type: 'password', value: '' },
+		{ label: '내 비밀번호', type: 'password', value: '' }
   	]);
 
   useEffect(() => {
@@ -18,8 +19,9 @@ export default function MyInfo({ member, setMember }) {
 			setData([
 				{ label: '별명', type: 'text', value: member.memberName },
 				{ label: '이메일', type: 'email', value: member.memberEmail },
-				{ label: '비밀번호', type: 'password', value: '' },
-				{ label: '비밀번호 확인', type: 'password', value: '' }
+				{ label: '새 비밀번호', type: 'password', value: '' },
+				{ label: '새 비밀번호 확인', type: 'password', value: '' },
+        { label: '내 비밀번호', type: 'password', value: '' }
 			]);
 		}
   }, [member]);
@@ -33,46 +35,68 @@ export default function MyInfo({ member, setMember }) {
   };
 
   const handleUpdate = () => {
-    // 비밀번호 확인
+    // 새 비밀번호 확인
     if (data[2].value !== data[3].value) {
-      alert("비밀번호가 일치하지 않습니다");
+      alert("새 비밀번호가 새 비밀번호 확인과 일치하지 않습니다");
       return;
     }
-
+    // 기존 비밀번호 입력 체크
+    if (!data[4].value) {
+      alert("기존 비밀번호를 입력해주세요");
+      return;
+    }
+  
     const updateData = {
       memberName: data[0].value,
-      memberEmail: data[1].value
+      memberEmail: data[1].value,
+      currentPw: data[4].value // 기존 비밀번호 항상 전달
     };
 
+    // 새 비밀번호 있을때만 추가
     if(data[2].value){
       updateData.memberPw = data[2].value;
     }
 
     updateMember(member.memberNo, updateData)
-      .then(() => {
+      .then((res) => {
+        // const newMember = {
+        //   ...member,
+        //   memberName: data[0].value,
+        //   memberEmail: data[1].value
+        // };
+        // setMember(newMember);
 
-        const newMember = {
-          ...member,
-          memberName: data[0].value,
-          memberEmail: data[1].value
-        };
+        setMember(res.data);
 
-        setMember(newMember);
-
+        // input 초기화
         setData([
-          { label: '별명', type: 'text', value: newMember.memberName },
-          { label: '이메일', type: 'email', value: newMember.memberEmail },
-          { label: '비밀번호', type: 'password', value: '' },
-          { label: '비밀번호 확인', type: 'password', value: '' }
+          { label: '별명', type: 'text', value: res.data.memberName },
+          { label: '이메일', type: 'email', value: res.data.memberEmail },
+          { label: '새 비밀번호', type: 'password', value: '' },
+          { label: '새 비밀번호 확인', type: 'password', value: '' },
+          { label: '내 비밀번호', type: 'password', value: '' }
         ]);
 
-        alert("회원정보 수정 완료");
-        //window.location.reload();
+        // setData([
+        //   { label: '별명', type: 'text', value: newMember.memberName },
+        //   { label: '이메일', type: 'email', value: newMember.memberEmail },
+        //   { label: '새 비밀번호', type: 'password', value: '' },
+        //   { label: '새 비밀번호 확인', type: 'password', value: '' },
+        //   { label: '내 비밀번호', type: 'password', value: '' }
+        // ]);
 
+        alert("회원정보 수정 완료");
       })
-      .catch(() => {
-        alert("수정 실패");
+      .catch((err) => {
+        console.log(err.response.data.message); // 서버 에러 확인
+        if (err.response?.data?.message) {
+          alert(err.response.data.message);
+        } else {
+          alert("수정 실패");
+        }
       });
+
+      
   };
 
 	return (

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Wrap } from '../../components/style';
 import { Fold } from './mypage.style';
 import MyInfo from './MyInfo';
 import MyPost from './MyPost';
 import MyPick from './MyPick';
-import axios from 'axios';
+//import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-export default function MyPage() {
+export default function MyPage({member, setMember}) {
 	const sectionData = [
 		{ key: 'info', title: '내 정보', component: MyInfo },
 		{ key: 'post', title: '내 작성글', component: MyPost },
@@ -23,15 +23,14 @@ export default function MyPage() {
 		}));
 	};
 
-	// 로그인한 회원 정보 가져오기
-	const [member, setMember] = useState(null);
-
-	useEffect(() => {
-		axios
-			.get(`${API_URL}/api/members/me`)
-			.then((res) => setMember(res.data))
-			.catch(() => setMember(null));
-	}, []);
+	// 로그인한 회원 정보 가져오기 -> 전역관리로 대체하기..
+	// const [member, setMember] = useState(null);
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`${API_URL}/api/members/me`)
+	// 		.then((res) => setMember(res.data))
+	// 		.catch(() => setMember(null));
+	// }, []);
 
 	if (!member) return <p>로그인이 필요합니다.</p>;
 
@@ -42,7 +41,7 @@ export default function MyPage() {
 					<Fold onClick={() => toggleSection(key)} className={!sections[key] ? 'fold' : ''}>
 						<h3 className='max-sm:text-xl'>{title}</h3>
 					</Fold>
-					{sections[key] && <Component />}
+					{sections[key] && <Component member={member} setMember={setMember} />}
 				</React.Fragment>
 			))}
 		</Wrap>

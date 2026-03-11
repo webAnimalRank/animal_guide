@@ -15,18 +15,9 @@ const links = [
 ];
 
 export default function Header({ member, setMember }) {
-	// const [member, setMember] = useState(null); // 로그인 정보 -> 전역관리로 바꿔서 삭제
 	const [menu, setMenu] = useState(false);
 	const [isIcon, setIsIcon] = useState(false);
-	const navigate = useNavigate(); //useNavigate 추가로 import됨
-
-	// 세션 체크 -> 전역관리로 바꿔서 삭제
-	// useEffect(() => {
-	// 	axios
-	// 		.get(`${API_URL}/api/members/me`)
-	// 		.then((res) => setMember(res.data))
-	// 		.catch(() => setMember(null)); // 로그인 안 됨
-	// }, []);
+	const navigate = useNavigate();
 
 	const handleLogout = () => {
 		axios
