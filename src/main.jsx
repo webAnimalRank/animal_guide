@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
-		<BrowserRouter basename='/animal_guide'>
+		<BrowserRouter>
 			<App />
 		</BrowserRouter>
 	</StrictMode>
