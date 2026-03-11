@@ -1,139 +1,141 @@
 import { NavLink } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
-const base = '/animal_guide';
-
 const move = keyframes`
 20% { translate: 0 -5px; }
 80% { translate: 0 5px; }
 `;
 
 export const Head = styled.header.attrs({
-	className: 'z-50 fixed w-full h-[70px] flex justify-center pb-1 max-sm:h-[50px] bg-(--cw)'
+  className:
+    'z-50 fixed w-full h-[70px] flex justify-center pb-1 max-sm:h-[50px] bg-(--cw)'
 })`
-	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
 `;
 
 export const Menu = styled.button.attrs({
-	type: 'button',
-	className: 'size-10 absolute left-5 z-30 rounded-full shadow-(--shadow) md:hidden'
+  type: 'button',
+  className:
+    'size-10 absolute left-5 z-30 rounded-full shadow-(--shadow) md:hidden'
 })`
-	mask: url('${base}/menu.svg') center / 70% no-repeat;
-	background-color: var(--p);
+  mask: url('/menu.svg') center / 70% no-repeat;
+  background-color: var(--p);
 `;
 
 export const Url = styled(NavLink).attrs({
-	className: 'font-bold'
+  className: 'font-bold'
 })`
-	&.login {
-		display: flex;
-		gap: 4px;
-		align-items: center;
-	}
-	&.login::after {
-		content: '';
-		width: 22px;
-		aspect-ratio: 1;
-		mask: url('${base}/login.svg') center / contain no-repeat;
-		background-color: var(--p);
-	}
-	&.login:hover::after {
-		animation: ${move} 0.7s ease-out infinite;
-	}
-	@media (max-width: 48rem) {
-		&.login {
-			font-size: 0;
-		}
-		&.sign {
-			display: none;
-		}
-	}
+  &.login {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  &.login::after {
+    content: '';
+    width: 22px;
+    aspect-ratio: 1;
+    mask: url('/login.svg') center / contain no-repeat;
+    background-color: var(--p);
+  }
+  &.login:hover::after {
+    animation: ${move} 0.7s ease-out infinite;
+  }
+  @media (max-width: 48rem) {
+    &.login {
+      font-size: 0;
+    }
+    &.sign {
+      display: none;
+    }
+  }
 `;
 
 export const Page = styled(Url).attrs({
-	className: 'page relative max-md:hidden'
+  className: 'page relative max-md:hidden'
 })`
-	&::after {
-		content: '';
-		position: absolute;
-		top: 100%;
-		left: 0;
-		width: 100%;
-		height: 2px;
-		background-color: var(--p);
-		scale: 0 1;
-		transition: scale 0.2s ease-out;
-		transform-origin: left;
-	}
-	&:hover::after {
-		scale: 1 1;
-	}
-	&.active {
-		font-weight: 900;
-	}
-	&.active::after {
-		scale: 1 1;
-	}
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--p);
+    scale: 0 1;
+    transition: scale 0.2s ease-out;
+    transform-origin: left;
+  }
+  &:hover::after {
+    scale: 1 1;
+  }
+  &.active {
+    font-weight: 900;
+  }
+  &.active::after {
+    scale: 1 1;
+  }
 `;
 
 export const Glass = styled.div.attrs({
-	className: 'bg-(image:--glass2) shadow-(--shadow) rounded-2xl border-solid border-1 border-white/10'
+  className:
+    'bg-(image:--glass2) shadow-(--shadow) rounded-2xl border-solid border-1 border-white/10'
 })``;
 
 export const Box = styled.div.attrs({
-	className: 'rounded-3xl p-5 h-max flex flex-col gap-4 bg-white/10 shadow-(--shadow)'
+  className:
+    'rounded-3xl p-5 h-max flex flex-col gap-4 bg-white/10 shadow-(--shadow)'
 })``;
 
 export const Wrap = styled.div.attrs({
-	className:
-		'max-w-7xl w-full h-max min-h-full px-6 pt-23 max-sm:pt-16 pb-6 max-sm:pb-4 max-sm:px-4 flex flex-col gap-5'
+  className:
+    'max-w-7xl w-full h-max min-h-full px-6 pt-23 max-sm:pt-16 pb-6 max-sm:pb-4 max-sm:px-4 flex flex-col gap-5'
 })``;
 
 export const Btn = styled.button.attrs({
-	className: 'text-white/80 rounded-lg px-3 py-1 font-bold hover:bg-(--cw)'
+  className: 'text-white/80 rounded-lg px-3 py-1 font-bold hover:bg-(--cw)'
 })``;
 
 export const PageBtn = styled.button.attrs({
-	type: 'button',
-	className: 'text-sm font-bold relative rounded-md size-7'
+  type: 'button',
+  className: 'text-sm font-bold relative rounded-md size-7'
 })`
-	background: center / contain no-repeat;
+  background: center / contain no-repeat;
 
-	&.active {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
-	&:is(.first, .prev) {
-		scale: -1;
-	}
-	&:is(.next, .prev) {
-		background-image: url(${base}/angle.svg);
-	}
-	&:is(.last, .first) {
-		background-image: url(${base}/angle2.svg);
-	}
-	&:disabled:not(.active) {
-		opacity: 0.3;
-	}
-	&:disabled:hover {
-		cursor: default;
-	}
-	&:not(:disabled):hover {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
+  &.active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  &:is(.first, .prev) {
+    scale: -1;
+  }
+  &:is(.next, .prev) {
+    background-image: url(/angle.svg);
+  }
+  &:is(.last, .first) {
+    background-image: url(/angle2.svg);
+  }
+  &:disabled:not(.active) {
+    opacity: 0.3;
+  }
+  &:disabled:hover {
+    cursor: default;
+  }
+  &:not(:disabled):hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 export const Icon = styled.button.attrs({
-	className: 'size-12 max-sm:size-9 p-0.5 rounded-full hover:bg-white/10'
+  className: 'size-12 max-sm:size-9 p-0.5 rounded-full hover:bg-white/10'
 })``;
 
 export const Loading = styled.div.attrs({
-	className: 'aspect-square animate-spin opacity-30'
+  className: 'aspect-square animate-spin opacity-30'
 })`
-	background: url(${base}/load.svg) center / contain no-repeat;
+  background: url(/load.svg) center / contain no-repeat;
 `;
 
 export const Search = styled.input.attrs({
-	type: 'search',
-	className:
-		'outline-none font-bold w-50 py-2 px-4 rounded-lg bg-white/60 text-(--c) backdrop-blur-3xl shadow-(--shadow)'
+  type: 'search',
+  className:
+    'outline-none font-bold w-50 py-2 px-4 rounded-lg bg-white/60 text-(--c) backdrop-blur-3xl shadow-(--shadow)'
 })``;
