@@ -7,6 +7,5 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
 	plugins: [react(), tailwindcss(), svgr(), visualizer({ open: true, filename: 'stats.html', gzipSize: true })],
 	build: { rollupOptions: { plugins: visualizer() } },
-	base: '/animal_guide',
 	server: { host: '0.0.0.0' }
 });
