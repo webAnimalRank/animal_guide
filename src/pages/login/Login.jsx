@@ -3,10 +3,13 @@ import { Field, Btn, Btn2, Form } from '../../components/login.style';
 import { useState } from 'react';
 import { loginMember } from '../member/memberApi';
 import axios from 'axios';
+import { useAuthStore } from '../../store/useAuthStore';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-export default function Login({ setMember }) {
+export default function Login() {
+	const { setMember } = useAuthStore();
+
 	const navigate = useNavigate();
 	const [id, setId] = useState('');
 	const [pw, setPw] = useState('');
@@ -14,19 +17,19 @@ export default function Login({ setMember }) {
 	const logIn = async (e) => {
 		e.preventDefault();
 		console.log('로그인 시도 : ', { id, pw });
-			try {
-				await loginMember({ memberId: id, memberPw: pw });
-		
-				// 로그인 후 바로 사용자 정보 가져오기
-				const res = await axios.get(`${API_URL}/api/members/me`, { withCredentials: true });
-				setMember(res.data); // App의 전역 상태 업데이트
+		try {
+			await loginMember({ memberId: id, memberPw: pw });
 
-				alert('로그인 성공!');
-				navigate('/');
-			} catch (err) {
-				console.error('로그인 실패:', err);
-				alert('로그인 실패');
-			}
+			// 로그인 후 바로 사용자 정보 가져오기
+			const res = await axios.get(`${API_URL}/api/members/me`, { withCredentials: true });
+			setMember(res.data); // App의 전역 상태 업데이트
+
+			alert('로그인 성공!');
+			navigate('/');
+		} catch (err) {
+			console.error('로그인 실패:', err);
+			alert('로그인 실패');
+		}
 	};
 
 	return (

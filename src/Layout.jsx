@@ -6,11 +6,11 @@ import { Box } from './components/style';
 import { Login } from './components/login.style';
 import ScrollTop from './components/ScrollTop';
 
-export function L({ member, setMember }) {
+export function L() {
 	return (
 		<>
 			<ScrollTop />
-			<Header member={member} setMember={setMember} />
+			<Header />
 			<Outlet />
 		</>
 	);

@@ -2,9 +2,10 @@ import Logo from '../assets/img/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Url, Page, Menu, Head, Icon } from './style';
 import { Links2 } from '../pages/home/Links';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import tom from '../assets/img/tom_icon.png';
+import { useAuthStore } from '../store/useAuthStore';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -14,7 +15,9 @@ const links = [
 	{ to: 'board', label: '커뮤니티' }
 ];
 
-export default function Header({ member, setMember }) {
+export default function Header() {
+	const { member, setMember } = useAuthStore();
+
 	const [menu, setMenu] = useState(false);
 	const [isIcon, setIsIcon] = useState(false);
 	const navigate = useNavigate();
