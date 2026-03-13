@@ -2,49 +2,64 @@ import { create } from 'zustand';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-// 생일 주민 상태
 export const useBirthStore = create((set, get) => ({
+	// --- 상태 (State) ---
 	birthVillagers: [],
 	birthLoading: false,
 	birthError: null,
+	currentPage: 1,
+	itemsPerPage: 5,
 
-	getStatusMessage: (currentMonth) => {
-		const { birthLoading, birthError, birthVillagers } = get();
+	// --- 기능 (Actions) ---
+	actions: {
+		formatBirth: (birth) => {
+			if (!birth || typeof birth !== 'string' || !birth.includes('-')) return '-';
+			const [, day] = birth.split('-');
+			return `${Number(day)}일`;
+		},
 
-		if (birthLoading) return '불러오는 중...';
-		if (birthError) return '데이터를 불러오지 못했습니다.';
-		if (birthVillagers.length === 0) return `${currentMonth}월 생일 주민이 없습니다.`;
-		return null;
-	},
+		fetchBirthVillagers: async (month) => {
+			set({ birthLoading: true, birthError: null });
+			try {
+				const res = await fetch(`${API_URL}/api/villagers/search?birthMonth=${String(month).padStart(2, '0')}`);
+				if (!res.ok) throw new Error();
+				const data = await res.json();
 
-	formatBirth: (birth) => {
-		if (!birth || typeof birth !== 'string' || !birth.includes('-')) return '-';
-		const [, day] = birth.split('-');
-		return `${Number(day)}일`;
-	},
+				const sortedData = [...data].sort((a, b) => {
+					const aDay = Number(a?.villagerBirth?.split('-')[1]) || 99;
+					const bDay = Number(b?.villagerBirth?.split('-')[1]) || 99;
+					return aDay - bDay;
+				});
 
-	fetchBirthVillagers: async (month) => {
-		set({ birthLoading: true, birthError: null });
-		try {
-			const res = await fetch(`${API_URL}/api/villagers/search?birthMonth=${String(month).padStart(2, '0')}`);
-			if (!res.ok) throw new Error();
-			const data = await res.json();
+				set({ birthVillagers: sortedData, birthLoading: false });
+				get().actions.goToTodayPage();
+			} catch (err) {
+				set({ birthError: err, birthLoading: false, birthVillagers: [] });
+			}
+		},
 
-			const sortedData = [...data].sort((a, b) => {
-				const aDay = Number(a?.villagerBirth?.split('-')[1]) || 99;
-				const bDay = Number(b?.villagerBirth?.split('-')[1]) || 99;
-				return aDay - bDay;
+		setCurrentPage: (page) => set({ currentPage: page }),
+
+		goToTodayPage: () => {
+			const { birthVillagers, itemsPerPage } = get();
+			const today = new Date();
+			const tMonth = today.getMonth() + 1;
+			const tDay = today.getDate();
+
+			const todayIndex = birthVillagers.findIndex((item) => {
+				const [m, d] = String(item.villagerBirth ?? '').split('-');
+				return Number(m) === tMonth && Number(d) === tDay;
 			});
 
-			set({ birthVillagers: sortedData, birthLoading: false });
-		} catch (err) {
-			set({ birthError: err, birthLoading: false, birthVillagers: [] });
-		}
-	},
+			if (todayIndex !== -1) {
+				set({ currentPage: Math.floor(todayIndex / itemsPerPage) + 1 });
+			}
+		},
 
-	isItemToday: (birth) => {
-		const today = new Date();
-		const [m, d] = String(birth ?? '').split('-');
-		return Number(m) === today.getMonth() + 1 && Number(d) === today.getDate();
+		isItemToday: (birth) => {
+			const today = new Date();
+			const [m, d] = String(birth ?? '').split('-');
+			return Number(m) === today.getMonth() + 1 && Number(d) === today.getDate();
+		}
 	}
 }));

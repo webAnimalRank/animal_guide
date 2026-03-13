@@ -1,72 +1,70 @@
-import { Box, PageBtn } from '../../components/style';
-import { List, Title3 } from './home.style';
+import { Box, Loading, PageBtn } from '../../components/style';
+import { BirthWrap, List, Title3 } from './home.style';
 import { useEffect, useState } from 'react';
 import { useBirthStore } from './useBirthStore';
 
-const BirthList = ({ isToday, src, alt, name, birth }) => {
-	const [isLoad, setIsLoad] = useState(false);
-
-	return (
-		<List
-			className={`${isToday ? 'today' : ''} ${isLoad ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-		>
-			<img
-				className={`h-14 max-md:h-12 aspect-square object-contain`}
-				src={src}
-				alt={alt}
-				onLoad={() => setIsLoad(true)}
-			/>
-			<span className='text-2xl max-md:text-xl font-extrabold'>{name}</span>
-			<span className='text-lg font-bold ml-auto'>{birth}</span>
-		</List>
-	);
-};
-
 export default function BirthDay() {
-	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 5;
 	const currentMonth = new Date().getMonth() + 1;
+	const [loadCount, setLoadCount] = useState(0);
 
-	const { birthVillagers, birthLoading, birthError, fetchBirthVillagers, isItemToday, getStatusMessage, formatBirth } =
-		useBirthStore();
+	// 데이터 (상태)
+	const { birthVillagers, birthLoading, birthError, currentPage, itemsPerPage } = useBirthStore();
+
+	// 기능 (액션)
+	const { fetchBirthVillagers, setCurrentPage, isItemToday, formatBirth } = useBirthStore((state) => state.actions);
 
 	useEffect(() => {
 		fetchBirthVillagers(currentMonth);
-	}, []);
+	}, [currentMonth]);
 
-	const statusMessage = getStatusMessage(currentMonth);
+	useEffect(() => {
+		setLoadCount(0);
+	}, [currentPage]);
 
+	// 로직 계산
 	const totalPages = Math.ceil(birthVillagers.length / itemsPerPage);
-	const startIndex = (currentPage - 1) * itemsPerPage;
-	const displayedVillagers = birthVillagers.slice(startIndex, startIndex + itemsPerPage);
+	const displayedVillagers = birthVillagers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-	const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-	const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+	const isAllLoad = loadCount === displayedVillagers.length;
+
+	if (birthLoading) return <Box className='w-100 h-min'>로딩 중...</Box>;
+	if (birthError) return <Box className='w-100 h-min'>에러 발생</Box>;
 
 	return (
 		<Box className='w-100 max-sm:w-full h-min'>
 			<Title3 className='birth border-(--pink)'>{currentMonth}월 생일</Title3>
-			<ul className='grid grid-rows-[repeat(5,3.75rem)] gap-2 max-md:gap-0 items-center'>
-				{statusMessage && <li className='text-lg font-bold'>{statusMessage}</li>}
-				{!statusMessage &&
-					displayedVillagers.map((item) => (
-						<BirthList
-							key={item.villagerNo}
-							isToday={isItemToday(item.villagerBirth)}
-							src={item.villagerImageIcon}
-							alt={item.villagerName}
-							name={item.villagerName}
-							birth={formatBirth(item.villagerBirth)}
-						/>
+			<div className='relative'>
+				<BirthWrap key={currentPage} className={isAllLoad ? 'load' : ''}>
+					{displayedVillagers.map((item) => (
+						<List key={item.villagerNo} className={isItemToday(item.villagerBirth) ? 'today' : ''}>
+							<img
+								className={`h-14 max-md:h-12 aspect-square object-contain`}
+								src={item.villagerImageIcon}
+								alt={item.villagerName}
+								onLoad={() => setLoadCount((prev) => prev + 1)}
+							/>
+							<span className='text-2xl max-md:text-xl font-extrabold'>{item.villagerName}</span>
+							<span className='text-lg font-bold ml-auto'>{formatBirth(item.villagerBirth)}</span>
+						</List>
 					))}
-			</ul>
-			{!birthLoading && !birthError && birthVillagers.length > 0 && (
-				<div className='flex gap-2 justify-center items-center'>
-					<PageBtn onClick={handlePrev} disabled={currentPage === 1} className='prev' />
+				</BirthWrap>
+				{!isAllLoad && <Loading className='absolute left-1/2 top-1/2 -translate-1/2  size-30' />}
+			</div>
+			{birthVillagers.length > 0 && (
+				<div className='flex gap-2 justify-center items-center mt-2'>
+					<PageBtn
+						onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+						disabled={currentPage === 1}
+						className='prev'
+					/>
 					<span className='text-sm font-bold'>
 						{currentPage} / {totalPages}
 					</span>
-					<PageBtn onClick={handleNext} disabled={currentPage === totalPages} className='next' />
+					<PageBtn
+						onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+						disabled={currentPage === totalPages}
+						className='next'
+					/>
 				</div>
 			)}
 		</Box>
