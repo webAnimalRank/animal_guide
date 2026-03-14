@@ -4,7 +4,6 @@ import { Tip, TipBox, TipText, Close, Submit } from './popularity.style';
 import VillagerFilter from '../villager/VillagerFilter';
 import { VillagerList } from './VillagerList';
 import { SelectionPanel } from './SelectionPanel';
-import { POPULARITY_MESSAGES } from './popularity.constants';
 import { usePopularityStore, MAX_VOTES } from './useStore';
 import { useVillagerStore } from '../villager/useStore';
 
@@ -14,7 +13,7 @@ export default function Popularity() {
 
 	useEffect(() => {
 		resetFilters();
-		
+
 		fetchVoteStatus(); // 내 투표 현황 조회
 		fetchVillagerTypes(); // 종족 필터 옵션 조회
 		fetchVillagers(); // 주민 목록 조회
@@ -28,7 +27,7 @@ export default function Popularity() {
 	return (
 		<Wrap className='h-0! fixed max-sm:inset-0'>
 			<div className='flex justify-between items-center relative'>
-				<h2 className='font-bold text-2xl self-start'>{POPULARITY_MESSAGES.TITLE}</h2>
+				<h2 className='font-bold text-2xl self-start'>주민 인기 투표</h2>
 				<TipBox>
 					<Tip>투표 방법</Tip>
 					<TipText>
@@ -45,7 +44,7 @@ export default function Popularity() {
 			<div className='flex flex-0 gap-3 justify-between max-sm:flex-col sm:pt-2'>
 				<SelectionPanel />
 				<Submit disabled={selectedIds.length < remainingVotes} onClick={handleSubmit}>
-					{submitting ? POPULARITY_MESSAGES.SUBMITTING : POPULARITY_MESSAGES.SUBMIT_READY}
+					{submitting ? '처리 중...' : '투표 완료'}
 				</Submit>
 			</div>
 		</Wrap>

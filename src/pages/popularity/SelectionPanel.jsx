@@ -1,5 +1,4 @@
 import { CheckWrap } from './popularity.style';
-import { POPULARITY_MESSAGES } from './popularity.constants';
 import { usePopularityStore } from './useStore';
 import { CheckBox, Cancel } from './popularity.style';
 
@@ -36,7 +35,7 @@ export function SelectionPanel() {
 			))}
 			{selectedIds.length < remainingVotes &&
 				Array.from({ length: remainingVotes - selectedIds.length }).map((_, i) => (
-					<Empty key={`empty-${i}`} label={POPULARITY_MESSAGES.EMPTY_OPTION} />
+					<Empty key={`empty-${i}`} label='선택 가능' />
 				))}
 		</CheckWrap>
 	);
