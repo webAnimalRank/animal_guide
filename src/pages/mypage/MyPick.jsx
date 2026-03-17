@@ -5,9 +5,6 @@ import Img from '../../assets/img/Tom_Nook_NH.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
-
-
 const data = [
 	{ name: '너굴', img: Img },
 	{ name: '너굴', img: Img },
@@ -22,11 +19,11 @@ export default function MyPick() {
 
 	const monthDisplay = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 	const today = new Date();
-
+	const firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+	
 	const monthChange = (offset) => {
 		setCurrentDate((prev) => {
 			const newDate = new Date(prev.getFullYear(), prev.getMonth() + offset, 1);
-			today.setDate(1);
 
 			// 현재 달을 넘지 않도록 제한
 			if (newDate > today) {
@@ -41,37 +38,24 @@ export default function MyPick() {
 
  	// 내 투표 현황 불러오기
 	useEffect(() => {
-		const token = localStorage.getItem('token'); // JWT 토큰
-		if (!token) return;
+		const year = currentDate.getFullYear();
+		const month = currentDate.getMonth() + 1;
 
 		axios
-		.get(`${API_URL}/api/villagers/votes/me`, {
-			headers: { Authorization: `Bearer ${token}` },
-		})
-		.then((res) => {
-			setVoteStatus(res.data);
-		})
-		.catch((err) => {
-			console.error('투표 현황 불러오기 실패:', err);
-		});
+			.get(`http://localhost:8080/api/villagers/votes/me/list?year=${year}&month=${month}`)
+			.then((res) => {
+				setPickedVillagers(res.data);
+			})
+			.catch((err) => {
+				console.error('투표 목록 불러오기 실패:', err);
+				setPickedVillagers([]);
+			});
 
-		// 선택한 동물 리스트 불러오기 (예시)
-		axios
-		.get(`${API_URL}/api/villagers/votes/me/list`, {
-			headers: { Authorization: `Bearer ${token}` },
-		})
-		.then((res) => {
-			setPickedVillagers(res.data); // [{ villagerName, villagerImageIcon }, ...]
-		})
-		.catch(() => {
-			setPickedVillagers([]);
-		});
-	}, [currentDate]);
+	}, [currentDate]); // 👈 이거 중요 (월 바뀔 때마다 실행)
 
-	// 투표하기버튼 클릭 핸들러
-  	const handleVoteClick = () => {
-    	navigate('/popularity'); // popularity 페이지로 이동
-  	};
+	const handleVoteClick = () => {
+		navigate('/popularity');
+		};
 
 	return (
 		<div className='flex flex-col gap-5 items-center'>
@@ -127,4 +111,3 @@ export default function MyPick() {
 		</div>
 	);
 }
-
