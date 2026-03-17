@@ -44,7 +44,6 @@ export default function MyPick() {
 	const monthChange = (offset) => {
 		setCurrentDate((prev) => {
 			const newDate = new Date(prev.getFullYear(), prev.getMonth() + offset, 1);
-
 			// 현재 달을 넘지 않도록 제한
 			if (newDate > today) {
 				return prev;
@@ -73,9 +72,12 @@ export default function MyPick() {
 
 	}, [currentDate]); // 👈 이거 중요 (월 바뀔 때마다 실행)
 
+	// 투표/결과 페이지 이동
 	const handleVoteClick = () => {
 		navigate('/popularity');
 		};
+	// 🔹 이번 달에 투표했는지 확인
+	const hasVotedThisMonth = pickedVillagers.length > 0;
 
 	return (
 		<div className='flex flex-col gap-5 items-center'>
@@ -127,10 +129,18 @@ export default function MyPick() {
 					</div>
 				)}
 
-				{/* 버튼 */}
-				<Btn onClick={handleVoteClick}>
-					{isCurrentMonth ? '투표하러 가기' : '결과 확인'}
-				</Btn>
+				{/* 투표/결과 버튼 */}
+				{!hasVotedThisMonth && isCurrentMonth && (
+					<Btn onClick={handleVoteClick}>
+					투표하러 가기
+					</Btn>
+				)}
+				{/* 결과 확인 버튼은 항상 표시하고 싶으면 아래처럼 추가 가능 */}
+				{hasVotedThisMonth && !isCurrentMonth && (
+					<Btn onClick={handleVoteClick}>
+					결과 확인
+					</Btn>
+				)}
 
 		</div>
 	);
