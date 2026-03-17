@@ -1,15 +1,35 @@
 ﻿import { useEffect, useState } from 'react';
 import { Action, ResultBox } from './mypage.style';
-import { Btn } from '../../components/style';
+import { Btn, Loading } from '../../components/style';
 import Img from '../../assets/img/Tom_Nook_NH.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-	{ name: '너굴', img: Img },
-	{ name: '너굴', img: Img },
-	{ name: '너굴', img: Img }
-];
+// const data = [
+// 	{ name: '너굴', img: Img },
+// 	{ name: '너굴', img: Img },
+// 	{ name: '너굴', img: Img }
+// ];
+
+// 🔹 VillagerImage 컴포넌트 (로딩/에러 처리)
+export function VillagerImage({ src, alt, className }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  return (
+    <div className={`relative flex items-center justify-center ${className}`}>
+      {!loaded && !error && <Loading className="absolute size-18" />}
+      <img
+        className={loaded ? 'load' : ''}
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        onError={() => setError(true)}
+      />
+      {error && <span className="text-xs text-red-500">이미지 로드 실패</span>}
+    </div>
+  );
+}
 
 export default function MyPick() {
 	const [currentDate, setCurrentDate] = useState(() => new Date());
@@ -84,7 +104,11 @@ export default function MyPick() {
 					<div className="flex gap-4">
 					{pickedVillagers.map((v, i) => (
 						<ResultBox key={i}>
-						<img src={v.villagerImageIcon || Img} className="min-h-0 flex-1 object-contain" alt="" />
+							<VillagerImage
+								src={v.villagerImageIcon || Img} // null이면 기본 이미지
+								alt={v.villagerName}
+								className="min-h-0 flex-1 object-contain"
+							/>
 						{v.villagerName}
 						</ResultBox>
 					))}
