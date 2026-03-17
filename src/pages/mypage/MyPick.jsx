@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Action, ResultBox } from './mypage.style';
 import { Btn } from '../../components/style';
 import Img from '../../assets/img/Tom_Nook_NH.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const data = [
 	{ name: '너굴', img: Img },
@@ -42,7 +45,7 @@ export default function MyPick() {
 		if (!token) return;
 
 		axios
-		.get('http://localhost:8080/api/villagers/votes/me', {
+		.get(`${API_URL}/api/villagers/votes/me`, {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 		.then((res) => {
@@ -54,7 +57,7 @@ export default function MyPick() {
 
 		// 선택한 동물 리스트 불러오기 (예시)
 		axios
-		.get('http://localhost:8080/api/villagers/votes/me/list', {
+		.get(`${API_URL}/api/villagers/votes/me/list`, {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 		.then((res) => {
@@ -124,3 +127,4 @@ export default function MyPick() {
 		</div>
 	);
 }
+
