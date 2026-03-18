@@ -32,6 +32,7 @@ function App() {
         <Route path="popularity" element={<Popularity />} />
         <Route path="board" element={<Board />} />
         <Route path="board/write" element={<Write />} />
+        <Route path="board/edit/:boardNo" element={<Write />} />
         <Route path="board/post" element={<Post />} />
         <Route path="board/post/:boardNo" element={<Post />} />
         <Route path="mypage" element={<MyPage />} />
