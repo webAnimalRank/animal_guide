@@ -28,7 +28,7 @@ export function VillagerImage({ src, alt, className }) {
 
 export default function MyPick() {
 	const [currentDate, setCurrentDate] = useState(() => new Date());
-    //const [voteStatus, setVoteStatus] = useState(null);
+    const [voteStatus, setVoteStatus] = useState(null);
 	const [pickedVillagers, setPickedVillagers] = useState([]);
 	const navigate = useNavigate();
 
