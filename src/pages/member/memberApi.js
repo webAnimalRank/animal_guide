@@ -34,5 +34,5 @@ export const updateMember = (memberNo, data) => {
 
 // 내 투표 리스트 가져오기 (월별)
 export const getMyVotes = (year, month) => {
-  return axios.get(`${BASE_URL}/votes/me/list?year=${year}&month=${month}`);
+  return axios.get(`${API_URL}/api/villagers/votes/me/list?year=${year}&month=${month}`);
 };

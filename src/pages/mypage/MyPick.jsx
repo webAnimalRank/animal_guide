@@ -34,7 +34,7 @@ export default function MyPick() {
 
 	const monthDisplay = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 	const today = new Date();
-	//const firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+	const firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 	
 	const monthChange = (offset) => {
 		setCurrentDate((prev) => {
