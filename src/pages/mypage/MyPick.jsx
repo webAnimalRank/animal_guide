@@ -2,14 +2,9 @@
 import { Action, ResultBox } from './mypage.style';
 import { Btn, Loading } from '../../components/style';
 import Img from '../../assets/img/Tom_Nook_NH.png';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getMyVotes } from '../member/memberApi';
 
-// const data = [
-// 	{ name: '너굴', img: Img },
-// 	{ name: '너굴', img: Img },
-// 	{ name: '너굴', img: Img }
-// ];
 
 // 🔹 VillagerImage 컴포넌트 (로딩/에러 처리)
 export function VillagerImage({ src, alt, className }) {
