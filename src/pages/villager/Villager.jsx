@@ -19,6 +19,7 @@ export function VillagerImage({ src, alt, className }) {
         alt={alt}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
+        loading='lazy'
       />
       {error && <span className="text-xs text-red-500">이미지 로드 실패</span>}
     </div>
