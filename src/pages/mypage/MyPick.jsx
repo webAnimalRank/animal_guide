@@ -33,13 +33,13 @@ export function VillagerImage({ src, alt, className }) {
 
 export default function MyPick() {
 	const [currentDate, setCurrentDate] = useState(() => new Date());
-    const [voteStatus, setVoteStatus] = useState(null);
+    //const [voteStatus, setVoteStatus] = useState(null);
 	const [pickedVillagers, setPickedVillagers] = useState([]);
 	const navigate = useNavigate();
 
 	const monthDisplay = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 	const today = new Date();
-	const firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+	//const firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 	
 	const monthChange = (offset) => {
 		setCurrentDate((prev) => {
@@ -60,15 +60,14 @@ export default function MyPick() {
 		const year = currentDate.getFullYear();
 		const month = currentDate.getMonth() + 1;
 
-		axios
-			.get(`http://localhost:8080/api/villagers/votes/me/list?year=${year}&month=${month}`)
-			.then((res) => {
-				setPickedVillagers(res.data);
-			})
-			.catch((err) => {
-				console.error('투표 목록 불러오기 실패:', err);
-				setPickedVillagers([]);
-			});
+		getMyVotes(year, month)
+		.then((res) => {
+			setPickedVillagers(res.data);
+		})
+		.catch((err) => {
+			console.error('투표 목록 불러오기 실패:', err);
+			setPickedVillagers([]);
+		});
 
 	}, [currentDate]); // 👈 이거 중요 (월 바뀔 때마다 실행)
 

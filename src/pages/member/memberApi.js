@@ -27,12 +27,12 @@ export const getMyInfo = () => {
 	return axios.get(`${API_URL}/api/members/me`);
 };
 
-// 내 투표 리스트 가져오기
-export const getMyVotes = () => {
-	return axios.get(`${API_URL}/api/villagers/votes/me/list`, data);
-}
-
 // Myinfo 수정 api
 export const updateMember = (memberNo, data) => {
 	return axios.put(`${API_URL}/api/members/${memberNo}`, data);
+};
+
+// 내 투표 리스트 가져오기 (월별)
+export const getMyVotes = (year, month) => {
+  return axios.get(`${BASE_URL}/votes/me/list?year=${year}&month=${month}`);
 };
