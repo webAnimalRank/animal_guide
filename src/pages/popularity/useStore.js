@@ -9,6 +9,9 @@ export const usePopularityStore = create((set, get) => ({
 	remainingVotes: MAX_VOTES,
 	submitting: false,
 
+	// 선택된 주민 초기화
+	resetSelectedIds: () => set({ selectedIds: [], selectedVillagerCache: new Map() }),
+
 	// 초기 투표 상태 조회
 	fetchVoteStatus: async () => {
 		try {
