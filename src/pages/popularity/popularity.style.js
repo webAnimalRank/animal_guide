@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { CardWrap } from '../villager/villager.style';
 import { Btn, Glass } from '../../components/style';
+import { NavLink } from 'react-router-dom';
 
 const fade = keyframes`
 to { opacity: 1 }
@@ -152,5 +153,28 @@ export const Submit = styled(Btn).attrs({
 	&:disabled {
 		pointer-events: none;
 		opacity: 0.5;
+	}
+`;
+
+export const BlurBg = styled.div.attrs({
+	className:
+		'absolute inset-0 bg-(--c)/80 z-40 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'
+})``;
+
+export const LinkBtn = styled(NavLink).attrs({
+	className: 'bg-white/30 py-2 px-4 rounded-lg hover:bg-white/35 flex gap-2'
+})`
+	&::before {
+		content: '';
+		width: 1.2rem;
+		aspect-ratio: 1;
+		background-color: rgba(255, 255, 255, 0.4);
+		mask: center / contain no-repeat;
+	}
+	&.home::before {
+		mask-image: url(/home.svg);
+	}
+	&.login::before {
+		mask-image: url(/login.svg);
 	}
 `;

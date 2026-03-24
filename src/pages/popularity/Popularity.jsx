@@ -1,16 +1,15 @@
 ﻿import { useEffect } from 'react';
 import { Wrap } from '../../components/style';
-import { Tip, TipBox, TipText, Close, Submit } from './popularity.style';
+import { Tip, TipBox, TipText, Close, Submit, LinkBtn, BlurBg } from './popularity.style';
 import VillagerFilter from '../villager/VillagerFilter';
 import { VillagerList } from './VillagerList';
 import { SelectionPanel } from './SelectionPanel';
 import { usePopularityStore, MAX_VOTES } from './useStore';
 import { useVillagerStore } from '../villager/useStore';
 import { useFetchStore } from '../../store/useFetchStore';
-import { NavLink } from 'react-router-dom';
 
 export default function Popularity() {
-	const { villagers } = useFetchStore();
+	const { villagers, member } = useFetchStore();
 	const { loading, error, fetchVillagerTypes, resetFilters } = useVillagerStore();
 	const { fetchVoteStatus, submitVotes, submitting, remainingVotes, selectedIds, resetSelectedIds } =
 		usePopularityStore();
@@ -52,19 +51,21 @@ export default function Popularity() {
 				</Submit>
 			</div>
 			{remainingVotes === 0 && (
-				<div className='absolute inset-0 bg-(--c)/60 z-40 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'>
+				<BlurBg>
 					이번 시즌 투표를 이미 완료했습니다.
-					<NavLink to='/' className='bg-white/30 py-2 px-4 rounded-lg hover:bg-white/35'>
+					<LinkBtn to='/' className='home'>
 						홈으로
-					</NavLink>
-				</div>
+					</LinkBtn>
+				</BlurBg>
 			)}
-			{/* <div className='absolute inset-0 bg-(--c)/80 z-40 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'>
-				로그인 후 투표 가능합니다.
-				<NavLink to='/login' className='bg-white/30 py-2 px-4 rounded-lg hover:bg-white/35'>
-					로그인
-				</NavLink>
-			</div> */}
+			{!member && (
+				<BlurBg>
+					로그인 후 투표 가능합니다.
+					<LinkBtn to='/login' className='login'>
+						로그인
+					</LinkBtn>
+				</BlurBg>
+			)}
 		</Wrap>
 	);
 }
