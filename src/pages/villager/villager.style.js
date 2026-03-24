@@ -90,7 +90,7 @@ export const Select = styled.select.attrs({
 
 export const Filter = styled.button.attrs({
 	type: 'button',
-	className: 'w-10 rounded-full aspect-square flex items-center justify-center bg-(--cw) shadow-(--shadow)'
+	className: 'w-10 rounded-full aspect-square flex items-center justify-center border-2 border-white/30 bg-(--cw) shadow-(--shadow) hover:bg-(--c2) transition-color duration-200 ease-out'
 })`
 	&::after {
 		content: '';

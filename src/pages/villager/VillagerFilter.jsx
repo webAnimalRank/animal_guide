@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Filter, Nav, Select, SelectWrap } from './villager.style';
 import { Search } from '../../components/style';
 import { useVillagerStore } from './useStore';
+import { useOutClick } from '../../components/useOutClick';
 
 // onChange는 모달 닫기용
 export default function VillagerFilter({ onChange }) {
 	const { filters, setKeyword, resetFilters, getFilterConfigs } = useVillagerStore();
 	const [isFilter, setIsFilter] = useState(false);
 	const filterConfigs = getFilterConfigs();
+	const filterRef = useRef(null);
+
+	useOutClick(filterRef, () => setIsFilter(false));
 
 	return (
 		<Nav>
@@ -20,7 +24,7 @@ export default function VillagerFilter({ onChange }) {
 					onChange?.();
 				}}
 			/>
-			<SelectWrap className={isFilter ? '' : 'hide'}>
+			<SelectWrap ref={filterRef} className={isFilter ? '' : 'hide'}>
 				{filterConfigs.map((f) => (
 					<Select
 						key={f.key}
