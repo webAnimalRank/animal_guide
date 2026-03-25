@@ -19,6 +19,7 @@ export default function MyInfo() {
   const { updateInfo, loading } = useMyInfoStore();
   const [isIcon, setIsIcon] = useState(false);
   const [icon, setIcon] = useState(mini);
+  const [selectedVillager, setSelectedVillager] = useState(null);
 
   // 사용자가 입력 중인 "임시" 데이터 상태
   const [formData, setFormData] = useState({
@@ -46,7 +47,10 @@ export default function MyInfo() {
   };
 
   const handleUpdate = async () => {
-    const result = await updateInfo(formData);
+    const result = await updateInfo({
+    ...formData,
+    profileVillagerNo: selectedVillager // ⭐ 추가
+  });
 
     if (result.success) {
       alert('회원 정보가 수정되었습니다.');
@@ -80,6 +84,7 @@ export default function MyInfo() {
                 key={v.villagerNo}
                 onClick={() => {
                   setIcon(v.villagerImageIcon);
+                  setSelectedVillager(v.villagerNo);
                   setIsIcon(!isIcon);
                 }}
               >
