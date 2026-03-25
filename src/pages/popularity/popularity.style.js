@@ -162,7 +162,7 @@ export const BlurBg = styled.div.attrs({
 })``;
 
 export const LinkBtn = styled(NavLink).attrs({
-	className: 'bg-white/30 py-2 px-4 rounded-lg hover:bg-white/35 flex gap-2'
+	className: 'bg-white/30 py-2 px-4 rounded-lg hover:bg-white/35 flex gap-2 transition-color duration-200 ease-out'
 })`
 	&::before {
 		content: '';

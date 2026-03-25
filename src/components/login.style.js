@@ -20,7 +20,7 @@ export const Form = styled.form.attrs({
 `;
 
 export const Field = styled.label.attrs({
-	className: 'bg-white/20 rounded-2xl p-4'
+	className: 'bg-white/20 rounded-xl px-4 py-3'
 })`
 	input {
 		font-family: Pretendard;
@@ -34,9 +34,8 @@ export const Field = styled.label.attrs({
 
 export const Btn = styled.button.attrs({
 	type: 'submit',
-	className: 'rounded-2xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
+	className: 'rounded-xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
 })`
-	border: 3px solid var(--c);
 	transition: background-color 0.1s ease-out;
 	&:hover {
 		background-color: var(--p);

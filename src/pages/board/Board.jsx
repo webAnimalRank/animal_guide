@@ -4,8 +4,11 @@ import { TabWrap, TabBtn } from './board.style';
 import DataTable from './DataTable';
 import { usePosts } from './usePosts';
 import { Link } from 'react-router-dom';
+import { useFetchStore } from '../../store/useFetchStore';
 
 export default function Board() {
+  const { member } = useFetchStore();
+
   // 공지/자유 탭 상태
   const [activeTab, setActiveTab] = useState('notice');
 
@@ -17,10 +20,8 @@ export default function Board() {
   const [search, setSearch] = useState('titleContent');
   const [keyword, setKeyword] = useState('');
 
-  /**
-   * 게시판 데이터 조회
-   * - page / size / kind가 바뀌면 서버 재요청
-   */
+  // 게시판 데이터 조회
+  // page / size / kind가 바뀌면 서버 재요청
   const { items, meta, loading, error } = usePosts({
     kind: activeTab,
     search,
@@ -29,11 +30,8 @@ export default function Board() {
     size
   });
 
-  /**
-   * 탭 변경 시
-   * ⚠️ 반드시 page를 1로 초기화해야 함
-   * (공지 5페이지 보다가 자유 탭 눌렀을 때 데이터 없는 문제 방지)
-   */
+  // 탭 변경 시 반드시 page를 1로 초기화해야 함
+  // (공지 5페이지 보다가 자유 탭 눌렀을 때 데이터 없는 문제 방지)
   const changeTab = (tab) => {
     setActiveTab(tab);
     setPage(1);
@@ -56,9 +54,11 @@ export default function Board() {
             자유 게시판
           </TabBtn>
         </TabWrap>
-        <Btn as={Link} to="write">
-          글 작성
-        </Btn>
+        {member && (
+          <Btn as={Link} to="write">
+            글 작성
+          </Btn>
+        )}
       </div>
 
       {loading ? (
