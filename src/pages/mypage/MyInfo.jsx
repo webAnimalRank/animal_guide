@@ -21,7 +21,7 @@ export default function MyInfo() {
   const [icon, setIcon] = useState(mini);
   const [selectedVillager, setSelectedVillager] = useState(null);
 
-  // 사용자가 입력 중인 "임시" 데이터 상태
+  // 사용자가 입력 중인 "임시" 폼 상태
   const [formData, setFormData] = useState({
     memberName: '',
     memberEmail: '',
@@ -33,13 +33,25 @@ export default function MyInfo() {
   // 초기값 세팅: member 정보가 들어오면 입력창에 넣어줌
   useEffect(() => {
     if (member) {
-      setFormData((prev) => ({
+      setFormData(prev => ({
         ...prev,
         memberName: member.memberName,
         memberEmail: member.memberEmail
       }));
     }
-  }, [member]);
+
+    if (villagers?.length) {
+      // DB에 들어있는 profileVillagerNo 기준으로 아이콘 세팅
+      const existingVillager = villagers.find(v => v.villagerNo === member.profileVillagerNo);
+      if (existingVillager) {
+        setIcon(existingVillager.villagerImageIcon);
+        setSelectedVillager(existingVillager.villagerNo);
+      } else {
+        setIcon(mini);
+        setSelectedVillager(member.profileVillagerNo ?? null); // 선택 없으면 null
+      }
+    }
+  }, [member, villagers]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,10 +59,20 @@ export default function MyInfo() {
   };
 
   const handleUpdate = async () => {
-    const result = await updateInfo({
-    ...formData,
-    profileVillagerNo: selectedVillager // ⭐ 추가
-  });
+    // 숫자로 변환, null 체크
+    const villagerNoToSend = selectedVillager !== null ? Number(selectedVillager) : null;
+    
+    const payload = {
+      memberName: formData.memberName,
+      memberEmail: formData.memberEmail,
+      currentPw: formData.currentPw,
+      memberPw: formData.newPw || undefined, // 새 비밀번호 없으면 undefined
+      profileVillagerNo: villagerNoToSend
+    };
+
+    console.log("✅ 수정 요청 payload:", payload);
+
+    const result = await updateInfo(payload);
 
     if (result.success) {
       alert('회원 정보가 수정되었습니다.');
@@ -61,6 +83,10 @@ export default function MyInfo() {
         newPwConfirm: '',
         currentPw: ''
       }));
+
+      // 프사 상태 업데이트
+      const updatedIcon = villagers.find(v => v.villagerNo === villagerNoToSend)?.villagerImageIcon || mini;
+      setIcon(updatedIcon);
     } else {
       alert(result.message);
     }
@@ -84,7 +110,7 @@ export default function MyInfo() {
                 key={v.villagerNo}
                 onClick={() => {
                   setIcon(v.villagerImageIcon);
-                  setSelectedVillager(v.villagerNo);
+                  setSelectedVillager(Number(v.villagerNo));
                   setIsIcon(!isIcon);
                 }}
               >
