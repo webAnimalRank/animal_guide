@@ -5,12 +5,12 @@ export default function DeskTop({ table }) {
 	const cols = [
 		{ key: 'id', className: 'w-12' },
 		{ key: 'title', className: 'flex-1 text-left' },
-		{ key: 'writer', className: 'w-12' },
+		{ key: 'writer', className: 'w-20' },
 		{ key: 'createdAt', className: 'w-24' }
 	];
 
 	return (
-		<div className='w-full border-collapse hidden sm:flex flex-col'>
+		<div className='w-full hidden sm:flex flex-col font-(family-name:--f)'>
 			{table.getHeaderGroups().map((headerGroup) => (
 				<div key={headerGroup.id} className='border-y-2 border-white/30 flex py-2 text-xs font-bold'>
 					{headerGroup.headers.map((header) => (

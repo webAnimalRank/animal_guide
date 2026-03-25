@@ -6,12 +6,13 @@ import {
 import { PageBtn } from '../../components/style';
 import Mobile from './Mobile';
 import DeskTop from './Desktop';
+import { useBoardStore } from './useStore';
+import { useEffect } from 'react';
 
-/**
- * 🔹 컬럼 정의
- * - React Table은 columns가 반드시 필요함
- * - 서버 페이징이므로 컬럼 정의만 담당
- */
+// 컬럼 정의
+// React Table은 columns가 반드시 필요함
+// 서버 페이징이므로 컬럼 정의만 담당
+
 const columnHelper = createColumnHelper();
 
 const columns = [
@@ -29,8 +30,8 @@ const columns = [
   }),
   columnHelper.accessor('writer', {
     header: '작성자',
-    headerStyle: { width: '3rem' },
-    cellStyle: { width: '3rem' },
+    headerStyle: { width: '5rem' },
+    cellStyle: { width: '5rem' },
     cell: (info) => info.getValue()
   }),
   columnHelper.accessor('createdAt', {
@@ -41,17 +42,22 @@ const columns = [
   })
 ];
 
-/**
- * ⚠️ 서버 페이징 전용 DataTable
- * - 페이지 계산은 서버에서
- * - 이 컴포넌트는 화면만 렌더링
- */
-export default function DataTable({ data, meta, page, setPage, size }) {
+export default function DataTable({ kind }) {
+  const { items, meta, page, size, loading } = useBoardStore(
+    (state) => state[kind]
+  );
+  const setPage = useBoardStore((state) => state.setPage);
+  const fetchPosts = useBoardStore((state) => state.fetchPosts);
+
+  useEffect(() => {
+    fetchPosts(kind);
+  }, [kind]);
+
   const totalPages = meta?.totalPages ?? 0;
 
   const table = useReactTable({
-    data,
-    columns, // ✅ 이제 정상 참조
+    data: items || [],
+    columns,
     getCoreRowModel: getCoreRowModel(),
 
     // 서버 페이징 모드
@@ -65,6 +71,10 @@ export default function DataTable({ data, meta, page, setPage, size }) {
       }
     }
   });
+
+  if (loading && (!items || items.length === 0)) {
+    return <div>데이터를 불러오는 중입니다...</div>;
+  }
 
   // 페이지 묶음(1~10)
   const blockSize = 10;
@@ -85,23 +95,23 @@ export default function DataTable({ data, meta, page, setPage, size }) {
   ];
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 font-(family-name:--f) relative">
+    <>
       <Mobile table={table} pageSize={size} />
       <DeskTop table={table} pageSize={size} />
 
-      <div className="mt-6 flex justify-center gap-2 flex-wrap">
+      <div className="flex justify-center gap-2">
         {start.map((p) => (
           <PageBtn
             key={p.id}
             className={p.id}
-            onClick={() => setPage(p.setPage)}
+            onClick={() => setPage(kind, p.setPage)}
             disabled={page === 1}
           />
         ))}
         {pages.map((p) => (
           <PageBtn
             key={p}
-            onClick={() => setPage(p)}
+            onClick={() => setPage(kind, p)}
             disabled={p === page}
             className={p === page ? 'active' : ''}
           >
@@ -112,11 +122,11 @@ export default function DataTable({ data, meta, page, setPage, size }) {
           <PageBtn
             key={p.id}
             className={p.id}
-            onClick={() => setPage(p.setPage)}
+            onClick={() => setPage(kind, p.setPage)}
             disabled={page >= totalPages}
           />
         ))}
       </div>
-    </div>
+    </>
   );
 }

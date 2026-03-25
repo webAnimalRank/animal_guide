@@ -114,8 +114,10 @@ export default function Write() {
 
   return (
     <Wrap className="font-(family-name:--f)">
-      <div className="flex font-medium">
+      <div className="flex justify-between font-medium">
         <Undo>뒤로가기</Undo>
+
+        <span className='text-(--p)'>{member.memberName}</span>
       </div>
 
       {isEditMode && data && !isOwner && (

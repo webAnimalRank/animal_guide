@@ -34,5 +34,17 @@ export const useFetchStore = create((set) => ({
     }
   },
 
+  //로그아웃
+  logout: async () => {
+    try {
+      await axios.post(`${API_URL}/api/members/logout`);
+      set({ member: null });
+      return { success: true };
+    } catch (err) {
+      console.error('로그아웃 실패', err);
+      return { success: false, error: err };
+    }
+  },
+
   setMember: (data) => set({ member: data })
 }));
