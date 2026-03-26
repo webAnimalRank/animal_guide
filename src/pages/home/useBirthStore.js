@@ -20,8 +20,8 @@ export const useBirthStore = create((set, get) => ({
 		},
 
 		fetchBirthVillagers: async (month) => {
-			const { setIsLoading } = useLoading.getState();
-			setIsLoading(true);
+			const { startLoading, stopLoading } = useLoading.getState().actions;
+			startLoading();
 			set({ birthLoading: true, birthError: null });
 			try {
 				const res = await fetch(`${API_URL}/api/villagers/search?birthMonth=${String(month).padStart(2, '0')}`);
@@ -40,7 +40,7 @@ export const useBirthStore = create((set, get) => ({
 				set({ birthError: err, birthLoading: false, birthVillagers: [] });
 			} finally {
 				set({ birthLoading: false });
-				setIsLoading(false);
+				stopLoading();
 			}
 		},
 

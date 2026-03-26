@@ -10,11 +10,12 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Result() {
 	const setIsLoading = useLoading((state) => state.setIsLoading);
+	const { startLoading, stopLoading } = useLoading.getState().actions;
 	const [top3, setTop3] = useState([]);
 	const month = new Date().getMonth() + 1;
 
 	useEffect(() => {
-		setIsLoading(true);
+		startLoading();
 		const load = async () => {
 			try {
 				const res = await fetch(`${API_URL}/api/villagers/votes/top`);
@@ -27,7 +28,7 @@ export default function Result() {
 				console.error(e);
 				setTop3([]);
 			} finally {
-				setIsLoading(false);
+				// stopLoading();
 			}
 		};
 
