@@ -4,14 +4,17 @@ import { Box } from '../../components/style';
 import tom from '../../assets/img/Tom_Nook_NH.png';
 import crown from '../../assets/img/crown.svg';
 import tomMin from '../../assets/img/tom_icon.png';
+import { useLoading } from '../../store/useLoading';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Result() {
+	const setIsLoading = useLoading((state) => state.setIsLoading);
 	const [top3, setTop3] = useState([]);
 	const month = new Date().getMonth() + 1;
 
 	useEffect(() => {
+		setIsLoading(true);
 		const load = async () => {
 			try {
 				const res = await fetch(`${API_URL}/api/villagers/votes/top`);
@@ -23,6 +26,8 @@ export default function Result() {
 			} catch (e) {
 				console.error(e);
 				setTop3([]);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 

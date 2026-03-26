@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { useLoading } from '../../store/useLoading';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -19,6 +20,8 @@ export const useBirthStore = create((set, get) => ({
 		},
 
 		fetchBirthVillagers: async (month) => {
+			const { setIsLoading } = useLoading.getState();
+			setIsLoading(true);
 			set({ birthLoading: true, birthError: null });
 			try {
 				const res = await fetch(`${API_URL}/api/villagers/search?birthMonth=${String(month).padStart(2, '0')}`);
@@ -35,6 +38,9 @@ export const useBirthStore = create((set, get) => ({
 				get().actions.goToTodayPage();
 			} catch (err) {
 				set({ birthError: err, birthLoading: false, birthVillagers: [] });
+			} finally {
+				set({ birthLoading: false });
+				setIsLoading(false);
 			}
 		},
 
