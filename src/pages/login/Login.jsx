@@ -26,6 +26,10 @@ export default function Login() {
       });
       setMember(res.data); // App의 전역 상태 업데이트
 
+      if (res.status === 200) {
+        localStorage.setItem('isLogin', 'true');
+      }
+
       alert('로그인 성공!');
       navigate('/');
     } catch (err) {

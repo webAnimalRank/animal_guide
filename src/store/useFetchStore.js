@@ -6,8 +6,11 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 export const useFetchStore = create((set) => ({
   villagers: [],
   loading: false,
+  isAuthLoading: true,
   error: null,
   member: null,
+
+  setAuthLoading: (bool) => set({ isAuthLoading: bool }),
 
   // 주민 불러오기
   fetchVillagers: async (paramsString = '') => {
@@ -26,11 +29,16 @@ export const useFetchStore = create((set) => ({
 
   // 로그인 상태 확인
   fetchMe: async () => {
+    set({ isAuthLoading: true });
     try {
       const res = await axios.get(`${API_URL}/api/members/me`);
-      set({ member: res.data });
+      set({ member: res.data, isAuthLoading: false });
+      localStorage.setItem('isLogin', 'true');
     } catch (err) {
-      set({ member: null });
+      set({ member: null, isAuthLoading: false });
+      if (err.response?.status === 401) {
+        localStorage.removeItem('isLogin');
+      }
     }
   },
 
@@ -39,6 +47,7 @@ export const useFetchStore = create((set) => ({
     try {
       await axios.post(`${API_URL}/api/members/logout`);
       set({ member: null });
+      localStorage.removeItem('isLogin');
       return { success: true };
     } catch (err) {
       console.error('로그아웃 실패', err);

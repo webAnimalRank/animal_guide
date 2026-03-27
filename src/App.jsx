@@ -11,20 +11,25 @@ import { routes } from './routes.js';
 axios.defaults.withCredentials = true;
 
 function App() {
-  const { fetchMe, fetchVillagers } = useFetchStore();
+  const { fetchMe, fetchVillagers, isAuthLoading } = useFetchStore();
   const isLoading = useLoading((state) => state.isLoading);
 
   useEffect(() => {
-    const hasCookie = document.cookie.includes('JSESSIONID');
+    const isLogin = localStorage.getItem('isLogin') === 'true';
 
-    if (hasCookie) {
+    if (isLogin) {
       fetchMe(); // 로그인 정보
     } else {
-      useFetchStore.getState().setMember(null);
+      console.log(';;')
+      useFetchStore.getState().setAuthLoading(false);
     }
 
     fetchVillagers(); // 주민 정보
   }, [fetchMe, fetchVillagers]);
+
+  if (isAuthLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <>
