@@ -11,35 +11,49 @@ import { routes } from './routes.js';
 axios.defaults.withCredentials = true;
 
 function App() {
-	const { fetchMe, fetchVillagers } = useFetchStore();
-	const isLoading = useLoading((state) => state.isLoading);
+  const { fetchMe, fetchVillagers } = useFetchStore();
+  const isLoading = useLoading((state) => state.isLoading);
 
-	useEffect(() => {
-		fetchMe(); // 로그인 정보
-		fetchVillagers(); // 주민 정보
-	}, [fetchMe]);
+  useEffect(() => {
+    fetchMe(); // 로그인 정보
+    fetchVillagers(); // 주민 정보
+  }, [fetchMe]);
 
-	return (
-		<>
-			{isLoading && <LoadingScreen />}
-			<Routes>
-				<Route path='/' element={<L />}>
-					{routes
-						.filter((r) => r.layout === 'L')
-						.map((route) => (
-							<Route key={route.path} path={route.path} element={<route.component />} />
-						))}
-				</Route>
-				<Route path='/' element={<L0 />}>
-					{routes
-						.filter((r) => r.layout === 'L0')
-						.map((route) => (
-							<Route key={route.path} path={route.path} element={<route.component />} />
-						))}
-				</Route>
-			</Routes>
-		</>
-	);
+  return (
+    <>
+      {isLoading && <LoadingScreen />}
+      <Routes>
+        <Route path="/" element={<L />}>
+          {routes
+            .filter((r) => r.layout === 'L')
+            .map((route) => {
+              const Component = route.component;
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<Component />}
+                />
+              );
+            })}
+        </Route>
+        <Route path="/" element={<L0 />}>
+          {routes
+            .filter((r) => r.layout === 'L0')
+            .map((route) => {
+              const Component = route.component;
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<Component />}
+                />
+              );
+            })}
+        </Route>
+      </Routes>
+    </>
+  );
 }
 
 export default App;

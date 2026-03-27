@@ -1,16 +1,54 @@
 import { lazy } from 'react';
 
-const lazyImport = (path) => lazy(() => import(`./pages/${path}`));
-
 export const routes = [
-	{ path: '/', component: lazyImport('home/Home.jsx'), layout: 'L' },
-	{ path: 'villager', component: lazyImport('villager/Villager.jsx'), layout: 'L' },
-	{ path: 'popularity', component: lazyImport('popularity/Popularity.jsx'), layout: 'L' },
-	{ path: 'board', component: lazyImport('board/Board.jsx'), layout: 'L' },
-	{ path: 'board/write', component: lazyImport('board/Write.jsx'), layout: 'L' },
-	{ path: 'board/edit/:boardNo?', component: lazyImport('board/Write.jsx'), layout: 'L' },
-	{ path: 'board/post/:boardNo?', component: lazyImport('board/Post.jsx'), layout: 'L' },
-	{ path: 'mypage', component: lazyImport('mypage/MyPage.jsx'), layout: 'L' },
-	{ path: 'login', component: lazyImport('login/Login.jsx'), layout: 'L0' },
-	{ path: 'sign', component: lazyImport('sign/Sign.jsx'), layout: 'L0' }
+  {
+    path: '/',
+    component: lazy(() => import('./pages/home/Home.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'villager',
+    component: lazy(() => import('./pages/villager/Villager.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'popularity',
+    component: lazy(() => import('./pages/popularity/Popularity.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'board',
+    component: lazy(() => import('./pages/board/Board.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'board/write',
+    component: lazy(() => import('./pages/board/Write.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'board/edit/:boardNo',
+    component: lazy(() => import('./pages/board/Write.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'board/post/:boardNo',
+    component: lazy(() => import('./pages/board/Post.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'mypage',
+    component: lazy(() => import('./pages/mypage/MyPage.jsx')),
+    layout: 'L'
+  },
+  {
+    path: 'login',
+    component: lazy(() => import('./pages/login/Login.jsx')),
+    layout: 'L0'
+  },
+  {
+    path: 'sign',
+    component: lazy(() => import('./pages/sign/Sign.jsx')),
+    layout: 'L0'
+  }
 ];
