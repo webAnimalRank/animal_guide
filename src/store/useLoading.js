@@ -3,7 +3,6 @@ import { create } from 'zustand';
 export const useLoading = create((set) => ({
 	loadingCount: 0,
 	isLoading: false,
-	setIsLoading: (status) => set({ isLoading: status }),
 
 	actions: {
 		startLoading: () =>

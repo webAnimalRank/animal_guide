@@ -9,7 +9,6 @@ import { useLoading } from '../../store/useLoading';
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Result() {
-	const setIsLoading = useLoading((state) => state.setIsLoading);
 	const { startLoading, stopLoading } = useLoading.getState().actions;
 	const [top3, setTop3] = useState([]);
 	const month = new Date().getMonth() + 1;
@@ -28,7 +27,7 @@ export default function Result() {
 				console.error(e);
 				setTop3([]);
 			} finally {
-				// stopLoading();
+				stopLoading();
 			}
 		};
 
