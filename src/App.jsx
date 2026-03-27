@@ -15,9 +15,16 @@ function App() {
   const isLoading = useLoading((state) => state.isLoading);
 
   useEffect(() => {
-    fetchMe(); // 로그인 정보
+    const hasCookie = document.cookie.includes('JSESSIONID');
+
+    if (hasCookie) {
+      fetchMe(); // 로그인 정보
+    } else {
+      useFetchStore.getState().setMember(null);
+    }
+
     fetchVillagers(); // 주민 정보
-  }, [fetchMe]);
+  }, [fetchMe, fetchVillagers]);
 
   return (
     <>
