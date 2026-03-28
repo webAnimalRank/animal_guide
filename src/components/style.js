@@ -1,9 +1,48 @@
 import { NavLink } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import LeafImg from '../assets/img/Leaf.svg?react';
+import LeafImg2 from '../assets/img/Leaf2.svg?react';
+import NookImg from '../assets/img/Nook_Miles.svg?react';
 
 const move = keyframes`
 20% { translate: 0 -5px; }
 80% { translate: 0 5px; }
+`;
+
+const run = keyframes`
+3%, 23%, 58%, 78% { rotate: -20deg; }
+5%, 25%, 55%, 75% { transform: translateY(-30%); }
+8%, 28%, 53%, 73% { rotate: 20deg; }
+10%, 20%, 30%, 50%, 60%, 70%, 80%, 100% { transform: translateY(0%); rotate: 0deg; }
+40%, 100% { scale: 1; }
+50% { translate: 500% 0; }
+50%, 90% { scale: -1 1; }
+100% { translate: 0; }
+`;
+
+const wave = keyframes`
+0%, 100% { translate: 0; rotate: 0; }
+50% { translate: 0 -20px; rotate: 15deg; }
+`;
+
+export const Nook = styled(NookImg).attrs({
+  className: 'size-20'
+})`
+  animation: ${run} 8s ease-in-out infinite;
+`;
+
+const leafStyle = css`
+  width: 2rem;
+  fill: var(--p);
+  animation: ${wave} 1.2s infinite ease-in-out;
+  animation-delay: ${(props) => props.$delay || '0s'};
+`;
+
+export const Leaf1 = styled(LeafImg)`
+  ${leafStyle}
+`;
+export const Leaf2 = styled(LeafImg2)`
+  ${leafStyle}
 `;
 
 export const Head = styled.header.attrs({
@@ -92,7 +131,8 @@ export const Wrap = styled.div.attrs({
 })``;
 
 export const Btn = styled.button.attrs({
-  className: 'self-end text-white/80 rounded-lg px-3 py-1 font-bold hover:bg-(--cw)'
+  className:
+    'self-end text-white/80 rounded-lg px-3 py-1 font-bold hover:bg-(--cw)'
 })``;
 
 export const PageBtn = styled.button.attrs({

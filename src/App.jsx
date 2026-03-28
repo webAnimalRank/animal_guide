@@ -20,7 +20,6 @@ function App() {
     if (isLogin) {
       fetchMe(); // 로그인 정보
     } else {
-      console.log(';;')
       useFetchStore.getState().setAuthLoading(false);
     }
 
