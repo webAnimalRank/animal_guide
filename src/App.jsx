@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { L, L0 } from './Layout.jsx';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetchStore } from './store/useFetchStore.js';
 import { useLoading } from './store/useLoading.js';
 import LoadingScreen from './components/LoadingScreen.jsx';
@@ -14,16 +14,23 @@ function App() {
   const { fetchMe, fetchVillagers, isAuthLoading } = useFetchStore();
   const isLoading = useLoading((state) => state.isLoading);
 
+  const [firstLoad, setFirstLoad] = useState(true);
+
   useEffect(() => {
     const isLogin = localStorage.getItem('isLogin') === 'true';
 
-    if (isLogin) {
-      fetchMe(); // 로그인 정보
-    } else {
-      useFetchStore.getState().setAuthLoading(false);
-    }
+    const loadData = async () => {
+      if (isLogin) {
+        await fetchMe(); // 로그인 정보
+      } else {
+        useFetchStore.getState().setAuthLoading(false);
+      }
+      await fetchVillagers(); // 주민 정보
 
-    fetchVillagers(); // 주민 정보
+      setFirstLoad(false);
+    };
+
+    loadData();
   }, [fetchMe, fetchVillagers]);
 
   if (isAuthLoading) {
@@ -32,7 +39,7 @@ function App() {
 
   return (
     <>
-      {isLoading && <LoadingScreen />}
+      {isLoading && firstLoad && <LoadingScreen />}
       <Routes>
         <Route path="/" element={<L />}>
           {routes
