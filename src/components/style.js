@@ -25,6 +25,20 @@ const wave = keyframes`
 50% { translate: 0 -20px; rotate: 15deg; }
 `;
 
+const fade = keyframes`
+to { opacity: 0; }
+`;
+
+export const LoadingWrap = styled.div.attrs({
+  className: 'fixed inset-0 z-100 bg-(--c) flex items-center justify-center'
+})`
+  ${(props) =>
+    props.$isFade &&
+    css`
+      animation: ${fade} 0.5s ease-out forwards;
+    `}
+`;
+
 export const Nook = styled(NookImg).attrs({
   className: 'size-20'
 })`

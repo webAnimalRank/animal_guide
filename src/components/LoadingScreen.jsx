@@ -1,10 +1,29 @@
-import { Leaf1, Leaf2, Nook } from './style';
+import { useEffect, useState } from 'react';
+import { Leaf1, Leaf2, LoadingWrap, Nook } from './style';
 
 const Max = 10;
 
-export default function LoadingScreen() {
+export default function LoadingScreen({ isLoading }) {
+  const [render, setRender] = useState(true);
+  const [isFade, setIsFade] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      setRender(true);
+      setIsFade(false);
+    } else {
+      setIsFade(true);
+      const timer = setTimeout(() => {
+        setRender(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
+
+  if (!render && !isLoading) return null;
+
   return (
-    <div className="fixed inset-0 z-100 bg-(--c) flex items-center justify-center">
+    <LoadingWrap $isFade={isFade}>
       <div className="w-140 max-sm:w-[85%] rounded-2xl bg-(--c2) shadow-(--shadow) flex flex-col items-center gap-10 p-5 overflow-hidden">
         <div className="w-full px-5">
           <Nook />
@@ -19,6 +38,6 @@ export default function LoadingScreen() {
           })}
         </div>
       </div>
-    </div>
+    </LoadingWrap>
   );
 }

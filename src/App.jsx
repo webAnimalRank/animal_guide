@@ -34,12 +34,12 @@ function App() {
   }, [fetchMe, fetchVillagers]);
 
   if (isAuthLoading) {
-    return <LoadingScreen />;
+    return <LoadingScreen isLoading={true} />;
   }
 
   return (
     <>
-      {isLoading && firstLoad && <LoadingScreen />}
+      <LoadingScreen isLoading={isLoading || firstLoad} />
       <Routes>
         <Route path="/" element={<L />}>
           {routes
