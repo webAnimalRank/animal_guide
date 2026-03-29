@@ -15,7 +15,7 @@ const run = keyframes`
 8%, 28%, 53%, 73% { rotate: 20deg; }
 10%, 20%, 30%, 50%, 60%, 70%, 80%, 100% { transform: translateY(0%); rotate: 0deg; }
 40%, 100% { scale: 1; }
-50% { translate: 500% 0; }
+50% { translate: var(--run-dist) 0; }
 50%, 90% { scale: -1 1; }
 100% { translate: 0; }
 `;
@@ -28,7 +28,22 @@ const wave = keyframes`
 export const Nook = styled(NookImg).attrs({
   className: 'size-20'
 })`
+  --run-dist: 500%;
   animation: ${run} 8s ease-in-out infinite;
+
+  @media (max-width: 38rem) {
+    --run-dist: 440%;
+    animation-duration: 7s;
+  }
+  @media (max-width: 36rem) {
+    --run-dist: 380%;
+  }
+  @media (max-width: 34rem) {
+    --run-dist: 330%;
+  }
+  @media (max-width: 480px) {
+    --run-dist: 220%;
+  }
 `;
 
 const leafStyle = css`
@@ -36,6 +51,12 @@ const leafStyle = css`
   fill: var(--p);
   animation: ${wave} 1.2s infinite ease-in-out;
   animation-delay: ${(props) => props.$delay || '0s'};
+  @media (max-width: 40rem) {
+    width: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    width: 1rem;
+  }
 `;
 
 export const Leaf1 = styled(LeafImg)`

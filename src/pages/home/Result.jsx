@@ -27,7 +27,7 @@ export default function Result() {
 				console.error(e);
 				setTop3([]);
 			} finally {
-				stopLoading();
+				// stopLoading();
 			}
 		};
 
