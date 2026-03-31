@@ -66,17 +66,18 @@ export default function MyInfo() {
       memberName: formData.memberName,
       memberEmail: formData.memberEmail,
       currentPw: formData.currentPw,
-      memberPw: formData.newPw || undefined, // 새 비밀번호 없으면 undefined
+      // memberPw: formData.newPw || undefined, // 새 비밀번호 없으면 undefined
+      memberPw: formData.newPw && formData.newPw.trim() !== '' ? formData.newPw : null,
       profileVillagerNo: villagerNoToSend
     };
 
-    console.log("✅ 수정 요청 payload:", payload);
+    console.log("✅ 수정 요청 payload:", JSON.stringify(payload)); // json 직렬화로 확인
 
     const result = await updateInfo(payload);
 
     if (result.success) {
       alert('회원 정보가 수정되었습니다.');
-      // 비밀번호 필드만 초기화
+      // 비밀번호 필드만 초기화 
       setFormData((prev) => ({
         ...prev,
         newPw: '',

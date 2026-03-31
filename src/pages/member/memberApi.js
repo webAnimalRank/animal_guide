@@ -29,7 +29,14 @@ export const getMyInfo = () => {
 
 // Myinfo 수정 api
 export const updateMember = (memberNo, data) => {
-	return axios.put(`${API_URL}/api/members/${memberNo}`, data);
+	return axios.put(`${API_URL}/api/members/${memberNo}`, data,
+		{
+			headers: {
+				"Content-Type": "application/json"
+			},
+			withCredentials:true
+		}
+	);
 };
 
 // 내 투표 리스트 가져오기 (월별)
