@@ -57,7 +57,7 @@ export const List = styled.div.attrs({
 
 export const Close = styled(Btn).attrs({
 	type: 'button',
-	className: 'text-sm outline-none'
+	className: 'text-sm outline-none self-center!'
 })`
 	transition: background-color 0.1s ease-out;
 	animation: ${fade} 0.3s ease-out forwards;

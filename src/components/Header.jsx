@@ -55,17 +55,17 @@ export default function Header() {
               </Page>
             ))}
           </nav>
-          <nav className="w-max flex gap-5 items-center absolute right-5">
+          <nav
+            ref={dropRef}
+            className="w-max flex gap-5 items-center absolute right-5"
+          >
             {member ? (
               <>
                 <Icon onClick={() => setIsIcon(!isIcon)}>
                   <img src={tom} className="" alt="" />
                 </Icon>
                 {isIcon && (
-                  <div
-                    ref={dropRef}
-                    className="absolute top-full right-0 translate-y-2 flex flex-col gap-2 w-max bg-(--c) p-4 rounded-lg border border-white/10"
-                  >
+                  <div className="absolute top-full right-0 translate-y-2 flex flex-col gap-2 w-max bg-(--c) p-4 rounded-lg border border-white/10">
                     <span className="text-(--p) font-bold pb-2 border-b border-white/30">
                       {member.memberName}
                     </span>

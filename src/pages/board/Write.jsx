@@ -31,7 +31,8 @@ export default function Write() {
     setBoardContent(data.boardContent ?? '');
   }, [isEditMode, data]);
 
-  const isOwner = !isEditMode || (member && data && member.memberNo === data.memberNo);
+  const isOwner =
+    !isEditMode || (member && data && member.memberNo === data.memberNo);
 
   const submit = async () => {
     const title = boardTitle.trim();
@@ -62,7 +63,9 @@ export default function Write() {
       setError('');
 
       const response = await fetch(
-        isEditMode ? `${API_URL}/api/boards/${parsedBoardNo}` : `${API_URL}/api/boards`,
+        isEditMode
+          ? `${API_URL}/api/boards/${parsedBoardNo}`
+          : `${API_URL}/api/boards`,
         {
           method: isEditMode ? 'PUT' : 'POST',
           credentials: 'include',
@@ -82,7 +85,11 @@ export default function Write() {
       }
 
       if (!response.ok) {
-        throw new Error(isEditMode ? '게시물을 수정하는 데 실패했습니다.' : '게시물을 작성하는 데 실패했습니다.');
+        throw new Error(
+          isEditMode
+            ? '게시물을 수정하는 데 실패했습니다.'
+            : '게시물을 작성하는 데 실패했습니다.'
+        );
       }
 
       const result = await response.json();
@@ -117,11 +124,13 @@ export default function Write() {
       <div className="flex justify-between font-medium">
         <Undo>뒤로가기</Undo>
 
-        <span className='text-(--p)'>{member.memberName}</span>
+        <span className="text-(--p)">{member.memberName}</span>
       </div>
 
       {isEditMode && data && !isOwner && (
-        <div className="text-sm text-red-200">자신의 글만 수정할 수 있습니다.</div>
+        <div className="text-sm text-red-200">
+          자신의 글만 수정할 수 있습니다.
+        </div>
       )}
 
       <input
@@ -139,10 +148,8 @@ export default function Write() {
         disabled={submitting || (isEditMode && !isOwner)}
         maxLength={3000}
         placeholder="내용을 입력하세요"
-        className="bg-white/10 rounded-2xl min-h-0 flex-1 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60"
+        className="bg-white/10 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60"
       />
-
-      {error && <div className="text-sm text-red-200">{error}</div>}
 
       <Btn
         type="button"
@@ -152,6 +159,7 @@ export default function Write() {
       >
         {submitting ? 'Submitting...' : isEditMode ? '수정하기' : '작성하기'}
       </Btn>
+      {error && <div className="text-sm text-red-200">{error}</div>}
     </Wrap>
   );
 }

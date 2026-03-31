@@ -39,25 +39,27 @@ export function Links2({ onClose }) {
       <Menu to="board" onClick={handleClick}>
         커뮤니티
       </Menu>
-      {member ? (
-        <>
-          <Tab to="mypage" onClick={handleClick}>
-            마이페이지
-          </Tab>
-          <Tab as="button" onClick={handleLogout}>
-            로그아웃
-          </Tab>
-        </>
-      ) : (
-        <>
-          <Tab to="login" onClick={handleClick}>
-            로그인
-          </Tab>
-          <Tab to="sign" onClick={handleClick}>
-            회원가입
-          </Tab>
-        </>
-      )}
+      <div className="flex gap-8 pt-5">
+        {member ? (
+          <>
+            <Tab to="mypage" onClick={handleClick}>
+              마이페이지
+            </Tab>
+            <Tab as="button" onClick={handleLogout}>
+              로그아웃
+            </Tab>
+          </>
+        ) : (
+          <>
+            <Tab to="login" onClick={handleClick}>
+              로그인
+            </Tab>
+            <Tab to="sign" onClick={handleClick}>
+              회원가입
+            </Tab>
+          </>
+        )}
+      </div>
     </nav>
   );
 }

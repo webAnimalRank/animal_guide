@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getMyInfo } from '../member/memberApi';
 import { Tag } from './mypage.style';
+import { Btn } from '../../components/style';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -59,24 +60,28 @@ export default function MyPost() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2 bg-white/10 rounded-xl p-3">
       {error && <div className="pb-3 text-sm text-red-300">{error}</div>}
 
       {posts.length === 0 ? (
         <div>게시물이 없습니다.</div>
       ) : (
         posts.map((post) => (
-          <div key={post.boardNo} className="flex items-center gap-4 pr-2 border-b py-3 font-bold text-sm">
+          <div
+            key={post.boardNo}
+            className="flex items-center gap-4 pb-2 border-b font-bold text-sm"
+          >
             <Tag>{post.boardKind || 'free'}</Tag>
-            <Link to={`/board/post/${post.boardNo}`} className="flex-1 text-left underline-offset-4 hover:underline">
+            <Link
+              to={`/board/post/${post.boardNo}`}
+              className="flex-1 text-left underline-offset-4 hover:underline"
+            >
               {post.boardTitle}
             </Link>
-            <button type="button" onClick={() => edit(post.boardNo)} className="hover:font-extrabold">
-              수정하기
-            </button>
-            <button type="button" onClick={() => remove(post.boardNo)} className="hover:font-extrabold">
-              삭제하기
-            </button>
+            <div>
+              <Btn onClick={() => edit(post.boardNo)}>수정</Btn>
+              <Btn onClick={() => remove(post.boardNo)}>삭제</Btn>
+            </div>
           </div>
         ))
       )}

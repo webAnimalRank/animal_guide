@@ -57,7 +57,7 @@ export const Menu = styled(Link).attrs({
 `;
 
 export const Tab = styled(Link).attrs({
-	className: 'h-15 flex justify-center items-center font-bold'
+	className: 'flex justify-center items-center font-bold'
 })`
 	padding: 0;
 `;

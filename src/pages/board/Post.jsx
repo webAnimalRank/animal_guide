@@ -63,7 +63,7 @@ export default function Post() {
   return (
     <Wrap className="font-(family-name:--f)">
       <div className="flex font-medium justify-between items-center gap-3">
-        <Undo>뒤로가기</Undo>
+        <Undo>목록</Undo>
 
         {isOwner && (
           <div className="flex gap-2">

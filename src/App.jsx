@@ -39,7 +39,7 @@ function App() {
 
   return (
     <>
-      <LoadingScreen isLoading={isLoading || firstLoad} />
+      <LoadingScreen isLoading={isLoading && firstLoad} />
       <Routes>
         <Route path="/" element={<L />}>
           {routes

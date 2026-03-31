@@ -96,8 +96,8 @@ export default function DataTable({ kind }) {
 
   return (
     <>
-      <Mobile table={table} pageSize={size} />
-      <DeskTop table={table} pageSize={size} />
+      <Mobile table={table} />
+      <DeskTop table={table} />
 
       <div className="flex justify-center gap-2">
         {start.map((p) => (
