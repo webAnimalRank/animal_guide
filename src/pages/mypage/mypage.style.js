@@ -60,7 +60,7 @@ export const Edit = styled(Btn).attrs({
 })``;
 
 export const Tag = styled.span.attrs({
-  className: 'bg-(--c) text-white rounded-md text-xs py-1 px-2'
+  className: 'bg-(--c)/80 text-white rounded-md text-xs py-1 px-2'
 })``;
 
 export const Action = styled.button.attrs({

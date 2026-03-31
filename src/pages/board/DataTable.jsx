@@ -69,7 +69,9 @@ export default function DataTable({ kind }) {
         pageIndex: page - 1,
         pageSize: size
       }
-    }
+    },
+    
+    meta: { kind: kind }
   });
 
   if (loading && (!items || items.length === 0)) {

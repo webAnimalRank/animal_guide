@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Btn, Wrap } from '../../components/style';
 import { useFetchStore } from '../../store/useFetchStore';
 import { Undo } from './board.style';
@@ -9,6 +9,10 @@ import { usePostStore } from './usePostStore';
 export default function Write() {
   const navigate = useNavigate();
   const { boardNo } = useParams();
+
+  const location = useLocation();
+  const kindItem = location.state?.boardKind ?? 'free';
+  const kindTitle = kindItem === 'notice' ? '공지사항' : '자유게시판';
 
   const member = useFetchStore((state) => state.member);
   const {
@@ -49,7 +53,7 @@ export default function Write() {
         isEditMode,
         boardNo: parsedBoardNo,
         member,
-        boardKind: data?.boardKind
+        boardKind: isEditMode ? data?.boardKind : kindItem
       });
 
       navigate(targetBoardNo ? `/board/post/${targetBoardNo}` : '/board');
@@ -71,9 +75,18 @@ export default function Write() {
 
   return (
     <Wrap className="font-(family-name:--f)">
+      <h2 className="self-start text-xl font-(family-name:--f2) flex gap-3 items-center">
+        <span className="font-bold">
+          {isEditMode
+            ? data?.boardKind === 'notice'
+              ? '공지사항'
+              : '자유게시판'
+            : kindTitle}
+        </span>
+        글 작성
+      </h2>
       <div className="flex justify-between font-medium">
-        <Undo>뒤로가기</Undo>
-
+        <Undo>목록</Undo>
         <span className="text-(--p)">{member.memberName}</span>
       </div>
 
@@ -89,7 +102,7 @@ export default function Write() {
         onChange={(e) => setBoardTitle(e.target.value)}
         disabled={isProcessing || (isEditMode && !isOwner)}
         maxLength={300}
-        className="bg-white/10 rounded-md py-2 px-4 text-left font-semibold disabled:opacity-60"
+        className="bg-white/15 rounded-md py-2 px-4 text-left font-semibold disabled:opacity-60"
         placeholder="제목을 입력하세요"
       />
       <textarea
@@ -98,7 +111,7 @@ export default function Write() {
         disabled={isProcessing || (isEditMode && !isOwner)}
         maxLength={3000}
         placeholder="내용을 입력하세요"
-        className="bg-white/10 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60"
+        className="bg-white/15 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60"
       />
 
       <Btn
@@ -107,7 +120,7 @@ export default function Write() {
         onClick={submit}
         disabled={isProcessing || (isEditMode && !isOwner)}
       >
-        {isProcessing ? 'Submitting...' : isEditMode ? '수정하기' : '작성하기'}
+        {isProcessing ? 'Submitting...' : isEditMode ? '수정' : '작성'}
       </Btn>
       {(fetchError || actionError) && (
         <div className="text-sm text-red-200">

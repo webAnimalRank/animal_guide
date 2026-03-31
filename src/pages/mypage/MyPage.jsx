@@ -11,8 +11,8 @@ export default function MyPage() {
 
   const sectionData = [
     { key: 'info', title: '내 정보', component: MyInfo },
-    { key: 'post', title: '내 작성글', component: MyPost },
-    { key: 'pick', title: '내 투표', component: MyPick }
+    { key: 'pick', title: '내 투표', component: MyPick },
+    { key: 'post', title: '내 작성글', component: MyPost }
   ];
   const [sections, setSections] = useState(
     Object.fromEntries(sectionData.map(({ key }) => [key, false]))

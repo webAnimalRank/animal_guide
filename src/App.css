@@ -1,35 +1,46 @@
 #root {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	font-family: 'Nexon Lv2 Gothic', sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Nexon Lv2 Gothic', sans-serif;
 }
 
 ::-webkit-scrollbar {
-	width: 0.2rem;
-	background-color: var(--c2);
+  width: 0.2rem;
+  background-color: var(--c2);
 }
 ::-webkit-scrollbar-thumb {
-	background-color: var(--c);
+  background-color: var(--c);
 }
 
 :root {
-	--header: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
-	--glass: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
-	--glass2: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6));
-	--shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-	--shadowW: 0 0 4px rgba(255, 255, 255, 0.4);
-	--shadow2: 0 0 4px rgba(0, 0, 0, 0.8);
-	--shadowB: 0 2px 4px rgba(0, 0, 0, 0.25);
-	--gold: #efb70030;
-	--silver: #66666630;
-	--bronze: #8c663a30;
-	--c: #332200; /* choco */
-	--c2: #776644;
-	--cw: #45361C;
-	--p: #8bb363; /* point */
-	--y: #efb700;
-	--pink: #db9495;
-	--f: Pretendard;
+  --header: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+  --glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.8)
+  );
+  --glass2: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.6)
+  );
+  --shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  --shadowW: 0 0 4px rgba(255, 255, 255, 0.4);
+  --shadow2: 0 0 4px rgba(0, 0, 0, 0.8);
+  --shadowB: 0 2px 4px rgba(0, 0, 0, 0.25);
+  --gold: #efb70030;
+  --silver: #66666630;
+  --bronze: #8c663a30;
+  --c: #332200; /* choco */
+  --c2: #776644;
+  --cw: #45361c;
+  --p: #8bb363; /* point */
+  --y: #efb700;
+  --pink: #db9495;
+  --f: Pretendard;
+  --f2: 'Nexon Lv2 Gothic';
 }

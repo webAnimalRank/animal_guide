@@ -13,15 +13,22 @@ export default function Board() {
   return (
     <Wrap className="h-full! gap-10">
       {kind.map((k) => (
-        <div key={k.item} className="sm:flex-1 max-h-100 min-h-0 flex flex-col gap-5">
+        <div
+          key={k.item}
+          className="sm:flex-1 max-h-100 min-h-0 flex flex-col gap-5"
+        >
           <div className="flex justify-between items-center">
-            <h3 className="text-xl font-bold">{k.title}</h3>
+            <h3 className="text-xl font-bold self-start">{k.title}</h3>
             <Search name="search" placeholder="검색어를 입력하세요" />
           </div>
 
           <DataTable kind={k.item} />
           {member && (
-            <Btn as={Link} to="write">
+            <Btn
+              as={Link}
+              to="write"
+              state={{ boardKind: k.item }}
+            >
               글 작성
             </Btn>
           )}

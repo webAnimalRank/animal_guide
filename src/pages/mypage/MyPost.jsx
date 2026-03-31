@@ -60,7 +60,7 @@ export default function MyPost() {
   }
 
   return (
-    <div className="flex flex-col gap-2 bg-white/10 rounded-xl p-3">
+    <div className="flex flex-col gap-2 bg-white/15 rounded-xl p-3">
       {error && <div className="pb-3 text-sm text-red-300">{error}</div>}
 
       {posts.length === 0 ? (
@@ -71,7 +71,7 @@ export default function MyPost() {
             key={post.boardNo}
             className="flex items-center gap-4 pb-2 border-b font-bold text-sm"
           >
-            <Tag>{post.boardKind || 'free'}</Tag>
+            <Tag>{post.boardKind === 'notice' ? '공지' : '자유'}</Tag>
             <Link
               to={`/board/post/${post.boardNo}`}
               className="flex-1 text-left underline-offset-4 hover:underline"

@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 export const usePostStore = create((set, get) => ({
   boardTitle: '',
   boardContent: '',
-  isProcessing: AsyncDisposableStack,
+  isProcessing: false,
   error: '',
 
   setBoardTitle: (title) => set({ boardTitle: title }),
