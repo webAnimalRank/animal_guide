@@ -1,62 +1,43 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Btn, Wrap } from '../../components/style';
 import { useFetchStore } from '../../store/useFetchStore';
 import { Undo } from './board.style';
 import { useBoardDetail } from './useBoardDetail';
-
-const API_URL = import.meta.env.VITE_API_BASE_URL;
+import { usePostStore } from './usePostStore';
 
 export default function Post() {
   const navigate = useNavigate();
   const { boardNo } = useParams();
+
   const member = useFetchStore((state) => state.member);
+  const {
+    isProcessing,
+    error: actionError,
+    deleteBoard,
+    reset
+  } = usePostStore();
 
   const parsedBoardNo = useMemo(() => Number(boardNo), [boardNo]);
   const isValidBoardNo = Number.isInteger(parsedBoardNo) && parsedBoardNo > 0;
 
-  const { data, loading, error } = useBoardDetail(parsedBoardNo, isValidBoardNo);
-  const [deleting, setDeleting] = useState(false);
-  const [actionError, setActionError] = useState('');
+  const {
+    data,
+    loading,
+    error: fetchError
+  } = useBoardDetail(parsedBoardNo, isValidBoardNo);
 
-  const writer = data?.memberName ?? data?.boardWriter ?? '-';
-  const createdAt = data?.createDate ?? '-';
-  const title = data?.boardTitle ?? '';
-  const content = data?.boardContent ?? '';
   const isOwner = member && data && member.memberNo === data.memberNo;
 
-  const remove = async () => {
-    if (!isOwner || deleting) {
-      return;
-    }
-
-    const confirmed = window.confirm('이 게시물을 삭제하시겠습니까?');
-    if (!confirmed) {
-      return;
-    }
+  const handleRemove = async () => {
+    if (!isOwner || isProcessing) return;
+    if (!window.confirm('이 게시물을 삭제하시겠습니까?')) return;
 
     try {
-      setDeleting(true);
-      setActionError('');
-
-      const response = await fetch(`${API_URL}/api/boards/${parsedBoardNo}`, {
-        method: 'DELETE',
-        credentials: 'include'
-      });
-
-      if (response.status === 401) {
-        throw new Error('로그인 세션이 만료되었습니다.');
-      }
-
-      if (!response.ok) {
-        throw new Error('게시물을 삭제하는 데 실패했습니다.');
-      }
-
+      await deleteBoard(parsedBoardNo);
       navigate('/board');
     } catch (err) {
-      setActionError(err.message || '게시물을 삭제하는 데 실패했습니다.');
-    } finally {
-      setDeleting(false);
+      console.error('삭제 중 오류 발생:', err);
     }
   };
 
@@ -67,35 +48,40 @@ export default function Post() {
 
         {isOwner && (
           <div className="flex gap-2">
-            <Btn type="button" onClick={() => navigate(`/board/edit/${parsedBoardNo}`)}>
-              수정하기
+            <Btn onClick={() => navigate(`/board/edit/${parsedBoardNo}`)}>
+              수정
             </Btn>
-            <Btn type="button" onClick={remove} disabled={deleting}>
-              {deleting ? '삭제 중...' : '삭제하기'}
+            <Btn onClick={handleRemove} disabled={isProcessing}>
+              {isProcessing ? '삭제 중...' : '삭제'}
             </Btn>
           </div>
         )}
       </div>
 
-      {!isValidBoardNo && <div className="text-sm text-red-200">Invalid post URL.</div>}
-      {isValidBoardNo && loading && <div>Loading...</div>}
-      {isValidBoardNo && error && <div className="text-sm text-red-200">{error.message}</div>}
-      {actionError && <div className="text-sm text-red-200">{actionError}</div>}
-
-      {isValidBoardNo && !loading && !error && data && (
-        <>
-          <h3 className="bg-white/10 rounded-md py-2 px-4 text-left font-semibold">{title}</h3>
-          <div className="flex justify-between border-b pb-2 px-4 font-medium">
-            <span>{writer}</span>
-            <span>{createdAt}</span>
-          </div>
-
-          <div className="bg-white/10 rounded-2xl min-h-0 flex-1 p-4 text-left whitespace-pre-wrap">{content}</div>
-        </>
+      {!isValidBoardNo && (
+        <div className="text-sm text-red-200">Invalid post URL.</div>
+      )}
+      {loading && <div>Loading...</div>}
+      {(fetchError || actionError) && (
+        <div className="text-sm text-red-200">
+          {fetchError?.message || actionError}
+        </div>
       )}
 
-      {isValidBoardNo && !loading && !error && !data && (
-        <div className="text-sm text-red-200">게시물을 찾을 수 없습니다.</div>
+      {data && !loading && (
+        <>
+          <h3 className="bg-white/10 rounded-md py-2 px-4 text-left font-semibold">
+            {data.boardTitle}
+          </h3>
+          <div className="flex justify-between border-b pb-2 px-4 font-medium">
+            <span>{data.memberName ?? data.boardWriter ?? '-'}</span>
+            <span>{data.createDate ?? '-'}</span>
+          </div>
+
+          <div className="bg-white/10 rounded-2xl min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap">
+            {data.boardContent}
+          </div>
+        </>
       )}
     </Wrap>
   );

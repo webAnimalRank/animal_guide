@@ -15,7 +15,7 @@ export const Form = styled.form.attrs({
 })`
 	@media (max-width: 480px) {
 		width: 15rem;
-		gap: 0.5rem;
+		gap: 0.75rem;
 	}
 `;
 
@@ -28,13 +28,13 @@ export const Field = styled.label.attrs({
 		width: 100%;
 	}
 	@media (max-width: 480px) {
-		padding-block: 0.75rem;
+		padding-block: 0.5rem;
 	}
 `;
 
 export const Btn = styled.button.attrs({
 	type: 'submit',
-	className: 'rounded-xl bg-(--c) p-3 text-white font-extrabold text-xl mt-5'
+	className: 'rounded-xl bg-(--c) p-3 text-white font-bold text-xl max-sm:text-base mt-5'
 })`
 	transition: background-color 0.1s ease-out;
 	&:hover {
@@ -43,7 +43,7 @@ export const Btn = styled.button.attrs({
 `;
 
 export const Btn2 = styled(Link).attrs({
-	className: 'w-max self-center font-extrabold text-lg relative'
+	className: 'w-max self-center font-bold text-lg max-sm:text-sm max-sm:mt-2 relative'
 })`
 	&::after {
 		content: '';
