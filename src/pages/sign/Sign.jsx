@@ -14,7 +14,12 @@ export default function Sign() {
 
   const signUp = async (e) => {
     e.preventDefault(); // 폼 submit 기본 동작 방지
-    console.log('signUp 함수 실행');
+    
+    // ✅ 입력값 검증
+    if (!name.trim() || !id.trim() || !email.trim() || !pw.trim()) {
+      alert('모든 항목을 입력해주세요!');
+      return; // 빈 값 있으면 함수 종료
+    }
 
     const newMember = {
       memberName: name,
