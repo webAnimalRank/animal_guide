@@ -29,7 +29,7 @@ export function Links2({ onClose }) {
   };
 
   return (
-    <nav className="bg-(--c2)/90 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 z-50 md:hidden backdrop-blur-sm">
+    <nav className="bg-(--c)/90 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-30 md:hidden backdrop-blur-sm">
       <Menu to="villager" onClick={handleClick}>
         주민 명부
       </Menu>

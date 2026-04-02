@@ -6,7 +6,7 @@ export const Login = styled.div.attrs({
 })`
 	@media (max-width: 480px) {
 		padding-top: 3rem;
-		gap: 2.5rem;
+		gap: 3rem;
 	}
 `;
 

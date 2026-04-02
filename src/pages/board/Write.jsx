@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Btn, Wrap } from '../../components/style';
 import { useFetchStore } from '../../store/useFetchStore';
-import { Undo } from './board.style';
+import { Toast, Undo } from './board.style';
 import { useBoardDetail } from './useBoardDetail';
 import { usePostStore } from './usePostStore';
 
@@ -74,7 +74,7 @@ export default function Write() {
   }
 
   return (
-    <Wrap className="font-(family-name:--f)">
+    <Wrap className="font-(family-name:--f) relative">
       <h2 className="self-start text-xl font-(family-name:--f2) flex gap-3 items-center">
         <span className="font-bold">
           {isEditMode
@@ -123,9 +123,7 @@ export default function Write() {
         {isProcessing ? 'Submitting...' : isEditMode ? '수정' : '작성'}
       </Btn>
       {(fetchError || actionError) && (
-        <div className="text-sm text-red-200">
-          {fetchError?.message || actionError}
-        </div>
+        <Toast>{fetchError?.message || actionError}</Toast>
       )}
     </Wrap>
   );

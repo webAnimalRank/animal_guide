@@ -82,7 +82,7 @@ export const Leaf2 = styled(LeafImg2)`
 
 export const Head = styled.header.attrs({
   className:
-    'z-50 fixed w-full h-[70px] flex justify-center pb-1 max-sm:h-[50px] bg-(--cw)'
+    'z-50 fixed w-full h-17 flex justify-center pb-1 max-sm:h-12 bg-(--cw)'
 })`
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
 `;
