@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Btn, Wrap } from '../../components/style';
 import { useFetchStore } from '../../store/useFetchStore';
-import { Toast, Undo } from './board.style';
+import { Undo } from './board.style';
 import { useBoardDetail } from './useBoardDetail';
 import { usePostStore } from './usePostStore';
 
@@ -114,17 +114,19 @@ export default function Write() {
         className="bg-white/15 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60"
       />
 
-      <Btn
-        type="button"
-        className="self-end disabled:opacity-60"
-        onClick={submit}
-        disabled={isProcessing || (isEditMode && !isOwner)}
-      >
-        {isProcessing ? 'Submitting...' : isEditMode ? '수정' : '작성'}
-      </Btn>
-      {(fetchError || actionError) && (
-        <Toast>{fetchError?.message || actionError}</Toast>
-      )}
+      <div className="flex justify-between items-center">
+        {(fetchError || actionError) && (
+          <div className="text-(--p)">{fetchError?.message || actionError}</div>
+        )}
+        <Btn
+          type="button"
+          className="ml-auto disabled:opacity-60"
+          onClick={submit}
+          disabled={isProcessing || (isEditMode && !isOwner)}
+        >
+          {isProcessing ? 'Submitting...' : isEditMode ? '수정' : '작성'}
+        </Btn>
+      </div>
     </Wrap>
   );
 }

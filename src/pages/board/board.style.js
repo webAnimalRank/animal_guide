@@ -33,8 +33,3 @@ export const Undo = styled(Link).attrs({
     background: url(/undo.svg) center / contain no-repeat;
   }
 `;
-
-export const Toast = styled.div.attrs({
-  className:
-    'text-sm absolute left-1/2 top-1/2 -translate-1/2 bg-(--c)/90 py-2 px-4 rounded-md pointer-events-none'
-})``;

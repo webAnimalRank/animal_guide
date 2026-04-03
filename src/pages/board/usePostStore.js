@@ -26,12 +26,12 @@ export const usePostStore = create((set, get) => ({
     if (!member) throw new Error('로그인이 필요합니다');
 
     if (!boardTitle.trim()) {
-      set({ error: '제목을 입력해주세요' });
-      throw new Error('제목을 입력해주세요');
+      set({ error: '제목을 입력해주세요!' });
+      throw new Error('제목을 입력해주세요!');
     }
     if (!boardContent.trim()) {
-      set({ error: '내용을 입력해주세요' });
-      throw new Error('내용을 입력해주세요');
+      set({ error: '내용을 입력해주세요!' });
+      throw new Error('내용을 입력해주세요!');
     }
 
     set({ isProcessing: true, error: '' });
