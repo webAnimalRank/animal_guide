@@ -16,14 +16,6 @@ export default function Result() {
   const [loadCount, setLoadCount] = useState(0);
   const [topLoad, setTopLoad] = useState(true);
 
-  const isAllLoad = loadCount >= rankData.length + 1;
-
-  useEffect(() => {
-    if (isAllLoad) {
-      setTopLoad(false);
-    }
-  }, [isAllLoad]);
-
   useEffect(() => {
     startLoading();
     const load = async () => {
@@ -63,6 +55,14 @@ export default function Result() {
       };
     });
   }, [top3]);
+
+  const isAllLoad = loadCount >= rankData.length + 1;
+
+  useEffect(() => {
+    if (isAllLoad) {
+      setTopLoad(false);
+    }
+  }, [isAllLoad]);
 
   return (
     <Box className="w-120 max-sm:w-full relative">
