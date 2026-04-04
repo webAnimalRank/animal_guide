@@ -73,7 +73,7 @@ export default function Result() {
         <Loading className="absolute top-1/2 left-1/2 -translate-1/2 h-30" />
       )}
       {rankData.length === 0 ? (
-        <ResultWrap className="load">
+        <ResultWrap className={!isLoad ? 'load' : ''}>
           <img
             className="h-60 max-md:50 object-contain"
             src={tom}
@@ -86,7 +86,7 @@ export default function Result() {
           </div>
         </ResultWrap>
       ) : (
-        <ResultWrap className={!topLoad ? 'load' : ''}>
+        <ResultWrap className={!isLoad ? 'load' : ''}>
           <img
             className="h-60 max-md:50 object-contain"
             src={top3[0]?.villagerImage}
