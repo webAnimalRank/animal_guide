@@ -14,7 +14,8 @@ export default function Result() {
   const month = new Date().getMonth() + 1;
 
   const [loadCount, setLoadCount] = useState(0);
-  const [topLoad, setTopLoad] = useState(true);
+  const [rankLoad, setRankLoad] = useState(false);
+  const [isLoad, setIsLoad] = useState(true);
 
   useEffect(() => {
     startLoading();
@@ -31,6 +32,7 @@ export default function Result() {
         setTop3([]);
       } finally {
         stopLoading();
+        setRankLoad(true);
       }
     };
 
@@ -56,18 +58,18 @@ export default function Result() {
     });
   }, [top3]);
 
-  const isAllLoad = loadCount >= rankData.length + 1;
+  const isAllLoad = rankLoad && loadCount >= rankData.length + 1;
 
   useEffect(() => {
     if (isAllLoad) {
-      setTopLoad(false);
+      setIsLoad(false);
     }
   }, [isAllLoad]);
 
   return (
     <Box className="w-120 max-sm:w-full relative">
       <Title3 className="star border-(--y)">{month}월의 인기 주민</Title3>
-      {topLoad && (
+      {isLoad && (
         <Loading className="absolute top-1/2 left-1/2 -translate-1/2 h-30" />
       )}
       {rankData.length === 0 ? (
