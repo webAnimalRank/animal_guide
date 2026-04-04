@@ -16,7 +16,7 @@ export default function Result() {
   const [loadCount, setLoadCount] = useState(0);
   const [topLoad, setTopLoad] = useState(true);
 
-  const isAllLoad = loadCount >= top3.length + 1;
+  const isAllLoad = loadCount >= rankData.length + 1;
 
   useEffect(() => {
     if (isAllLoad) {
@@ -64,60 +64,68 @@ export default function Result() {
     });
   }, [top3]);
 
-  const topImage = top3[0]?.villagerImage || tom;
-
   return (
     <Box className="w-120 max-sm:w-full relative">
       <Title3 className="star border-(--y)">{month}월의 인기 주민</Title3>
       {topLoad && (
         <Loading className="absolute top-1/2 left-1/2 -translate-1/2 h-30" />
       )}
-      <ResultWrap className={!topLoad ? 'load' : ''}>
-        <img
-          className="h-60 max-md:50 object-contain"
-          src={topImage}
-          alt="이달의 주민"
-          onLoad={() => setLoadCount((prev) => prev + 1)}
-          onError={() => setLoadCount((prev) => prev + 1)}
-        />
-        {rankData.length === 0 && (
+      {rankData.length === 0 ? (
+        <ResultWrap className="load">
+          <img
+            className="h-60 max-md:50 object-contain"
+            src={tom}
+            alt=""
+            onLoad={() => setLoadCount((prev) => prev + 1)}
+            onError={() => setLoadCount((prev) => prev + 1)}
+          />
           <div className="font-bold text-lg py-3">
             아직 투표 결과가 없습니다.
           </div>
-        )}
-        {rankData.map(({ rank, icon, name, votes, shadow }) => (
-          <Rank key={rank} className={shadow}>
-            <span
-              className={
-                rank === 1
-                  ? 'text-xl max-md:text-lg'
-                  : 'text-lg max-md:text-base'
-              }
-            >
-              {rank}위
-            </span>
-            <img
-              className="h-10 max-md:h-8"
-              src={icon}
-              alt=""
-              onLoad={() => setLoadCount((prev) => prev + 1)}
-              onError={() => setLoadCount((prev) => prev + 1)}
-            />
-            <span
-              className={
-                rank === 1
-                  ? 'text-2xl font-extrabold'
-                  : 'text-xl font-extrabold'
-              }
-            >
-              {name}
-            </span>
-            <span className="ml-auto text-lg max-md:text-base font-bold">
-              {votes}표
-            </span>
-          </Rank>
-        ))}
-      </ResultWrap>
+        </ResultWrap>
+      ) : (
+        <ResultWrap className={!topLoad ? 'load' : ''}>
+          <img
+            className="h-60 max-md:50 object-contain"
+            src={top3[0]?.villagerImage}
+            alt="이달의 주민"
+            onLoad={() => setLoadCount((prev) => prev + 1)}
+            onError={() => setLoadCount((prev) => prev + 1)}
+          />
+          {rankData.map(({ rank, icon, name, votes, shadow }) => (
+            <Rank key={rank} className={shadow}>
+              <span
+                className={
+                  rank === 1
+                    ? 'text-xl max-md:text-lg'
+                    : 'text-lg max-md:text-base'
+                }
+              >
+                {rank}위
+              </span>
+              <img
+                className="h-10 max-md:h-8"
+                src={icon}
+                alt=""
+                onLoad={() => setLoadCount((prev) => prev + 1)}
+                onError={() => setLoadCount((prev) => prev + 1)}
+              />
+              <span
+                className={
+                  rank === 1
+                    ? 'text-2xl font-extrabold'
+                    : 'text-xl font-extrabold'
+                }
+              >
+                {name}
+              </span>
+              <span className="ml-auto text-lg max-md:text-base font-bold">
+                {votes}표
+              </span>
+            </Rank>
+          ))}
+        </ResultWrap>
+      )}
     </Box>
   );
 }
