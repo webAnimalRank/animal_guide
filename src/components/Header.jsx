@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import tom from '../assets/img/tom_icon.png';
 import { useFetchStore } from '../store/useFetchStore';
 import { useOutClick } from './useOutClick';
+import toast from 'react-hot-toast';
 
 const links = [
 	{ to: 'villager', label: '주민 명부' },
@@ -29,10 +30,10 @@ export default function Header() {
 		const result = await logout();
 
 		if (result.success) {
-			alert('로그아웃 성공');
+			toast.success('로그아웃되었습니다.');
 			setIsIcon(false);
 		} else {
-			alert('로그아웃 실패');
+			toast.error('로그아웃 실패');
 		}
 	};
 

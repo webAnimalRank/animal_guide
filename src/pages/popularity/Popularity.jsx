@@ -7,6 +7,7 @@ import { SelectionPanel } from './SelectionPanel';
 import { usePopularityStore, MAX_VOTES } from './useStore';
 import { useVillagerStore } from '../villager/useStore';
 import { useFetchStore } from '../../store/useFetchStore';
+import toast from 'react-hot-toast';
 
 export default function Popularity() {
 	const { villagers, member } = useFetchStore();
@@ -24,7 +25,12 @@ export default function Popularity() {
 
 	const handleSubmit = async () => {
 		const result = await submitVotes();
-		alert(result.message);
+
+		if (result.success) {
+			toast.success(result.message);
+		} else {
+			toast.error(result.message);
+		}
 	};
 
 	return (
@@ -46,11 +52,11 @@ export default function Popularity() {
 			</div>
 			<div className='flex flex-0 gap-3 justify-between max-sm:flex-col sm:pt-2'>
 				<SelectionPanel />
-				<Submit disabled={selectedIds.length < remainingVotes} onClick={handleSubmit}>
-					{submitting ? '처리 중...' : '투표 완료'}
+				<Submit disabled={submitting || selectedIds.length < remainingVotes} onClick={handleSubmit}>
+					투표
 				</Submit>
 			</div>
-			{remainingVotes === 0 && (
+			{member && remainingVotes === 0 && (
 				<BlurBg>
 					이번 시즌 투표를 이미 완료했습니다.
 					<LinkBtn to='/' className='home'>
