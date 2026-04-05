@@ -1,12 +1,17 @@
 import { CheckWrap } from './popularity.style';
 import { usePopularityStore } from './useStore';
 import { CheckBox, Cancel } from './popularity.style';
+import { VillagerImage } from '../villager/Villager';
 
 /* 선택된 주민 박스 */
 function Selected({ villager, onRemove }) {
 	return (
-		<CheckBox key={villager.villagerNo}>
-			<img className='object-contain min-h-0 flex-1' src={villager.villagerImageIcon} alt={villager.villagerName} />
+		<CheckBox key={villager.villagerNo} className='pt-1'>
+			<VillagerImage
+				className='min-h-0 flex-1'
+				src={villager.villagerImageIcon}
+				alt={villager.villagerName}
+			/>
 			{villager.villagerName}
 			<Cancel onClick={() => onRemove(villager)} aria-label={`${villager.villagerName} 제거`} />
 		</CheckBox>

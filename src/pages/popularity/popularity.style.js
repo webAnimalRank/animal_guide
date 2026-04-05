@@ -118,6 +118,14 @@ export const CheckWrap = styled.div.attrs({
 export const CheckBox = styled(Glass).attrs({
 	className: 'size-full pb-2 flex flex-col justify-center font-bold text-lg relative'
 })`
+	img {
+		height: 100%;
+		opacity: 0;
+	}
+	.load {
+		animation: ${fade} 0.5s ease-out forwards;
+	}
+
 	@media (max-width: 480px) {
 		width: 100%;
 		font-size: 0.9rem;

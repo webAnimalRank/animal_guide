@@ -21,7 +21,7 @@ export const Title3 = styled.h3.attrs({
 
 export const Rank = styled.div.attrs({
   className:
-    'flex gap-2 items-center font-bold p-2 rounded-xl border-solid border-[#ffffff40]'
+    'flex gap-2 items-center font-bold py-2 px-4 rounded-xl border-solid border-[#ffffff40]'
 })`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
