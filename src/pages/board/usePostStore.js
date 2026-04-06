@@ -24,16 +24,21 @@ export const usePostStore = create((set, get) => ({
 	submitBoard: async ({ isEditMode, boardNo, boardKind }) => {
 		const { boardTitle, boardContent } = get();
 		const member = useFetchStore.getState().member;
+		const safeBoardKind = boardKind ?? 'free';
 
-		if (!member) throw new Error('로그인이 필요합니다');
+		if (!member) throw new Error('로그인이 필요합니다.');
 
 		if (!boardTitle.trim()) {
-			set({ error: '제목을 입력해주세요!' });
-			throw new Error('제목을 입력해주세요!');
+			set({ error: '제목을 입력해주세요.' });
+			throw new Error('제목을 입력해주세요.');
 		}
 		if (!boardContent.trim()) {
-			set({ error: '내용을 입력해주세요!' });
-			throw new Error('내용을 입력해주세요!');
+			set({ error: '내용을 입력해주세요.' });
+			throw new Error('내용을 입력해주세요.');
+		}
+		if (safeBoardKind === 'notice' && !member?.isAdmin) {
+			set({ error: '공지사항은 관리자만 작성할 수 있습니다.' });
+			throw new Error('공지사항은 관리자만 작성할 수 있습니다.');
 		}
 
 		set({ isProcessing: true, error: '' });
@@ -45,10 +50,17 @@ export const usePostStore = create((set, get) => ({
 				body: JSON.stringify({
 					boardTitle: boardTitle.trim(),
 					boardContent: boardContent.trim(),
-					boardKind: boardKind ?? 'free'
+					boardKind: safeBoardKind
 				})
 			});
-			if (!response.ok) throw new Error('게시물 저장 실패');
+
+			if (response.status === 403) {
+				throw new Error('공지사항은 관리자만 작성하거나 수정할 수 있습니다.');
+			}
+			if (!response.ok) {
+				throw new Error('게시물을 저장하지 못했습니다.');
+			}
+
 			const result = await response.json();
 			return result?.boardNo ?? boardNo;
 		} catch (err) {
@@ -66,8 +78,9 @@ export const usePostStore = create((set, get) => ({
 				method: 'DELETE',
 				credentials: 'include'
 			});
-			if (response.status === 401) throw new Error('로그인 세션 만료');
-			if (!response.ok) throw new Error('삭제 실패');
+			if (response.status === 401) throw new Error('로그인 세션이 만료되었습니다.');
+			if (response.status === 403) throw new Error('공지사항은 관리자만 삭제할 수 있습니다.');
+			if (!response.ok) throw new Error('삭제에 실패했습니다.');
 			return true;
 		} catch (err) {
 			set({ error: err.message });

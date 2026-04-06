@@ -7,119 +7,140 @@ import { useBoardDetail } from './useBoardDetail';
 import { usePostStore } from './usePostStore';
 
 export default function Write() {
-	const navigate = useNavigate();
-	const { boardNo } = useParams();
+  const navigate = useNavigate();
+  const { boardNo } = useParams();
+  const location = useLocation();
+  const kindItem = location.state?.boardKind ?? 'free';
+  const kindTitle = kindItem === 'notice' ? '공지사항' : '자유게시판';
 
-	const location = useLocation();
-	const kindItem = location.state?.boardKind ?? 'free';
-	const kindTitle = kindItem === 'notice' ? '공지사항' : '자유게시판';
+  const member = useFetchStore((state) => state.member);
+  const isAdmin = Boolean(member?.isAdmin);
 
-	const member = useFetchStore((state) => state.member);
+  useEffect(() => {
+    if (!member) {
+      navigate('/', { replace: true });
+    }
+  }, [member, navigate]);
 
-	useEffect(() => {
-		if (!member) {
-			navigate('/', { replace: true });
-		}
-	}, [member, navigate]);
+  const {
+    boardTitle,
+    boardContent,
+    isProcessing,
+    error: actionError,
+    setBoardTitle,
+    setBoardContent,
+    setInitialData,
+    submitBoard,
+    reset
+  } = usePostStore();
 
-	if (!member) return null;
+  const parsedBoardNo = useMemo(() => Number(boardNo), [boardNo]);
+  const isEditMode = Number.isInteger(parsedBoardNo) && parsedBoardNo > 0;
+  const { data, loading, error: fetchError } = useBoardDetail(parsedBoardNo, isEditMode);
 
-	const {
-		boardTitle,
-		boardContent,
-		isProcessing,
-		error: actionError,
-		setBoardTitle,
-		setBoardContent,
-		setInitialData,
-		submitBoard,
-		reset
-	} = usePostStore();
+  useEffect(() => {
+    if (!member) {
+      return;
+    }
 
-	const parsedBoardNo = useMemo(() => Number(boardNo), [boardNo]);
-	const isEditMode = Number.isInteger(parsedBoardNo) && parsedBoardNo > 0;
+    if (!isEditMode && kindItem === 'notice' && !isAdmin) {
+      navigate('/board', { replace: true });
+    }
+  }, [member, isEditMode, kindItem, isAdmin, navigate]);
 
-	const { data, loading, error: fetchError } = useBoardDetail(parsedBoardNo, isEditMode);
+  useEffect(() => {
+    if (isEditMode && data) {
+      setInitialData(data);
+    }
 
-	useEffect(() => {
-		if (isEditMode && data) {
-			setInitialData(data);
-		}
+    return () => reset();
+  }, [isEditMode, data, setInitialData, reset]);
 
-		return () => reset();
-	}, [isEditMode, data, setInitialData, reset]);
+  useEffect(() => {
+    if (!isEditMode || loading || !data) {
+      return;
+    }
 
-	const isOwner = !isEditMode || (member?.memberNo === data?.memberNo);
+    if (data.boardKind === 'notice' && !isAdmin) {
+      navigate('/board', { replace: true });
+    }
+  }, [isEditMode, loading, data, isAdmin, navigate]);
 
-	const submit = async () => {
-		try {
-			const targetBoardNo = await submitBoard({
-				isEditMode,
-				boardNo: parsedBoardNo,
-				boardKind: isEditMode ? data?.boardKind : kindItem
-			});
+  if (!member) return null;
 
-			navigate(targetBoardNo ? `/board/post/${targetBoardNo}` : '/board');
-		} catch (err) {
-			console.error('제출 중 오류:', err);
-		}
-	};
+  const isOwner = !isEditMode || member.memberNo === data?.memberNo;
 
-	if (isEditMode && loading) {
-		return (
-			<Wrap className='font-(family-name:--f)'>
-				<div className='flex font-medium'>
-					<Undo>뒤로가기</Undo>
-				</div>
-				<div>Loading...</div>
-			</Wrap>
-		);
-	}
+  const submit = async () => {
+    try {
+      const targetBoardNo = await submitBoard({
+        isEditMode,
+        boardNo: parsedBoardNo,
+        boardKind: isEditMode ? data?.boardKind : kindItem
+      });
 
-	return (
-		<Wrap className='font-(family-name:--f) relative'>
-			<h2 className='self-start text-xl font-(family-name:--f2) flex gap-3 items-center'>
-				<span className='font-bold'>
-					{isEditMode ? (data?.boardKind === 'notice' ? '공지사항' : '자유게시판') : kindTitle}
-				</span>
-				글 작성
-			</h2>
-			<div className='flex justify-between font-medium'>
-				<Undo>목록</Undo>
-				<span className='text-(--p)'>{member.memberName}</span>
-			</div>
+      navigate(targetBoardNo ? `/board/post/${targetBoardNo}` : '/board');
+    } catch (err) {
+      console.error('submit failed:', err);
+    }
+  };
 
-			{isEditMode && data && !isOwner && <div className='text-sm text-red-200'>자신의 글만 수정할 수 있습니다.</div>}
+  if (isEditMode && loading) {
+    return (
+      <Wrap className='font-(family-name:--f)'>
+        <div className='flex font-medium'>
+          <Undo>뒤로가기</Undo>
+        </div>
+        <div>Loading...</div>
+      </Wrap>
+    );
+  }
 
-			<input
-				type='text'
-				value={boardTitle}
-				onChange={(e) => setBoardTitle(e.target.value)}
-				disabled={isProcessing || (isEditMode && !isOwner)}
-				maxLength={300}
-				className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold disabled:opacity-60'
-				placeholder='제목을 입력하세요'
-			/>
-			<textarea
-				value={boardContent}
-				onChange={(e) => setBoardContent(e.target.value)}
-				disabled={isProcessing || (isEditMode && !isOwner)}
-				maxLength={3000}
-				placeholder='내용을 입력하세요'
-				className='bg-white/15 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60'
-			/>
+  return (
+    <Wrap className='font-(family-name:--f) relative'>
+      <h2 className='self-start text-xl font-(family-name:--f2) flex gap-3 items-center'>
+        <span className='font-bold'>
+          {isEditMode ? (data?.boardKind === 'notice' ? '공지사항' : '자유게시판') : kindTitle}
+        </span>
+        글 작성
+      </h2>
+      <div className='flex justify-between font-medium'>
+        <Undo>목록</Undo>
+        <span className='text-(--p)'>{member.memberName}</span>
+      </div>
 
-			<div className='flex justify-between items-center'>
-				{(fetchError || actionError) && <div className='text-(--p)'>{fetchError?.message || actionError}</div>}
-				<Btn
-					type='button'
-					className='ml-auto disabled:opacity-60'
-					onClick={submit}
-					disabled={isProcessing || (isEditMode && !isOwner)}
-				>
-					{isProcessing ? 'Submitting...' : isEditMode ? '수정' : '작성'}
-				</Btn>
-			</div>
-		</Wrap>
-	);
+      {isEditMode && data && !isOwner && (
+        <div className='text-sm text-red-200'>자신의 글만 수정할 수 있습니다.</div>
+      )}
+
+      <input
+        type='text'
+        value={boardTitle}
+        onChange={(e) => setBoardTitle(e.target.value)}
+        disabled={isProcessing || (isEditMode && !isOwner)}
+        maxLength={300}
+        className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold disabled:opacity-60'
+        placeholder='제목을 입력하세요'
+      />
+      <textarea
+        value={boardContent}
+        onChange={(e) => setBoardContent(e.target.value)}
+        disabled={isProcessing || (isEditMode && !isOwner)}
+        maxLength={3000}
+        placeholder='내용을 입력하세요'
+        className='bg-white/15 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60'
+      />
+
+      <div className='flex justify-between items-center'>
+        {(fetchError || actionError) && <div className='text-(--p)'>{fetchError?.message || actionError}</div>}
+        <Btn
+          type='button'
+          className='ml-auto disabled:opacity-60'
+          onClick={submit}
+          disabled={isProcessing || (isEditMode && !isOwner)}
+        >
+          {isProcessing ? '저장 중...' : isEditMode ? '수정' : '작성'}
+        </Btn>
+      </div>
+    </Wrap>
+  );
 }
