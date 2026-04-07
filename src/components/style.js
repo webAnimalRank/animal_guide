@@ -168,7 +168,13 @@ export const Wrap = styled.div.attrs({
 export const Btn = styled.button.attrs({
   type: 'button',
   className:
-    'self-end text-white/80 rounded-lg px-3 py-1 font-bold hover:bg-(--cw)'
+    'self-end rounded-lg px-3 py-1 font-bold hover:bg-(--cw)'
+})``;
+
+export const Btn2 = styled.button.attrs({
+  type: 'button',
+  className:
+    'rounded-lg px-2 py-1 font-bold hover:bg-white/10'
 })``;
 
 export const PageBtn = styled.button.attrs({
