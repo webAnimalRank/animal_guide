@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Tag } from './mypage.style';
 import { Btn } from '../../components/style';
@@ -9,11 +9,11 @@ import { useFetchStore } from '../../store/useFetchStore';
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function MyPost() {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState('');
   const { member } = useFetchStore();
   const { handleRemove } = usePostAction(null);
+  const [isToast, setIsToast] = useState(false);
 
   useEffect(() => {
     const fetchMyPosts = async () => {
@@ -32,13 +32,18 @@ export default function MyPost() {
     fetchMyPosts();
   }, []);
 
-  const edit = (boardNo) => navigate(`/board/edit/${boardNo}`);
-
   const remove = (no) => {
-    handleRemove(no, () => {
-      setPosts((prev) => prev.filter((p) => p.boardNo !== no));
-      setError('');
-    });
+    setIsToast(true);
+
+    handleRemove(
+      no,
+      () => {
+        setPosts((prev) => prev.filter((p) => p.boardNo !== no));
+        setError('');
+        setIsToast(false);
+      },
+      () => setIsToast(false)
+    );
   };
 
   if (!member) {
@@ -65,8 +70,21 @@ export default function MyPost() {
               {post.boardTitle}
             </Link>
             <div>
-              <Btn onClick={() => edit(post.boardNo)}>수정</Btn>
-              <Btn onClick={() => remove(post.boardNo)}>삭제</Btn>
+              <Btn
+                as={Link}
+                className="inline-block"
+                to={`/board/edit/${post.boardNo}`}
+                onClick={(e) => {
+                  if (isToast) {
+                    e.preventDefault();
+                  }
+                }}
+              >
+                수정
+              </Btn>
+              <Btn disabled={isToast} onClick={() => remove(post.boardNo)}>
+                삭제
+              </Btn>
             </div>
           </div>
         ))

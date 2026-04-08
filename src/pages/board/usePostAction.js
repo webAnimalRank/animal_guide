@@ -19,7 +19,7 @@ export default function usePostAction(boardNo) {
 
   const isOwner = member && data && member.memberNo === data.memberNo;
 
-  const handleRemove = (target, onSuccess) => {
+  const handleRemove = (target, onSuccess, onCancel) => {
     const targetId = typeof target === 'number' ? target : parsedBoardNo;
 
     if (isProcessing) return;
@@ -36,6 +36,9 @@ export default function usePostAction(boardNo) {
           navigate('/board');
         }
         if (onSuccess) onSuccess();
+      },
+      onCancel: () => {
+        if (onCancel) onCancel();
       }
     });
   };
