@@ -68,7 +68,7 @@ export const Nav = styled.nav.attrs({
 })``;
 
 export const SelectWrap = styled.div.attrs({
-	className: 'flex gap-4 font-bold ml-auto top-full right-1 bg-(--cw) shadow-(--shadow) rounded-lg px-4 py-2'
+	className: 'flex gap-4 font-bold ml-auto top-full right-1 bg-(--c2) shadow-(--shadow) rounded-lg px-4 py-2'
 })`
 	@media (max-width: 880px) {
 		&.hide {

@@ -1,58 +1,44 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getMyInfo } from '../member/memberApi';
 import { Tag } from './mypage.style';
 import { Btn } from '../../components/style';
+import usePostAction from '../board/usePostAction';
+import { useFetchStore } from '../../store/useFetchStore';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function MyPost() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [member, setMember] = useState(null);
   const [error, setError] = useState('');
+  const { member } = useFetchStore();
+  const { handleRemove } = usePostAction(null);
 
   useEffect(() => {
-    getMyInfo()
-      .then((res) => {
-        setMember(res.data);
-
-        return axios.get(`${API_URL}/api/boards/my`, {
+    const fetchMyPosts = async () => {
+      try {
+        const postsRes = await axios.get(`${API_URL}/api/boards/my`, {
           withCredentials: true
         });
-      })
-      .then((res) => {
-        setPosts(res.data);
+        setPosts(postsRes.data);
         setError('');
-      })
-      .catch(() => {
+      } catch (err) {
         setPosts([]);
-        setMember(null);
         setError('게시물을 불러오는데 실패했습니다.');
-      });
+      }
+    };
+
+    fetchMyPosts();
   }, []);
 
-  const edit = (boardNo) => {
-    navigate(`/board/edit/${boardNo}`);
-  };
+  const edit = (boardNo) => navigate(`/board/edit/${boardNo}`);
 
-  const remove = async (boardNo) => {
-    const confirmed = window.confirm('이 게시물을 삭제하시겠습니까?');
-    if (!confirmed) {
-      return;
-    }
-
-    try {
-      await axios.delete(`${API_URL}/api/boards/${boardNo}`, {
-        withCredentials: true
-      });
-
-      setPosts((prev) => prev.filter((post) => post.boardNo !== boardNo));
+  const remove = (no) => {
+    handleRemove(no, () => {
+      setPosts((prev) => prev.filter((p) => p.boardNo !== no));
       setError('');
-    } catch (err) {
-      setError('게시물을 삭제하는 데 실패했습니다.');
-    }
+    });
   };
 
   if (!member) {

@@ -35,7 +35,7 @@ export default function VillagerFilter({ onChange }) {
 						}}
 					>
 						{f.options.map((opt) => (
-							<option key={opt.value} value={opt.value} className='bg-(--c)'>
+							<option key={opt.value} value={opt.value} className='bg-(--cw)'>
 								{opt.label}
 							</option>
 						))}
