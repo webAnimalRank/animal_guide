@@ -1,4 +1,4 @@
-import { Btn, Search, Wrap } from '../../components/style';
+import { Search, Wrap } from '../../components/style';
 import DataTable from './DataTable';
 import { Link } from 'react-router-dom';
 import { useFetchStore } from '../../store/useFetchStore';
