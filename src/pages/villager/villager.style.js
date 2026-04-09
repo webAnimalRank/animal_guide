@@ -41,7 +41,7 @@ export const Load = styled(Loading).attrs({
 })``;
 
 export const List = styled.div.attrs({
-	className: 'text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow) whitespace-nowrap'
+	className: 'text-base max-sm:text-sm flex gap-2 text-shadow-(--shadow)'
 })`
 	&::before {
 		content: '';
@@ -51,17 +51,12 @@ export const List = styled.div.attrs({
 	}
 	@media (max-width: 480px) {
 		font-size: 0.8rem;
-		padding-right: 0.75rem;
 	}
 `;
 
 export const Close = styled(Btn).attrs({
-	type: 'button',
-	className: 'text-sm outline-none self-center!'
-})`
-	transition: background-color 0.1s ease-out;
-	animation: ${fade} 0.3s ease-out forwards;
-`;
+	className: 'text-sm outline-none self-center! text-white/60 border-2 border-white/20 backdrop-blur-lg'
+})``;
 
 export const Nav = styled.nav.attrs({
 	className: 'sticky top-23 max-sm:top-17 flex items-center justify-between z-10 px-1'
@@ -90,7 +85,8 @@ export const Select = styled.select.attrs({
 
 export const Filter = styled.button.attrs({
 	type: 'button',
-	className: 'w-10 rounded-full aspect-square flex items-center justify-center border-2 border-white/30 bg-(--cw) shadow-(--shadow) hover:bg-(--c2) transition-color duration-200 ease-out'
+	className:
+		'w-10 rounded-full aspect-square flex items-center justify-center border-2 border-white/30 bg-(--c2) shadow-(--shadow) hover:bg-(--cw) transition-color duration-200 ease-out'
 })`
 	&::after {
 		content: '';

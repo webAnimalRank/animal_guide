@@ -54,13 +54,13 @@ export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
 								{getDetailData(detail).map((item, i) => (
 									<li
 										key={i}
-										className='flex gap-2 items-center text-lg max-sm:text-base border-b-2 border-white/40 pb-1 font-medium'
+										className='flex gap-2 items-center text-lg max-sm:text-base border-b-2 border-white/40 pb-1 font-medium break-keep'
 									>
 										<List>{item.label} :</List>
 										{item.label === '이름' ? (
 											<div className='flex gap-2 items-center'>
 												{item.value.villagerName}
-												<span className='text-base max-sm:text-sm'>
+												<span className='text-base max-sm:text-xs'>
 													({item.value.villagerNameEn} / {item.value.villagerNameJp})
 												</span>
 											</div>
@@ -73,7 +73,7 @@ export default function VillagerDetail({ selectedNo, isOpen, onClose }) {
 						</>
 					)}
 				</Card>
-				<Close onClick={onClose}>닫기</Close>
+				<Close onClick={onClose}>클릭하여 닫기</Close>
 			</div>
 		</dialog>
 	);

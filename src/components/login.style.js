@@ -2,13 +2,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Login = styled.div.attrs({
-	className: 'fixed inset-0 flex flex-col items-center gap-20 pt-20'
-})`
-	@media (max-width: 480px) {
-		padding-top: 3rem;
-		gap: 3rem;
-	}
-`;
+	className: 'fixed inset-0 flex flex-col items-center gap-20 pt-20 max-md:pt-10 max-md:gap-12'
+})``;
 
 export const Form = styled.form.attrs({
 	className: 'flex flex-col w-80 gap-4'

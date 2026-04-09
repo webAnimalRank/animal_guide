@@ -3,6 +3,7 @@ import DataTable from './DataTable';
 import { Link } from 'react-router-dom';
 import { useFetchStore } from '../../store/useFetchStore';
 import { useBoardStore } from './useStore';
+import { SearchBtn, WriteBtn } from './board.style';
 
 export default function Board() {
 	const { member } = useFetchStore();
@@ -22,29 +23,28 @@ export default function Board() {
 	};
 
 	return (
-		<Wrap className='h-full! gap-10'>
+		<Wrap className='h-full! gap-20'>
 			{boards.map((board) => (
 				<div key={board.item} className='sm:flex-1 max-h-100 min-h-0 flex flex-col gap-5'>
 					<div className='flex justify-between items-center gap-3'>
-						<h3 className='text-xl font-bold self-start'>{board.title}</h3>
-						<form onSubmit={(event) => handleSearchSubmit(event, board.item)} className='flex items-center gap-2'>
+						<h3 className='text-xl font-bold'>{board.title}</h3>
+						<form onSubmit={(e) => handleSearchSubmit(e, board.item)} className='flex items-center gap-2'>
 							<Search
+								className='w-40! text-xs!'
 								name={`${board.item}-search`}
 								value={boardState[board.item].keyword}
-								onChange={(event) => setKeyword(board.item, event.target.value)}
+								onChange={(e) => setKeyword(board.item, e.target.value)}
 								placeholder='게시글을 검색하세요'
 							/>
-							<Btn type='submit' className='self-center!'>
-								검색
-							</Btn>
+							<SearchBtn type='submit' onClick={(e) => handleSearchSubmit(e, board.item)} className='self-center!' />
 						</form>
 					</div>
 
 					<DataTable kind={board.item} />
 					{member && (board.item === 'free' || isAdmin) && (
-						<Btn className='text-(--p)' as={Link} to='write' state={{ boardKind: board.item }}>
+						<WriteBtn as={Link} to='write' state={{ boardKind: board.item }}>
 							글 작성
-						</Btn>
+						</WriteBtn>
 					)}
 				</div>
 			))}

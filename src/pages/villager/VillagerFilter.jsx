@@ -24,26 +24,28 @@ export default function VillagerFilter({ onChange }) {
 					onChange?.();
 				}}
 			/>
-			<SelectWrap ref={filterRef} className={isFilter ? '' : 'hide'}>
-				{filterConfigs.map((f) => (
-					<Select
-						key={f.key}
-						value={f.value}
-						onChange={(e) => {
-							f.setState(e.target.value);
-							onChange?.();
-						}}
-					>
-						{f.options.map((opt) => (
-							<option key={opt.value} value={opt.value} className='bg-(--cw)'>
-								{opt.label}
-							</option>
-						))}
-					</Select>
-				))}
-				<button onClick={resetFilters}>초기화</button>
-			</SelectWrap>
-			<Filter onClick={() => setIsFilter(!isFilter)} />
+			<div ref={filterRef}>
+				<SelectWrap className={isFilter ? '' : 'hide'}>
+					{filterConfigs.map((f) => (
+						<Select
+							key={f.key}
+							value={f.value}
+							onChange={(e) => {
+								f.setState(e.target.value);
+								onChange?.();
+							}}
+						>
+							{f.options.map((opt) => (
+								<option key={opt.value} value={opt.value} className='bg-(--cw)'>
+									{opt.label}
+								</option>
+							))}
+						</Select>
+					))}
+					<button onClick={resetFilters}>초기화</button>
+				</SelectWrap>
+				<Filter onClick={() => setIsFilter(!isFilter)} />
+			</div>
 		</Nav>
 	);
 }

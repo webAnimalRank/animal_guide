@@ -20,7 +20,7 @@ export function L0() {
 	return (
 		<Login>
 			<Link to='/'>
-				<img className='w-80 max-sm:w-50' src={Logo} alt='' />
+				<img className='w-80 max-md:w-60 max-sm:w-50' src={Logo} alt='' />
 			</Link>
 
 			<Box className='py-10 px-16 max-sm:px-10 rounded-4xl flex flex-col gap-10'>
