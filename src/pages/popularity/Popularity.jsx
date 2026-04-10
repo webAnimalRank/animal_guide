@@ -58,7 +58,7 @@ export default function Popularity() {
 			</div>
 			{member && remainingVotes === 0 && (
 				<BlurBg>
-					이번 시즌 투표를 이미 완료했습니다.
+					이번 시즌 투표를 완료했습니다.
 					<LinkBtn to='/' className='home'>
 						홈으로
 					</LinkBtn>

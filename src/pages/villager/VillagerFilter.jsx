@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Filter, Nav, Select, SelectWrap } from './villager.style';
+import { Filter, Nav, Reset, Select, SelectWrap } from './villager.style';
 import { Search } from '../../components/style';
 import { useVillagerStore } from './useStore';
 import { useOutClick } from '../../components/useOutClick';
@@ -42,7 +42,7 @@ export default function VillagerFilter({ onChange }) {
 							))}
 						</Select>
 					))}
-					<button onClick={resetFilters}>초기화</button>
+					<Reset onClick={resetFilters}>초기화</Reset>
 				</SelectWrap>
 				<Filter onClick={() => setIsFilter(!isFilter)} />
 			</div>

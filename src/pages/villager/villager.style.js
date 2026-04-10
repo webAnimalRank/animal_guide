@@ -98,3 +98,16 @@ export const Filter = styled.button.attrs({
 		display: none;
 	}
 `;
+
+export const Reset = styled.button.attrs({
+	type: 'button',
+	className: 'flex gap-1 items-center justify-center'
+})`
+	&::before {
+		content: '';
+		width: 1rem;
+		aspect-ratio: 1;
+		background-color: rgba(255, 255, 255, 0.6);
+		mask: url(/reset.svg) center / contain no-repeat;
+	}
+`;
