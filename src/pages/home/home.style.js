@@ -31,7 +31,7 @@ to { clip-path: inset(0 0); }
 
 export const Rank = styled.div.attrs({
   className:
-    'flex gap-2 items-center font-bold py-2 px-4 rounded-xl border-2 border-solid border-white/20'
+    'group flex gap-2 items-center font-bold py-2 px-4 rounded-xl border-2 border-solid border-white/20'
 })`
   &:nth-of-type(1) {
     animation: ${clip} 0.6s ease-out;

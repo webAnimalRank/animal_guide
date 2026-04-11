@@ -67,7 +67,7 @@ export default function Result() {
         ...v,
         rank,
         ...styles[rank],
-        icon: rank === 1 ? crown : v.villagerImageIcon || tomMin
+        icon: v.villagerImageIcon || tomMin
       };
     });
 
@@ -124,7 +124,7 @@ export default function Result() {
             <Rank key={item.rank} className={item.shadow}>
               <span className={item.size}>{item.rank}위</span>
               <img
-                className='h-10 max-md:h-8'
+                className='h-10 max-md:h-8 group-hover:h-30 duration-300'
                 src={item.icon}
                 alt=''
                 onLoad={handleImageLoad}
