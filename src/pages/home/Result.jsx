@@ -13,7 +13,7 @@ export default function Result() {
   const [top3, setTop3] = useState([]);
   const [loadCount, setLoadCount] = useState(0);
   const [rankLoad, setRankLoad] = useState(false);
-  const [isLoad, setIsLoad] = useState(true);
+  const [isLoad, setIsLoad] = useState(false);
 
   const month = new Date().getMonth() + 1;
 
@@ -80,23 +80,35 @@ export default function Result() {
 
   // 3. 로딩 종료 감지
   useEffect(() => {
-    if (rankLoad && loadCount >= targetCount) {
+    if (rankLoad && loadCount < targetCount) {
+      const timer = setTimeout(() => {
+        if (loadCount < targetCount) {
+          setIsLoad(true);
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+
+    if (loadCount >= targetCount) {
       setIsLoad(false);
     }
   }, [rankLoad, loadCount, targetCount]);
 
   return (
-    <Box className="w-120 max-sm:w-full relative">
-      <Title3 className="star border-(--y)">{month}월의 인기 주민</Title3>
+    <Box className='w-120 max-sm:w-full relative'>
+      <Title3 className='star border-(--y)'>{month}월의 인기 주민</Title3>
 
       {isLoad && (
-        <Loading className="absolute top-1/2 left-1/2 -translate-1/2 h-30" />
+        <Loading className='absolute top-1/2 left-1/2 -translate-1/2 h-30' />
       )}
 
-      <ResultWrap className={!isLoad ? 'load' : ''}>
+      <ResultWrap
+        className={rankLoad && loadCount >= targetCount ? 'load' : ''}
+      >
         {/* 메인 이미지 영역 */}
         <img
-          className="h-60 max-md:50 object-contain"
+          className='h-60 max-md:50 object-contain'
           src={mainImage}
           alt={top3.length > 0 ? '이달의 주민' : '데이터 없음'}
           onLoad={handleImageLoad}
@@ -104,7 +116,7 @@ export default function Result() {
         />
 
         {top3.length === 0 ? (
-          <div className="font-bold text-lg py-3">
+          <div className='font-bold text-lg py-3'>
             아직 투표 결과가 없습니다.
           </div>
         ) : (
@@ -112,16 +124,14 @@ export default function Result() {
             <Rank key={item.rank} className={item.shadow}>
               <span className={item.size}>{item.rank}위</span>
               <img
-                className="h-10 max-md:h-8"
+                className='h-10 max-md:h-8'
                 src={item.icon}
-                alt=""
+                alt=''
                 onLoad={handleImageLoad}
                 onError={handleImageLoad}
               />
-              <span className={`${item.nameSize} font-extrabold`}>
-                {item.villagerName}
-              </span>
-              <span className="ml-auto text-lg max-md:text-base font-bold">
+              <span className={`${item.nameSize}`}>{item.villagerName}</span>
+              <span className='ml-auto text-lg max-md:text-base'>
                 {item.votes}표
               </span>
             </Rank>

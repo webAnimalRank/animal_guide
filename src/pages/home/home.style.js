@@ -19,11 +19,29 @@ export const Title3 = styled.h3.attrs({
   }
 `;
 
+const clip = keyframes`
+from { clip-path: inset(0 100% 0 0); opacity: 0;}
+to { clip-path: inset(0 0 0 0); }
+`;
+
+const clip2 = keyframes`
+from { clip-path: inset(0 0 100% 0); opacity: 0;}
+to { clip-path: inset(0 0); }
+`;
+
 export const Rank = styled.div.attrs({
   className:
-    'flex gap-2 items-center font-bold py-2 px-4 rounded-xl border-solid border-[#ffffff40]'
+    'flex gap-2 items-center font-bold py-2 px-4 rounded-xl border-2 border-solid border-white/20'
 })`
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  &:nth-of-type(1) {
+    animation: ${clip} 0.6s ease-out;
+  }
+  &:nth-of-type(2) {
+    animation: ${clip} 0.6s ease-out backwards 0.1s;
+  }
+  &:nth-of-type(3) {
+    animation: ${clip} 0.6s ease-out backwards 0.2s;
+  }
 `;
 
 export const Menu = styled(Link).attrs({
@@ -74,6 +92,9 @@ export const ResultWrap = styled.div.attrs({
 })`
   &.load {
     animation: ${fade} 0.3s ease-out forwards;
+  }
+  & > img {
+    animation: ${clip2} 0.6s ease-out;
   }
 `;
 
