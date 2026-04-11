@@ -27,7 +27,7 @@ export default function Board() {
 			{boards.map((board) => (
 				<div key={board.item} className='sm:flex-1 max-h-100 min-h-0 flex flex-col gap-5'>
 					<div className='flex justify-between items-center gap-3'>
-						<h3 className='text-xl font-bold'>{board.title}</h3>
+						<h3 className='text-xl font-bold self-start'>{board.title}</h3>
 						<form onSubmit={(e) => handleSearchSubmit(e, board.item)} className='flex items-center gap-2'>
 							<Search
 								className='w-40! text-xs!'

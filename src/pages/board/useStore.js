@@ -2,9 +2,27 @@ import { create } from 'zustand';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
+let timer = null;
+
 export const useBoardStore = create((set, get) => ({
-  notice: { items: [], meta: {}, page: 1, size: 5, loading: false, search: 'titleContent', keyword: '' },
-  free: { items: [], meta: {}, page: 1, size: 5, loading: false, search: 'titleContent', keyword: '' },
+  notice: {
+    items: [],
+    meta: {},
+    page: 1,
+    size: 5,
+    loading: false,
+    search: 'titleContent',
+    keyword: ''
+  },
+  free: {
+    items: [],
+    meta: {},
+    page: 1,
+    size: 5,
+    loading: false,
+    search: 'titleContent',
+    keyword: ''
+  },
 
   setPage: (kind, page) => {
     set((state) => ({
@@ -35,7 +53,12 @@ export const useBoardStore = create((set, get) => ({
 
   fetchPosts: async (kind) => {
     const { page, size, search, keyword } = get()[kind];
-    set((state) => ({ [kind]: { ...state[kind], loading: true } }));
+
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      set((state) => ({ [kind]: { ...state[kind], loading: true } }));
+    }, 200);
 
     try {
       const qs = new URLSearchParams({
@@ -55,6 +78,8 @@ export const useBoardStore = create((set, get) => ({
         createdAt: (b.createDate ?? '').replace('T', ' ')
       }));
 
+      clearTimeout(timer);
+
       set((state) => ({
         [kind]: {
           ...state[kind],
@@ -67,6 +92,7 @@ export const useBoardStore = create((set, get) => ({
         }
       }));
     } catch (err) {
+      clearTimeout(timer);
       set((state) => ({ [kind]: { ...state[kind], loading: false } }));
       console.error(err);
     }
