@@ -29,6 +29,7 @@ export const useMyInfoStore = create((set, get) => ({
         memberName: formData.memberName,
         memberEmail: formData.memberEmail,
         currentPw: formData.currentPw,
+        profileVillagerNo: formData.profileVillagerNo,
         ...(formData.newPw && { memberPw: formData.newPw })
       };
 

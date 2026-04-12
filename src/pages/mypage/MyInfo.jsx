@@ -8,7 +8,7 @@ import { VillagerImage } from '../villager/Villager';
 import toast from 'react-hot-toast';
 
 const fieldDefs = [
-	{ key: 'memberName', label: '별명', type: 'text' },
+  { key: 'memberName', label: '별명', type: 'text' },
 	{ key: 'memberEmail', label: '이메일', type: 'email' },
 	{ key: 'newPw', label: '새 비밀번호', type: 'password' },
 	{ key: 'newPwConfirm', label: '새 비밀번호 확인', type: 'password' },
@@ -16,13 +16,13 @@ const fieldDefs = [
 ];
 
 export default function MyInfo() {
-	const { member, villagers } = useFetchStore();
+  const { member, villagers } = useFetchStore();
 	const { updateInfo, loading } = useMyInfoStore();
 	const [isIcon, setIsIcon] = useState(false);
 	const [icon, setIcon] = useState(mini);
 	const [selectedVillager, setSelectedVillager] = useState(null);
-
-	// 사용자가 입력 중인 "임시" 폼 상태
+  
+  // 사용자가 입력 중인 "임시" 폼 상태
 	const [formData, setFormData] = useState({
 		memberName: '',
 		memberEmail: '',
@@ -33,26 +33,29 @@ export default function MyInfo() {
 
 	// 초기값 세팅: member 정보가 들어오면 입력창에 넣어줌
 	useEffect(() => {
-		if (member) {
-			setFormData((prev) => ({
-				...prev,
-				memberName: member.memberName,
-				memberEmail: member.memberEmail
-			}));
-		}
+    if (!member || !villagers?.length) return;
 
-		if (villagers?.length) {
+    setFormData((prev) => ({
+      ...prev,
+      memberName: member.memberName,
+      memberEmail: member.memberEmail
+    }));
+
+    // 🔥 이미 선택된 경우 초기화 안 함
+    if (selectedVillager !== null) return;
+
+		if (villagers?.length && selectedVillager === null) {
 			// DB에 들어있는 profileVillagerNo 기준으로 아이콘 세팅
-			const existingVillager = villagers.find((v) => v.villagerNo === member.profileVillagerNo);
-			if (existingVillager) {
+			const existingVillager = villagers.find(
+        (v) => v.villagerNo === member.profileVillagerNo
+      );
+			
+      if (existingVillager) {
 				setIcon(existingVillager.villagerImageIcon);
 				setSelectedVillager(existingVillager.villagerNo);
-			} else {
-				setIcon(mini);
-				setSelectedVillager(member.profileVillagerNo ?? null); // 선택 없으면 null
 			}
 		}
-	}, [member, villagers]);
+	}, [member]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -68,13 +71,17 @@ export default function MyInfo() {
 			memberEmail: formData.memberEmail,
 			currentPw: formData.currentPw,
 			// memberPw: formData.newPw || undefined, // 새 비밀번호 없으면 undefined
-			memberPw: formData.newPw && formData.newPw.trim() !== '' ? formData.newPw : null,
+			// memberPw: formData.newPw && formData.newPw.trim() !== '' ? formData.newPw : null,
+      memberPw: formData.newPw?.trim() ? formData.newPw : null,
 			profileVillagerNo: villagerNoToSend
 		};
 
 		console.log('✅ 수정 요청 payload:', JSON.stringify(payload)); // json 직렬화로 확인
 
-		const result = await updateInfo(payload);
+		const result = await updateInfo({
+      ...formData,
+      profileVillagerNo: selectedVillager
+    });
 
 		if (result.success) {
 			toast.success('회원 정보가 수정되었습니다.');
@@ -129,7 +136,7 @@ export default function MyInfo() {
 								<input
 									type={field.type}
 									name={field.key}
-									value={formData[field.key]}
+									value={formData[field.key] || ''}
 									onChange={handleChange}
 									className='w-full font-(family-name:--f)'
 								/>
