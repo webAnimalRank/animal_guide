@@ -9,6 +9,7 @@ export const useFetchStore = create((set) => ({
   isAuthLoading: true,
   error: null,
   member: null,
+  members : [],
 
   setAuthLoading: (bool) => set({ isAuthLoading: bool }),
 
@@ -54,6 +55,17 @@ export const useFetchStore = create((set) => ({
       return { success: false, error: err };
     }
   },
+
+  // members (전체 회원)
+  fetchMembers: async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/members`);
+        set({ members: res.data });
+      } catch (err) {
+        console.error('회원 목록 로드 실패', err);
+        set({ members: [] });
+      }
+    },
 
   setMember: (data) => set({ member: data })
 }));

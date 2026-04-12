@@ -12,7 +12,7 @@ import { Toaster } from 'react-hot-toast';
 axios.defaults.withCredentials = true;
 
 function App() {
-	const { fetchMe, fetchVillagers, isAuthLoading } = useFetchStore();
+	const { fetchMe, fetchMembers, fetchVillagers, isAuthLoading } = useFetchStore();
 	const isLoading = useLoading((state) => state.isLoading);
 
 	const [firstLoad, setFirstLoad] = useState(true);
@@ -27,7 +27,8 @@ function App() {
 				useFetchStore.getState().setAuthLoading(false);
 			}
 			await fetchVillagers(); // 주민 정보
-
+			await fetchMembers(); // 전체 멤버 정보
+			
 			setFirstLoad(false);
 		};
 
