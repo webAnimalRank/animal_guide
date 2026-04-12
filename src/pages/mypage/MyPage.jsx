@@ -7,7 +7,7 @@ import MyPick from './MyPick';
 import { useFetchStore } from '../../store/useFetchStore';
 
 export default function MyPage() {
-  const { member, setMember } = useFetchStore();
+  const { member } = useFetchStore();
 
   const sectionData = [
     { key: 'info', title: '내 정보', component: MyInfo },
@@ -37,7 +37,7 @@ export default function MyPage() {
           >
             <h3 className="max-sm:text-xl">{title}</h3>
           </Fold>
-          {sections[key] && <Component member={member} setMember={setMember} />}
+          {sections[key] && <Component  />}
         </React.Fragment>
       ))}
     </Wrap>

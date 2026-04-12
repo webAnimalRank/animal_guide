@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import { useFetchStore } from '../../store/useFetchStore';
 import { Menu, Tab } from './home.style';
+import { Url2 } from '../../components/style';
 
 export function Links() {
 	return (
@@ -40,7 +41,7 @@ export function Links2({ onClose }) {
 			<Menu to='board' onClick={handleClick}>
 				커뮤니티
 			</Menu>
-			<div className='flex gap-8 pt-5'>
+			<div className='flex items-center gap-8 pt-5'>
 				{member ? (
 					<>
 						<Tab to='mypage' onClick={handleClick}>
@@ -52,12 +53,12 @@ export function Links2({ onClose }) {
 					</>
 				) : (
 					<>
-						<Tab to='login' onClick={handleClick}>
+						<Url2 to='login' className='login' onClick={handleClick}>
 							로그인
-						</Tab>
-						<Tab to='sign' onClick={handleClick}>
+						</Url2>
+						<Url2 to='sign' className='sign' onClick={handleClick}>
 							회원가입
-						</Tab>
+						</Url2>
 					</>
 				)}
 			</div>
