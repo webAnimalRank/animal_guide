@@ -43,7 +43,7 @@ export default function BirthDay() {
       if (loadCount < displayedVillagers.length) {
         setIsPend(true);
       }
-    }, 50);
+    }, 300);
     return () => clearTimeout(timer);
   }, [loadCount, displayedVillagers.length, currentPage]);
 

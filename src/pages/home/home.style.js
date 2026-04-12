@@ -108,7 +108,7 @@ export const BirthWrap = styled.ul.attrs({
 `;
 
 export const List = styled.li.attrs({
-  className: 'flex items-center gap-4 max-md:gap-2 pr-3 rounded-xl'
+  className: 'flex items-center gap-4 max-md:gap-2 pl-2 pr-3 rounded-xl'
 })`
   &.today {
     background-color: rgba(255, 255, 255, 0.1);

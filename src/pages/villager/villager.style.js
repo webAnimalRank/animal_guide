@@ -12,6 +12,10 @@ const fade = keyframes`
 to { opacity: 1 }
 `;
 
+const scale = keyframes`
+from { scale: 0; opacity: 0; }
+`;
+
 export const Mini = styled.button.attrs({
 	type: 'button',
 	className: 'w-full p-1 font-extrabold border border-white/20 rounded-md text-white/60 hover:bg-(--p)/30'
@@ -27,9 +31,9 @@ export const Mini = styled.button.attrs({
 
 export const Card = styled.div.attrs({
 	className:
-		'flex flex-col h-90 p-10 max-sm:p-6 rounded-4xl flex-row gap-8 max-sm:gap-5 backdrop-blur-xl font-bold opacity-0 max-md:h-auto max-md:w-120 max-md:flex-col max-sm:w-100 font-(family-name:--f) bg-(--c)/60 shadow-(--shadowW) text-white/80'
+		'flex flex-col h-90 p-10 max-sm:p-6 rounded-4xl flex-row gap-8 max-sm:gap-5 backdrop-blur-xl font-bold max-md:h-auto max-md:w-120 max-md:flex-col max-sm:w-100 font-(family-name:--f) bg-(--c)/60 shadow-(--shadowW) text-white/80'
 })`
-	animation: ${fade} 0.3s ease-out forwards;
+	animation: ${scale} 0.3s ease-out;
 	@media (max-width: 480px) {
 		width: 20rem;
 		padding: 1rem 1.4rem;
@@ -56,7 +60,9 @@ export const List = styled.div.attrs({
 
 export const Close = styled(Btn).attrs({
 	className: 'text-sm outline-none self-center! text-white/60 border-2 border-white/20 backdrop-blur-lg'
-})``;
+})`
+	animation: ${scale} 0.3s ease-out;
+`;
 
 export const Nav = styled.nav.attrs({
 	className: 'sticky top-23 max-sm:top-17 flex items-center justify-between z-10 px-1'

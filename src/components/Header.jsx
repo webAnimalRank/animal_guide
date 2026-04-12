@@ -1,6 +1,6 @@
 import Logo from '../assets/img/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Url, Page, Menu, Head, Icon } from './style';
+import { Url, Page, Menu, Head, Icon, Url2 } from './style';
 import { Links2 } from '../pages/home/Links';
 import { useRef, useState } from 'react';
 import tom from '../assets/img/tom_icon.png';
@@ -72,12 +72,12 @@ export default function Header() {
 							</>
 						) : (
 							<>
-								<Url className='login' to='/login'>
+								<Url2 className='login max-md:text-[0px]' to='/login'>
 									로그인
-								</Url>
-								<Url className='sign' to='/sign'>
+								</Url2>
+								<Url2 className='sign max-sm:hidden' to='/sign'>
 									회원가입
-								</Url>
+								</Url2>
 							</>
 						)}
 					</nav>

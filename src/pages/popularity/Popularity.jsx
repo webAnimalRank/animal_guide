@@ -19,7 +19,9 @@ export default function Popularity() {
 		resetSelectedIds(); // 선택된 주민 초기화
 		resetFilters();
 
-		fetchVoteStatus(); // 내 투표 현황 조회
+		if (member) {
+			fetchVoteStatus(); // 내 투표 현황 조회
+		}
 		fetchVillagerTypes(); // 종족 필터 옵션 조회
 	}, []);
 
