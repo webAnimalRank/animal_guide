@@ -1,10 +1,7 @@
-import { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useFetchStore } from '../../store/useFetchStore';
 import usePostAction from './usePostAction';
 import { Btn, Loading, Wrap } from '../../components/style';
 import { Undo } from './board.style';
-import tom from '../../assets/img/tom_icon.png';
 
 export default function Post() {
 	const navigate = useNavigate();
@@ -13,22 +10,11 @@ export default function Post() {
 	const { state } = useLocation();
 	const kindTitle = state?.boardKind === 'notice' ? '공지사항' : '자유게시판';
 
-	const { parsedBoardNo, data, loading, fetchError, actionError, isOwner, isProcessing, handleRemove, isValidBoardNo } =
-		usePostAction(boardNo);
+	const { parsedBoardNo, data, status, error, isOwner, handleRemove, writerInfo } = usePostAction(boardNo);
 
-	const { villagers, members } = useFetchStore();
+	if (!status.isValid) return <Wrap>Invalid post URL.</Wrap>;
 
-	const writerMember = useMemo(() => {
-		return members?.find((m) => m.memberNo === data?.memberNo);
-	}, [members, data?.memberNo]);
-
-	const existingVillager = useMemo(() => {
-		return villagers?.find((v) => v.villagerNo === writerMember?.profileVillagerNo);
-	}, [villagers, writerMember?.profileVillagerNo]);
-
-	if (!isValidBoardNo) return <Wrap>Invalid post URL.</Wrap>;
-
-	if (loading) {
+	if (status.loading) {
 		return (
 			<Wrap className='justify-center items-center'>
 				<Loading className='size-20 max-sm:size-10' />
@@ -36,10 +22,10 @@ export default function Post() {
 		);
 	}
 
-	if (fetchError || actionError) {
+	if (error.fetch || error.action) {
 		return (
 			<Wrap>
-				<div>{fetchError?.message || actionError}</div>
+				<div>{error.fetch?.message || error.action}</div>
 			</Wrap>
 		);
 	}
@@ -55,7 +41,7 @@ export default function Post() {
 				{isOwner && (
 					<div className='flex'>
 						<Btn onClick={() => navigate(`/board/edit/${parsedBoardNo}`)}>수정</Btn>
-						<Btn onClick={handleRemove} disabled={isProcessing}>
+						<Btn onClick={handleRemove} disabled={status.isProcessing}>
 							삭제
 						</Btn>
 					</div>
@@ -64,14 +50,10 @@ export default function Post() {
 
 			<h3 className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold'>{data.boardTitle}</h3>
 			<div className='flex gap-4 items-center max-sm:text-xs'>
-				<img
-					src={existingVillager?.villagerImageIcon ?? tom}
-					className='h-14 max-sm:h-10 bg-white/15 rounded-full p-1'
-					alt=''
-				/>
+				<img src={writerInfo.image} className='h-14 max-sm:h-10 bg-white/15 rounded-full p-1' alt={writerInfo.name} />
 				<div className='flex flex-col items-start gap-1'>
-					{data.memberName ?? data.boardWriter ?? '-'}
-					<span>{data.createDate ?? '-'}</span>
+					{writerInfo.name}
+					<span>{writerInfo.date}</span>
 				</div>
 			</div>
 
