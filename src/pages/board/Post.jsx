@@ -1,9 +1,10 @@
+import { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useFetchStore } from '../../store/useFetchStore';
 import usePostAction from './usePostAction';
 import { Btn, Loading, Wrap } from '../../components/style';
 import { Undo } from './board.style';
 import tom from '../../assets/img/tom_icon.png';
-import { useFetchStore } from '../../store/useFetchStore';
 
 export default function Post() {
 	const navigate = useNavigate();
@@ -17,9 +18,15 @@ export default function Post() {
 
 	const { villagers, members } = useFetchStore();
 
-	if (!isValidBoardNo) {
-		return <Wrap>Invalid post URL.</Wrap>;
-	}
+	const writerMember = useMemo(() => {
+		return members?.find((m) => m.memberNo === data?.memberNo);
+	}, [members, data?.memberNo]);
+
+	const existingVillager = useMemo(() => {
+		return villagers?.find((v) => v.villagerNo === writerMember?.profileVillagerNo);
+	}, [villagers, writerMember?.profileVillagerNo]);
+
+	if (!isValidBoardNo) return <Wrap>Invalid post URL.</Wrap>;
 
 	if (loading) {
 		return (
@@ -38,16 +45,6 @@ export default function Post() {
 	}
 
 	if (!data) return null;
-	
-	const writerMember = members?.find(
-		(m) => m.memberNo === data.memberNo 
-	);
-	// DB에 들어있는 profileVillagerNo 기준으로 아이콘 세팅
-	const existingVillager = villagers?.find(
-	(v) => v.villagerNo === writerMember?.profileVillagerNo);
-
-		
-	console.log(data);
 
 	return (
 		<Wrap className='font-(family-name:--f)'>
@@ -67,7 +64,11 @@ export default function Post() {
 
 			<h3 className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold'>{data.boardTitle}</h3>
 			<div className='flex gap-4 items-center max-sm:text-xs'>
-				<img src={existingVillager?.villagerImageIcon ?? tom} className='h-14 max-sm:h-10 bg-white/15 rounded-full p-1' alt='' />
+				<img
+					src={existingVillager?.villagerImageIcon ?? tom}
+					className='h-14 max-sm:h-10 bg-white/15 rounded-full p-1'
+					alt=''
+				/>
 				<div className='flex flex-col items-start gap-1'>
 					{data.memberName ?? data.boardWriter ?? '-'}
 					<span>{data.createDate ?? '-'}</span>
