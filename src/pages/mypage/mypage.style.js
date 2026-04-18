@@ -27,7 +27,7 @@ export const Form = styled.form.attrs({
 export const ImgIcon = styled.button.attrs({
   type: 'button',
   className:
-    'rounded-full bg-white/20 p-4 hover:bg-white/30 transition-colors duration-300 ease-out'
+    'w-40 max-md:w-25 rounded-full bg-white/20 p-4 max-md:p-2 hover:bg-white/30 transition-colors duration-300 ease-out'
 })`
   img {
     width: 100%;

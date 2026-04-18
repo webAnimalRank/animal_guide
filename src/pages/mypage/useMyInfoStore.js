@@ -4,41 +4,18 @@ import { useFetchStore } from '../../store/useFetchStore';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-const validateUpdateForm = (formData) => {
-  if (!formData.currentPw)
-    return { success: false, message: '현재 비밀번호를 입력해주세요.' };
-  if (formData.newPw && formData.newPw !== formData.newPwConfirm) {
-    return { success: false, message: '새 비밀번호가 일치하지 않습니다.' };
-  }
-  return { success: true };
-};
-
-export const useMyInfoStore = create((set, get) => ({
+export const useMyInfoStore = create((set) => ({
   loading: false,
 
-  updateInfo: async (formData) => {
-    const { member, setMember } = useFetchStore.getState();
-
-    // 유효성 검사 호출
-    const validation = validateUpdateForm(formData);
-    if (!validation.success) return validation;
-
+  updateInfo: async (memberNo, payload) => {
     set({ loading: true });
     try {
-      const payload = {
-        memberName: formData.memberName,
-        memberEmail: formData.memberEmail,
-        currentPw: formData.currentPw,
-        profileVillagerNo: formData.profileVillagerNo,
-        ...(formData.newPw && { memberPw: formData.newPw })
-      };
-
       const res = await axios.put(
-        `${API_URL}/api/members/${member.memberNo}`,
+        `${API_URL}/api/members/${memberNo}`,
         payload
       );
 
-      setMember(res.data); // 성공 시 인증 스토어 정보 갱신
+      useFetchStore.getState().setMember(res.data);
       set({ loading: false });
       return { success: true };
     } catch (err) {
