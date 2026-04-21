@@ -15,7 +15,7 @@ const links = [
 ];
 
 export default function Header() {
-	const { member, logout } = useFetchStore();
+	const { member, villagers, logout } = useFetchStore();
 
 	const [menu, setMenu] = useState(false);
 	const [isIcon, setIsIcon] = useState(false);
@@ -24,6 +24,10 @@ export default function Header() {
 	const dropRef = useRef(null);
 
 	useOutClick(dropRef, () => setIsIcon(false));
+
+	const profileImage = villagers?.find(
+		(v) => v.villagerNo === member?.profileVillagerNo
+	)?.villagerImageIcon;
 
 	const handleLogout = async () => {
 		navigate('/', { replace: true });
@@ -36,6 +40,7 @@ export default function Header() {
 			toast.error('로그아웃 실패');
 		}
 	};
+	console.log(member);
 
 	return (
 		<>
@@ -56,7 +61,7 @@ export default function Header() {
 						{member ? (
 							<>
 								<Icon onClick={() => setIsIcon(!isIcon)}>
-									<img src={tom} className='' alt='' />
+									<img src={profileImage || tom} className='' alt='' />
 								</Icon>
 								{isIcon && (
 									<div className='absolute top-full right-0 translate-y-2 flex flex-col gap-2 w-max bg-(--c) p-4 rounded-lg border border-white/10'>
