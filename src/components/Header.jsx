@@ -1,12 +1,11 @@
-import Logo from '../assets/img/logo.png';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useFetchStore } from '../store/useFetchStore';
 import { Url, Page, Menu, Head, Icon, Url2 } from './style';
 import { Links2 } from '../pages/home/Links';
-import { useRef, useState } from 'react';
-import tom from '../assets/img/tom_icon.png';
-import { useFetchStore } from '../store/useFetchStore';
-import { useOutClick } from './useOutClick';
 import toast from 'react-hot-toast';
+import Logo from '../assets/img/logo.png';
+import tom from '../assets/img/tom_icon.png';
 
 const links = [
 	{ to: 'villager', label: '주민 명부' },
@@ -15,32 +14,10 @@ const links = [
 ];
 
 export default function Header() {
-	const { member, villagers, logout } = useFetchStore();
-
+	const { member, villagers } = useFetchStore();
 	const [menu, setMenu] = useState(false);
-	const [isIcon, setIsIcon] = useState(false);
-	const navigate = useNavigate();
 
-	const dropRef = useRef(null);
-
-	useOutClick(dropRef, () => setIsIcon(false));
-
-	const profileImage = villagers?.find(
-		(v) => v.villagerNo === member?.profileVillagerNo
-	)?.villagerImageIcon;
-
-	const handleLogout = async () => {
-		navigate('/', { replace: true });
-		const result = await logout();
-
-		if (result.success) {
-			toast.success('로그아웃되었습니다.');
-			setIsIcon(false);
-		} else {
-			toast.error('로그아웃 실패');
-		}
-	};
-	console.log(member);
+	const profileImage = villagers?.find((v) => v.villagerNo === member?.profileVillagerNo)?.villagerImageIcon;
 
 	return (
 		<>
@@ -57,23 +34,12 @@ export default function Header() {
 							</Page>
 						))}
 					</nav>
-					<nav ref={dropRef} className='w-max flex gap-5 items-center absolute right-5'>
+					<nav className='w-max flex gap-5 items-center absolute right-5'>
 						{member ? (
 							<>
-								<Icon onClick={() => setIsIcon(!isIcon)}>
+								<Icon to='/mypage'>
 									<img src={profileImage || tom} className='' alt='' />
 								</Icon>
-								{isIcon && (
-									<div className='absolute top-full right-0 translate-y-2 flex flex-col gap-2 w-max bg-(--c) p-4 rounded-lg border border-white/10'>
-										<span className='text-(--p) font-bold pb-2 border-b border-white/30'>{member.memberName}</span>
-										<Url to='/mypage' onClick={() => setIsIcon(false)}>
-											마이페이지
-										</Url>
-										<Url as='button' onClick={handleLogout}>
-											로그아웃
-										</Url>
-									</div>
-								)}
 							</>
 						) : (
 							<>
