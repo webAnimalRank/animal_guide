@@ -2,6 +2,8 @@ import toast from 'react-hot-toast';
 import { useFetchStore } from '../../store/useFetchStore';
 import { Menu, Tab } from './home.style';
 import { Url2 } from '../../components/style';
+import { useEffect, useRef } from 'react';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock-upgrade';
 
 export function Links() {
 	return (
@@ -13,7 +15,25 @@ export function Links() {
 	);
 }
 
-export function Links2({ onClose }) {
+export function Links2({ menu, onClose }) {
+	const menuRef = useRef(null);
+
+	useEffect(() => {
+		const menuWrap = menuRef.current;
+
+		if (menu && menuWrap) {
+			disableBodyScroll(menuWrap, { reserveScrollBarGap: true });
+		} else if (menuWrap) {
+			enableBodyScroll(menuWrap);
+		}
+
+		return () => {
+			if (menuWrap) {
+				enableBodyScroll(menuWrap);
+			}
+		};
+	}, [menu]);
+
 	const { member, logout } = useFetchStore();
 	const handleClick = () => {
 		if (typeof onClose === 'function') onClose();
@@ -30,8 +50,13 @@ export function Links2({ onClose }) {
 		}
 	};
 
+	if (!menu) return null;
+
 	return (
-		<nav className='bg-(--c)/90 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-30 md:hidden backdrop-blur-sm'>
+		<nav
+			ref={menuRef}
+			className='bg-(--c)/90 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-30 md:hidden backdrop-blur-sm'
+		>
 			<Menu to='villager' onClick={handleClick}>
 				주민 명부
 			</Menu>

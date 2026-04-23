@@ -46,7 +46,7 @@ export default function Header() {
 								<Url2 className='login max-md:text-[0px]' to='/login'>
 									로그인
 								</Url2>
-								<Url2 className='sign max-sm:hidden' to='/sign'>
+								<Url2 className='sign max-md:hidden' to='/sign'>
 									회원가입
 								</Url2>
 							</>
@@ -54,7 +54,7 @@ export default function Header() {
 					</nav>
 				</div>
 			</Head>
-			{menu && <Links2 onClose={() => setMenu(false)} />}
+			<Links2 menu={menu} onClose={() => setMenu(false)} />
 		</>
 	);
 }

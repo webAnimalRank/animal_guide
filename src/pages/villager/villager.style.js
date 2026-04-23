@@ -18,7 +18,7 @@ from { scale: 0; opacity: 0; }
 
 export const Mini = styled.button.attrs({
 	type: 'button',
-	className: 'w-full p-1 font-extrabold border border-white/20 rounded-md text-white/60 hover:bg-(--p)/30'
+	className: 'w-full p-1 font-extrabold border border-white/20 rounded-md text-white/60 hover:bg-(--p)/30 relative'
 })`
 	img {
 		opacity: 0;
@@ -27,6 +27,15 @@ export const Mini = styled.button.attrs({
 		animation: ${fade} 0.5s ease-out forwards;
 	}
 	transition: background-color 0.2s ease-out;
+	&.birth::after {
+		content: '';
+		width: 1.2rem;
+		aspect-ratio: 1;
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		background: url(/cake.svg) center / contain no-repeat;
+	}
 `;
 
 export const Card = styled.div.attrs({
