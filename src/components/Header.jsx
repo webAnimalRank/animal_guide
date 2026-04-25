@@ -25,7 +25,7 @@ export default function Header() {
 				<div className='w-7xl h-full px-5 flex justify-between max-md:justify-center items-center relative'>
 					<Menu onClick={() => setMenu(!menu)} />
 					<nav className='w-max h-full flex gap-5 items-center'>
-						<NavLink className='h-10 max-sm:h-7' to='/'>
+						<NavLink className='h-10 max-sm:h-7' to='/' onClick={() => setMenu(false)}>
 							<img className='h-full' src={Logo} alt='' />
 						</NavLink>
 						{links.map((link, index) => (
