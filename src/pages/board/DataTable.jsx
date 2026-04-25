@@ -43,14 +43,18 @@ export default function DataTable({ kind }) {
 	return (
 		<>
 			<div className='flex justify-center items-center'>
-				{loading ? (
-					<Loading className='size-10 absolute' />
-				) : (
-					<>
-						<Mobile table={table} />
-						<DeskTop table={table} />
-					</>
-				)}
+				{loading && <Loading className='size-10 absolute' />}
+				{!items ||
+					(items.length === 0 ? (
+						<div className='w-full py-10 bg-white/10 rounded-xl'>
+							{keyword ? `"${keyword}" 에 대한 검색 결과가 없습니다.` : '등록된 게시물이 없습니다.'}
+						</div>
+					) : (
+						<>
+							<Mobile table={table} load={loading} />
+							<DeskTop table={table} load={loading} />
+						</>
+					))}
 			</div>
 			<Pagination kind={kind} />
 		</>
