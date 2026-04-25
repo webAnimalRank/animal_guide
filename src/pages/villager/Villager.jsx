@@ -48,7 +48,7 @@ export default function Villager() {
 
 	return (
 		<>
-			<Wrap>
+			<Wrap className='bg-(--cw)/60'>
 				<VillagerFilter onChange={closeModal} />
 				{loading && (
 					<div className='absolute inset-0 z-40 self-center flex flex-col items-center gap-3'>

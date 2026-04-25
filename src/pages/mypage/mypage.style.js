@@ -10,10 +10,10 @@ export const Fold = styled.button.attrs({
 		content: '';
 		width: 0.8rem;
 		aspect-ratio: 1;
-		background: url(/fold.svg) center / contain no-repeat;
+		mask: url(/fold.svg) center / contain no-repeat;
+		background-color: var(--p);
 		translate: -1rem;
 		transition: scale 0.2s ease-out;
-		scale: 1 -1;
 	}
 	&.fold::after {
 		scale: 1 1;
@@ -79,7 +79,8 @@ export const Action = styled.button.attrs({
 	type: 'button',
 	className: 'size-3 hover:opacity-70'
 })`
-	background: url(/fold.svg) center / contain no-repeat;
+	mask: url(/fold.svg) center / contain no-repeat;
+	background-color: var(--p);
 	&.prev {
 		rotate: 90deg;
 	}
@@ -95,3 +96,15 @@ export const ResultBox = styled(SelectBox).attrs({
 	as: 'div',
 	className: 'h-50 max-sm:h-35 aspect-3/4 cursor-default!'
 })``;
+
+export const Logout = styled(Btn).attrs({
+	className: 'mt-auto mx-auto flex items-center gap-1'
+})`
+	&::before {
+		content: '';
+		width: 1.2rem;
+		aspect-ratio: 1;
+		background: url(/logout.svg) center / contain no-repeat;
+		opacity: 0.6;
+	}
+`;

@@ -23,7 +23,7 @@ export default function Board() {
 	};
 
 	return (
-		<Wrap className='h-full! gap-20'>
+		<Wrap className='h-full! gap-20 bg-(--cw)/60'>
 			{boards.map((board) => (
 				<div key={board.item} className='sm:flex-1 max-h-100 min-h-0 flex flex-col gap-5'>
 					<div className='flex justify-between items-center gap-3'>

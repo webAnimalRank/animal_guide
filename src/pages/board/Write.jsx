@@ -93,14 +93,14 @@ export default function Write() {
 
 	if (isEditMode && loading) {
 		return (
-			<Wrap className='font-(family-name:--f) relative'>
+			<Wrap className='font-(family-name:--f) relative bg-(--cw)/60'>
 				<Loading className='size-30 absolute top-1/2 left-1/2 -translate-1/2' />
 			</Wrap>
 		);
 	}
 
 	return (
-		<Wrap className='font-(family-name:--f) relative'>
+		<Wrap className='font-(family-name:--f) relative bg-(--cw)/60'>
 			<h2 className='self-start text-xl font-(family-name:--f2) flex gap-3 items-center'>
 				<span className='font-bold'>
 					{isEditMode ? (data?.boardKind === 'notice' ? '공지사항' : '자유게시판') : kindTitle}
@@ -120,7 +120,7 @@ export default function Write() {
 				onChange={(e) => setBoardTitle(e.target.value)}
 				disabled={isProcessing || (isEditMode && !isOwner)}
 				maxLength={300}
-				className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold disabled:opacity-60'
+				className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold disabled:opacity-60 backdrop-blur-xs'
 				placeholder='제목을 입력하세요'
 			/>
 			<textarea
@@ -129,7 +129,7 @@ export default function Write() {
 				disabled={isProcessing || (isEditMode && !isOwner)}
 				maxLength={3000}
 				placeholder='내용을 입력하세요'
-				className='bg-white/15 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60'
+				className='bg-white/15 rounded-md min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap resize-none disabled:opacity-60 backdrop-blur-xs'
 			/>
 
 			<div className='flex justify-between items-center'>

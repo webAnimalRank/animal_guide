@@ -37,7 +37,7 @@ export default function Header() {
 					<nav className='w-max flex gap-5 items-center absolute right-5'>
 						{member ? (
 							<>
-								<Icon to='/mypage'>
+								<Icon to='/mypage' onClick={() => setMenu(false)}>
 									<img src={profileImage || tom} className='' alt='' />
 								</Icon>
 							</>

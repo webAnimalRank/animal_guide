@@ -29,7 +29,7 @@ export const Close = styled.button.attrs({
 
 export const TipText = styled.div.attrs({
 	className:
-		'absolute z-50 right-0 top-full p-2 bg-(--c) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible opacity-0'
+		'absolute z-50 right-0 top-full p-2 bg-(--cw) rounded-sm border-white/20 border max-sm:text-sm break-keep text-left max-sm:w-57 invisible opacity-0'
 })`
 	transition: opacity 0.2s ease-out;
 	${TipBox}:hover & {
@@ -62,7 +62,7 @@ export const SelectWrap = styled(CardWrap).attrs({
 
 export const SelectBox = styled.label.attrs({
 	className:
-		'p-2 pb-1 aspect-3/4 rounded-xl w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name bg-white/10'
+		'p-2 pb-1 aspect-3/4 rounded-xl w-full flex flex-col gap-3 relative cursor-pointer overflow-hidden font-extrabold whitespace-nowrap name bg-white/10 backdrop-blur-xs'
 })`
 	img {
 		height: 100%;
@@ -166,7 +166,7 @@ export const Submit = styled(Btn).attrs({
 
 export const BlurBg = styled.div.attrs({
 	className:
-		'absolute inset-0 bg-(--c)/80 z-40 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'
+		'fixed inset-0 bg-(--cw)/80 z-40 p-8 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'
 })``;
 
 export const LinkBtn = styled(NavLink).attrs({

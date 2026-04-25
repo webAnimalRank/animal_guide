@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Btn, Wrap } from '../../components/style';
-import { Fold } from './mypage.style';
+import { Fold, Logout } from './mypage.style';
 import MyInfo from './MyInfo';
 import MyPost from './MyPost';
 import MyPick from './MyPick';
@@ -49,9 +49,7 @@ export default function MyPage() {
 					{sections[key] && <Component />}
 				</React.Fragment>
 			))}
-			<Btn className='mt-6' onClick={handleLogout}>
-				로그아웃
-			</Btn>
+			<Logout onClick={handleLogout}>로그아웃</Logout>
 		</Wrap>
 	);
 }

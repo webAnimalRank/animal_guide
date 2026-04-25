@@ -82,7 +82,7 @@ export const Leaf2 = styled(LeafImg2)`
 `;
 
 export const Head = styled.header.attrs({
-	className: 'z-50 fixed w-full h-17 flex justify-center pb-1 max-sm:h-12 bg-(--cw)'
+	className: 'z-50 fixed w-full h-17 flex justify-center pb-1 max-sm:h-12 bg-(--c)/80 backdrop-blur-xs'
 })`
 	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
 `;
@@ -147,11 +147,11 @@ export const Page = styled(Url).attrs({
 `;
 
 export const Glass = styled.div.attrs({
-	className: 'bg-(image:--glass2) shadow-(--shadow) rounded-2xl border-solid border-1 border-white/10'
+	className: 'bg-(image:--glass2) shadow-(--shadow) rounded-2xl border-solid border-1 border-white/10 backdrop-blur-xs'
 })``;
 
 export const Box = styled.div.attrs({
-	className: 'rounded-3xl p-5 h-max flex flex-col gap-4 bg-white/10 shadow-(--shadow)'
+	className: 'rounded-3xl p-5 h-max flex flex-col gap-4 bg-white/15 shadow-(--shadow) backdrop-blur-xs'
 })``;
 
 export const Wrap = styled.div.attrs({

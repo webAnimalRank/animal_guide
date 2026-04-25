@@ -70,7 +70,7 @@ export default function MyInfo() {
 					{fieldDefs.map((field) => (
 						<Label key={field.key}>
 							<span>{field.label}</span>
-							<div className='px-4 py-2 rounded-lg flex items-center font-semibold w-full max-sm:rounded-md bg-white/20'>
+							<div className='px-4 py-2 rounded-lg flex items-center font-semibold w-full max-sm:rounded-md bg-white/20 backdrop-blur-xs'>
 								<input
 									type={field.type}
 									name={field.key}

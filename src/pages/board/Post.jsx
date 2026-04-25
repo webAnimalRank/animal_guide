@@ -33,7 +33,7 @@ export default function Post() {
 	if (!data) return null;
 
 	return (
-		<Wrap className='font-(family-name:--f)'>
+		<Wrap className='font-(family-name:--f) bg-(--cw)/60'>
 			<h2 className='self-start text-xl font-bold font-(family-name:--f2)'>{kindTitle}</h2>
 			<div className='flex font-medium justify-between items-center gap-3'>
 				<Undo>목록</Undo>
@@ -48,7 +48,7 @@ export default function Post() {
 				)}
 			</div>
 
-			<h3 className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold'>{data.boardTitle}</h3>
+			<h3 className='bg-white/15 rounded-md py-2 px-4 text-left font-semibold backdrop-blur-xs'>{data.boardTitle}</h3>
 			<div className='flex gap-4 items-center max-sm:text-xs'>
 				<img src={writerInfo.image} className='h-14 max-sm:h-10 bg-white/15 rounded-full p-1' alt={writerInfo.name} />
 				<div className='flex flex-col items-start gap-1'>
@@ -57,7 +57,7 @@ export default function Post() {
 				</div>
 			</div>
 
-			<div className='bg-white/15 rounded-2xl min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap'>
+			<div className='bg-white/15 rounded-2xl min-h-0 flex-1 max-h-100 p-4 text-left whitespace-pre-wrap backdrop-blur-xs'>
 				{data.boardContent}
 			</div>
 		</Wrap>

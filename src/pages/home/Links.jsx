@@ -4,6 +4,8 @@ import { Menu, Tab } from './home.style';
 import { Url2 } from '../../components/style';
 import { useEffect, useRef } from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock-upgrade';
+import { Logout } from '../mypage/mypage.style';
+import { replace, useNavigate } from 'react-router-dom';
 
 export function Links() {
 	return (
@@ -17,6 +19,7 @@ export function Links() {
 
 export function Links2({ menu, onClose }) {
 	const menuRef = useRef(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const menuWrap = menuRef.current;
@@ -40,6 +43,7 @@ export function Links2({ menu, onClose }) {
 	};
 
 	const handleLogout = async () => {
+		navigate('/', { replace: true });
 		const result = await logout();
 
 		if (result.success) {
@@ -55,7 +59,7 @@ export function Links2({ menu, onClose }) {
 	return (
 		<nav
 			ref={menuRef}
-			className='bg-(--c)/90 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-30 md:hidden backdrop-blur-sm'
+			className='bg-(--cw)/80 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-30 md:hidden backdrop-blur-sm'
 		>
 			<Menu to='villager' onClick={handleClick}>
 				주민 명부
@@ -69,12 +73,7 @@ export function Links2({ menu, onClose }) {
 			<div className='flex items-center gap-8 pt-5'>
 				{member ? (
 					<>
-						<Tab to='mypage' onClick={handleClick}>
-							마이페이지
-						</Tab>
-						<Tab as='button' onClick={handleLogout}>
-							로그아웃
-						</Tab>
+						<Logout onClick={handleLogout}>로그아웃</Logout>
 					</>
 				) : (
 					<>

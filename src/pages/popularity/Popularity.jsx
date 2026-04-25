@@ -36,7 +36,7 @@ export default function Popularity() {
 	};
 
 	return (
-		<Wrap className='h-0! fixed max-sm:inset-0'>
+		<Wrap className='h-0! fixed max-sm:inset-0 bg-(--cw)/60'>
 			<div className='flex justify-between items-center relative'>
 				<h2 className='font-bold text-2xl self-start'>주민 인기 투표</h2>
 				<TipBox>

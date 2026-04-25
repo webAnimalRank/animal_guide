@@ -15,8 +15,11 @@ export const Form = styled.form.attrs({
 `;
 
 export const Field = styled.label.attrs({
-	className: 'bg-white/20 rounded-xl px-4 py-3'
+	className: 'bg-white/20 rounded-xl px-4 py-3 backdrop-blur-xs'
 })`
+	input::placeholder {
+		color: rgba(255, 255, 255, 0.6);
+	}
 	input {
 		font-family: Pretendard;
 		font-weight: 700;
@@ -29,7 +32,7 @@ export const Field = styled.label.attrs({
 
 export const Btn = styled.button.attrs({
 	type: 'submit',
-	className: 'rounded-xl bg-(--c) p-3 text-white font-bold text-xl max-sm:text-base mt-5'
+	className: 'rounded-xl bg-(--cw) p-3 text-white font-bold text-xl max-sm:text-base mt-5'
 })`
 	transition: background-color 0.1s ease-out;
 	&:hover {

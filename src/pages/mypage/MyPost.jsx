@@ -51,7 +51,7 @@ export default function MyPost() {
   }
 
   return (
-    <div className='flex flex-col gap-2 bg-white/15 rounded-xl p-3'>
+    <div className='flex flex-col gap-2 bg-white/15 rounded-xl p-3 backdrop-blur-xs'>
       {error && <div className='pb-3 text-sm text-red-300'>{error}</div>}
 
       {posts.length === 0 ? (
