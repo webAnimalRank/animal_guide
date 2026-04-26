@@ -20,12 +20,9 @@ export const TabBtn = styled.button.attrs({
 
 export const Line = styled(Link).attrs({
 	className:
-		'border-b border-white/30 py-1 max-sm:px-1 flex-0 font-semibold flex items-center hover:bg-white/10 opacity-0'
+		'border-b border-white/30 py-1 max-sm:px-1 flex-0 font-semibold flex items-center hover:bg-white/10'
 })`
 	transition: opacity 0.2s ease-out;
-	&.load {
-		opacity: 1;
-	}
 `;
 
 export const Undo = styled(Link).attrs({

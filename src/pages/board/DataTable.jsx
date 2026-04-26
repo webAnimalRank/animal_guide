@@ -35,11 +35,10 @@ export default function DataTable({ kind }) {
 	return (
 		<>
 			<div className='flex justify-center items-center'>
-				{loading && <Loading className='size-10 absolute' />}
 				{items && items.length > 0 ? (
 					<>
-						<Mobile table={table} load={loading} />
-						<DeskTop table={table} load={loading} />
+						<Mobile table={table} />
+						<DeskTop table={table} />
 					</>
 				) : (
 					!loading && (

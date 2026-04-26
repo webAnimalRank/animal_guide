@@ -1,6 +1,6 @@
 import { Line } from './board.style';
 
-export default function Mobile({ table, load }) {
+export default function Mobile({ table }) {
 	return (
 		<div className='w-full flex flex-col sm:hidden border-t-2 border-white/30 font-(family-name:--f)'>
 			{table.getRowModel().rows.map((row) => (
@@ -8,7 +8,7 @@ export default function Mobile({ table, load }) {
 					to={`post/${row.original.id}`}
 					state={{ boardKind: table.options.meta.kind }}
 					key={row.id}
-					className={`w-full flex-col gap-2 ${!load ? 'load' : ''}`}
+					className='w-full flex-col gap-2'
 				>
 					<span className='w-full text-sm text-left font-bold'>{row.original.title}</span>
 					<div className='flex gap-2 text-xs self-end'>

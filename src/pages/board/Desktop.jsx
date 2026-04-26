@@ -1,7 +1,7 @@
 import { flexRender } from '@tanstack/react-table';
 import { Line } from './board.style';
 
-export default function DeskTop({ table, load }) {
+export default function DeskTop({ table }) {
 	const cols = [
 		{ key: 'id', className: 'w-12' },
 		{ key: 'title', className: 'flex-1 text-left' },
@@ -25,7 +25,7 @@ export default function DeskTop({ table, load }) {
 					to={`post/${row.original.id}`}
 					state={{ boardKind: table.options.meta.kind }}
 					key={row.id}
-					className={`py-2 text-xs ${!load ? 'load' : ''}`}
+					className='py-2 text-xs'
 				>
 					{cols.map((col) => (
 						<span key={col.key} className={col.className}>
