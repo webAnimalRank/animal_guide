@@ -19,21 +19,22 @@ export default function Login() {
     e.preventDefault();
     console.log('로그인 시도 : ', { id, pw });
     try {
-      await loginMember({ memberId: id, memberPw: pw });
+    // 1. 로그인 요청 (백엔드에서 토큰을 리턴해줘야 함)
+    const loginRes = await loginMember({ memberId: id, memberPw: pw });
+    const token = loginRes.data.accessToken; // 백엔드 응답 구조에 맞게 수정
 
-      // 로그인 후 바로 사용자 정보 가져오기
-      const res = await axios.get(`${API_URL}/api/members/me`, {
-        withCredentials: true
-      });
-      setMember(res.data); // App의 전역 상태 업데이트
+    // 2. 토큰 저장
+    localStorage.setItem('accessToken', token);
 
-      if (res.status === 200) {
-        localStorage.setItem('isLogin', 'true');
-      }
-
-      toast.success(`${res.data.memberName}님 환영합니다!`);
-      navigate('/');
-    } catch (err) {
+    // 3. 사용자 정보 가져오기 (헤더에 토큰 포함)
+    const res = await axios.get(`${API_URL}/api/members/me`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    
+    setMember(res.data);
+    toast.success(`${res.data.memberName}님 환영합니다!`);
+    navigate('/');
+  } catch (err) {
       console.error('로그인 실패:', err);
       toast.error('아이디 혹은 비밀번호를 확인해주세요.', { id: 'loginErr' });
     }
