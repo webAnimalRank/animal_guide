@@ -1,15 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { L, L0 } from './Layout.jsx';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useFetchStore } from './store/useFetchStore.js';
 import { useLoading } from './store/useLoading.js';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import { routes } from './routes.js';
 import { Toaster } from 'react-hot-toast';
-
-axios.defaults.withCredentials = true;
 
 function App() {
 	const { fetchMe, fetchMembers, fetchVillagers, isAuthLoading } = useFetchStore();
@@ -18,22 +15,15 @@ function App() {
 	const [firstLoad, setFirstLoad] = useState(true);
 
 	useEffect(() => {
-		const isLogin = localStorage.getItem('isLogin') === 'true';
-
 		const loadData = async () => {
-			if (isLogin) {
-				await fetchMe(); // 로그인 정보
-			} else {
-				useFetchStore.getState().setAuthLoading(false);
-			}
-			await fetchVillagers(); // 주민 정보
-			await fetchMembers(); // 전체 멤버 정보
-			
+			await fetchMe();
+			await fetchVillagers();
+			await fetchMembers();
 			setFirstLoad(false);
 		};
 
 		loadData();
-	}, [fetchMe, fetchVillagers]);
+	}, [fetchMe, fetchMembers, fetchVillagers]);
 
 	if (isAuthLoading) {
 		return <LoadingScreen isLoading={true} />;

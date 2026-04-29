@@ -1,7 +1,6 @@
 import { create } from 'zustand';
+import api from '../../api/client';
 import { useFetchStore } from '../../store/useFetchStore';
-
-const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const usePostStore = create((set, get) => ({
 	boardTitle: '',
@@ -43,28 +42,21 @@ export const usePostStore = create((set, get) => ({
 
 		set({ isProcessing: true, error: '' });
 		try {
-			const response = await fetch(isEditMode ? `${API_URL}/api/boards/${boardNo}` : `${API_URL}/api/boards`, {
+			const response = await api.request({
+				url: isEditMode ? `/api/boards/${boardNo}` : '/api/boards',
 				method: isEditMode ? 'PUT' : 'POST',
-				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
+				data: {
 					boardTitle: boardTitle.trim(),
 					boardContent: boardContent.trim(),
 					boardKind: safeBoardKind
-				})
+				}
 			});
 
-			if (response.status === 403) {
-				throw new Error('공지사항은 관리자만 작성하거나 수정할 수 있습니다.');
-			}
-			if (!response.ok) {
-				throw new Error('게시물을 저장하지 못했습니다.');
-			}
-
-			const result = await response.json();
+			const result = response.data;
 			return result?.boardNo ?? boardNo;
 		} catch (err) {
-			set({ error: err.message });
+			set({ error: err.response?.data?.message ?? '게시물을 저장하지 못했습니다.' });
 			throw err;
 		} finally {
 			set({ isProcessing: false });
@@ -74,16 +66,16 @@ export const usePostStore = create((set, get) => ({
 	deleteBoard: async (boardNo) => {
 		set({ isProcessing: true, error: '' });
 		try {
-			const response = await fetch(`${API_URL}/api/boards/${boardNo}`, {
-				method: 'DELETE',
-				credentials: 'include'
-			});
-			if (response.status === 401) throw new Error('로그인 세션이 만료되었습니다.');
-			if (response.status === 403) throw new Error('공지사항은 관리자만 삭제할 수 있습니다.');
-			if (!response.ok) throw new Error('삭제에 실패했습니다.');
+			await api.delete(`/api/boards/${boardNo}`);
 			return true;
 		} catch (err) {
-			set({ error: err.message });
+			const message =
+				err.response?.status === 401
+					? '로그인이 만료되었습니다.'
+					: err.response?.status === 403
+						? '공지사항은 관리자만 삭제할 수 있습니다.'
+						: err.response?.data?.message ?? '삭제에 실패했습니다.';
+			set({ error: message });
 			throw err;
 		} finally {
 			set({ isProcessing: false });

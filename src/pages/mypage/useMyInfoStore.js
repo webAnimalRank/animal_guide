@@ -1,8 +1,6 @@
 import { create } from 'zustand';
-import axios from 'axios';
+import api from '../../api/client';
 import { useFetchStore } from '../../store/useFetchStore';
-
-const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useMyInfoStore = create((set) => ({
   loading: false,
@@ -10,10 +8,7 @@ export const useMyInfoStore = create((set) => ({
   updateInfo: async (memberNo, payload) => {
     set({ loading: true });
     try {
-      const res = await axios.put(
-        `${API_URL}/api/members/${memberNo}`,
-        payload
-      );
+      const res = await api.put(`/api/members/${memberNo}`, payload);
 
       useFetchStore.getState().setMember(res.data);
       set({ loading: false });

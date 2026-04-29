@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/client';
 import { Tag } from './mypage.style';
 import { Btn } from '../../components/style';
 import usePostAction from '../board/usePostAction';
 import { useFetchStore } from '../../store/useFetchStore';
-
-const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function MyPost() {
   const [posts, setPosts] = useState([]);
@@ -18,9 +16,7 @@ export default function MyPost() {
   useEffect(() => {
     const fetchMyPosts = async () => {
       try {
-        const postsRes = await axios.get(`${API_URL}/api/boards/my`, {
-          withCredentials: true
-        });
+        const postsRes = await api.get('/api/boards/my');
         setPosts(postsRes.data);
         setError('');
       } catch (err) {
