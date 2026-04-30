@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import VillagerFilter from '../villager/VillagerFilter';
 import {
@@ -14,16 +15,16 @@ import { MAX_VOTES, usePopularityStore } from './useStore';
 import { VillagerList } from './VillagerList';
 import { useVillagerStore } from '../villager/useStore';
 import { useFetchStore } from '../../store/useFetchStore';
-import { useEffect } from 'react';
 
-export default function Vote() {
+export default function Vote({ onVoteSuccess }) {
   const {
     submitting,
     remainingVotes,
     selectedIds,
     submitVotes,
     fetchVoteStatus,
-    resetSelectedIds
+    resetSelectedIds,
+    fetchRanking
   } = usePopularityStore();
   const { villagers, member } = useFetchStore();
   const { loading, error, fetchVillagerTypes, resetFilters } =
@@ -37,13 +38,15 @@ export default function Vote() {
       fetchVoteStatus();
     }
     fetchVillagerTypes();
-  }, [member]);
+  }, [member, fetchVoteStatus, fetchVillagerTypes, resetFilters, resetSelectedIds]);
 
   const handleSubmit = async () => {
     const result = await submitVotes();
 
     if (result.success) {
+      await fetchRanking();
       toast.success(result.message);
+      onVoteSuccess?.();
     } else {
       toast.error(result.message);
     }

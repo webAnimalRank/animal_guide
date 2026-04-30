@@ -8,6 +8,10 @@ export const usePopularityStore = create((set, get) => ({
 	selectedVillagerCache: new Map(),
 	remainingVotes: MAX_VOTES,
 	submitting: false,
+	ranking: [],
+	rankingMonth: '',
+	rankingLoading: false,
+	rankingError: null,
 
 	resetSelectedIds: () => set({ selectedIds: [], selectedVillagerCache: new Map() }),
 
@@ -16,7 +20,7 @@ export const usePopularityStore = create((set, get) => ({
 			const res = await api.get('/api/villagers/votes/me');
 			set({ remainingVotes: res.data.remainingVotes ?? MAX_VOTES });
 		} catch (e) {
-			console.error('투표 상태 조회 실패:', e);
+			console.error('?ы몴 ?곹깭 議고쉶 ?ㅽ뙣:', e);
 		}
 	},
 
@@ -39,9 +43,28 @@ export const usePopularityStore = create((set, get) => ({
 		});
 	},
 
+	fetchRanking: async () => {
+		set({ rankingLoading: true, rankingError: null });
+		try {
+			const res = await api.get('/api/villagers/votes/ranking');
+			set({
+				ranking: Array.isArray(res.data?.items) ? res.data.items : [],
+				rankingMonth: res.data?.voteMonth ?? '',
+				rankingLoading: false
+			});
+		} catch (e) {
+			set({
+				ranking: [],
+				rankingMonth: '',
+				rankingLoading: false,
+				rankingError: e.response?.data?.message ?? e.message
+			});
+		}
+	},
+
 	submitVotes: async () => {
 		const { selectedIds } = get();
-		if (selectedIds.length === 0) return { success: false, message: '선택한 주민이 없습니다.' };
+		if (selectedIds.length === 0) return { success: false, message: '?좏깮??二쇰????놁뒿?덈떎.' };
 
 		set({ submitting: true });
 		try {
@@ -52,7 +75,7 @@ export const usePopularityStore = create((set, get) => ({
 				selectedIds: [],
 				selectedVillagerCache: new Map()
 			});
-			return { success: true, message: '투표가 완료되었습니다.' };
+			return { success: true, message: '?ы몴媛 ?꾨즺?섏뿀?듬땲??' };
 		} catch (e) {
 			return { success: false, message: e.response?.data?.message ?? e.message };
 		} finally {

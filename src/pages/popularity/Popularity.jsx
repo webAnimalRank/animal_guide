@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Wrap } from '../../components/style';
 import { Tab } from './popularity.style';
 import Vote from './Vote';
@@ -23,7 +23,7 @@ export default function Popularity() {
           투표 결과
         </Tab>
       </div>
-      {tab === 'vote' ? <Vote /> : <Rank />}
+      {tab === 'vote' ? <Vote onVoteSuccess={() => setTab('rank')} /> : <Rank />}
     </Wrap>
   );
 }
