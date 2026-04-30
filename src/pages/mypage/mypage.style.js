@@ -98,7 +98,7 @@ export const ResultBox = styled(SelectBox).attrs({
 })``;
 
 export const Logout = styled(Btn).attrs({
-	className: 'mt-auto mx-auto flex items-center gap-1'
+	className: 'mt-auto mx-auto flex items-center gap-1 bg-(--cw)/60 hover:bg-(--cw)/80!'
 })`
 	&::before {
 		content: '';
