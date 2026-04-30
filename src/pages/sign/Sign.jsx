@@ -13,6 +13,7 @@ export default function Sign() {
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
+  const [pwCheck, setPwCheck] = useState('');
 
   const signUp = async (e) => {
     e.preventDefault(); // 폼 submit 기본 동작 방지
@@ -25,6 +26,11 @@ export default function Sign() {
       toast.error('모든 항목을 입력해주세요!', { id: 'empty' });
       setIsLoad(false);
       return; // 빈 값 있으면 함수 종료
+    }
+    if (pw !== pwCheck) {
+      toast.error('비밀번호가 일치하지 않습니다.');
+      setIsLoad(false);
+      return;
     }
 
     const newMember = {
@@ -93,6 +99,15 @@ export default function Sign() {
             placeholder="비밀번호"
             value={pw}
             onChange={(e) => setPw(e.target.value)}
+          />
+        </Field>
+        <Field>
+          <input
+            type="password"
+            name="pwCheck"
+            placeholder="비밀번호 확인"
+            value={pwCheck}
+            onChange={(e) => setPwCheck(e.target.value)}
           />
         </Field>
         <Btn disabled={isLoad}>회원 가입</Btn>
