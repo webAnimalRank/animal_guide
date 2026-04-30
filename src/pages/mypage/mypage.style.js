@@ -68,7 +68,7 @@ export const Label = styled.label.attrs({
 
 export const Edit = styled(Btn).attrs({
 	type: 'submit',
-	className: 'w-max self-end -translate-x-2 disabled:pointer-events-none disabled:opacity-50'
+	className: 'w-max self-end -translate-x-2 disabled:pointer-events-none disabled:opacity-50 text-white/80'
 })``;
 
 export const Tag = styled.span.attrs({

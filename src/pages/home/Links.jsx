@@ -9,7 +9,7 @@ import { replace, useNavigate } from 'react-router-dom';
 
 export function Links() {
 	return (
-		<nav className='ml-auto flex flex-col gap-8 max-lg:hidden'>
+		<nav className='ml-auto h-max p-3 rounded-xl flex flex-col gap-4 max-lg:hidden bg-(--cw)/60'>
 			<Menu to='villager'>주민 명부</Menu>
 			<Menu to='popularity'>인기 투표</Menu>
 			<Menu to='board'>커뮤니티</Menu>

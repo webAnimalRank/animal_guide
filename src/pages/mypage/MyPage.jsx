@@ -42,12 +42,12 @@ export default function MyPage() {
 	return (
 		<Wrap className='px-20 max-lg:px-10 max-md:px-5 max-sm:px-2'>
 			{sectionData.map(({ key, title, component: Component }) => (
-				<React.Fragment key={key}>
+				<div key={key} className='w-full flex flex-col gap-5 bg-(--cw)/60 p-4 rounded-xl'>
 					<Fold onClick={() => toggleSection(key)} className={!sections[key] ? 'fold' : ''}>
 						<h3 className='max-sm:text-xl'>{title}</h3>
 					</Fold>
 					{sections[key] && <Component />}
-				</React.Fragment>
+				</div>
 			))}
 			<Logout onClick={handleLogout}>로그아웃</Logout>
 		</Wrap>
