@@ -65,32 +65,36 @@ export default function Vote() {
       <div className='flex-1 min-h-0 bg-white/10 rounded-2xl relative flex flex-col gap-2 p-2'>
         <VillagerFilter />
         <VillagerList villagers={villagers} loading={loading} error={error} />
+        {member && remainingVotes === 0 && (
+          <BlurBg>
+            이번 달 투표를 완료했습니다.
+            <LinkBtn to='/' className='home'>
+              홈으로
+            </LinkBtn>
+          </BlurBg>
+        )}
+        {!member && (
+          <BlurBg>
+            로그인 후 투표 가능합니다.
+            <LinkBtn to='/login' className='login'>
+              로그인
+            </LinkBtn>
+          </BlurBg>
+        )}
       </div>
       <div className='flex flex-0 gap-3 justify-between max-sm:flex-col sm:pt-2'>
         <SelectionPanel />
         <Submit
-          disabled={submitting || selectedIds.length < remainingVotes}
+          disabled={
+            submitting ||
+            selectedIds.length < remainingVotes ||
+            remainingVotes === 0
+          }
           onClick={handleSubmit}
         >
           투표
         </Submit>
       </div>
-      {member && remainingVotes === 0 && (
-        <BlurBg>
-          이번 달 투표를 완료했습니다.
-          <LinkBtn to='/' className='home'>
-            홈으로
-          </LinkBtn>
-        </BlurBg>
-      )}
-      {!member && (
-        <BlurBg>
-          로그인 후 투표 가능합니다.
-          <LinkBtn to='/login' className='login'>
-            로그인
-          </LinkBtn>
-        </BlurBg>
-      )}
     </>
   );
 }
