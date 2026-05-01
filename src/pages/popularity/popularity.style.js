@@ -9,7 +9,7 @@ to { opacity: 1 }
 
 export const Tab = styled.button.attrs({
   type: 'button',
-  className: 'text-xl px-3 py-1 rounded-sm'
+  className: 'px-3 py-1 rounded-sm hover:bg-white/20'
 })`
   transition:
     background-color 0.2s ease-out,

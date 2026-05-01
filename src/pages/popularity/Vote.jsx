@@ -55,7 +55,7 @@ export default function Vote({ onVoteSuccess }) {
   return (
     <>
       <div className='flex justify-between items-center relative'>
-        <h2 className='font-bold text-2xl self-start'>주민 인기 투표</h2>
+        <h2 className='font-bold text-xl self-start'>주민 인기 투표</h2>
         <TipBox>
           <Tip>투표 방법</Tip>
           <TipText>

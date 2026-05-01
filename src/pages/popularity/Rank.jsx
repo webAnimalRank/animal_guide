@@ -13,12 +13,12 @@ export default function Rank() {
 
   return (
     <div className='w-full min-h-0 flex-1 flex gap-4 flex-col items-center'>
-      <div className='font-bold text-xl'>
+      <h2 className='font-bold text-xl self-start'>
         {rankingMonth ? `${rankingMonth} 투표 현황` : '이번 달 투표 현황'}
-      </div>
-      <div className='w-max min-h-0 flex-1 bg-white/20 rounded-xl overflow-hidden'>
+      </h2>
+      <div className='w-full min-h-0 flex-1 bg-white/20 rounded-xl overflow-hidden'>
         <div className='h-full overflow-y-scroll'>
-          <table className='relative'>
+          <table className='relative w-full backdrop-blur-xs'>
             <thead className='sticky top-0 bg-(--cw)'>
               <tr>
                 <th className='w-20'>순위</th>
@@ -41,7 +41,7 @@ export default function Rank() {
                 <tr>
                   <td
                     colSpan='4'
-                    className='p-6 text-center text-red-500 font-bold'
+                    className='p-6 text-red-500'
                   >
                     투표 현황을 불러오지 못했습니다.
                   </td>
@@ -49,7 +49,7 @@ export default function Rank() {
               )}
               {!rankingLoading && !rankingError && ranking.length === 0 && (
                 <tr>
-                  <td colSpan='4' className='p-6 text-center font-bold'>
+                  <td colSpan='4' className='p-6'>
                     아직 집계된 투표가 없습니다.
                   </td>
                 </tr>
@@ -57,7 +57,7 @@ export default function Rank() {
               {!rankingLoading &&
                 !rankingError &&
                 ranking.map((item) => (
-                  <tr key={item.villagerNo} className='border-b-2 border-(--c)/30'>
+                  <tr key={item.villagerNo} className='border-b-2 border-white/20'>
                     <td className='text-center'>{item.rank}</td>
                     <td className='p-4'>
                       <img

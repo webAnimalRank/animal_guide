@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import api from "../../api/client";
+import { create } from 'zustand';
+import api from '../../api/client';
 
 export const MAX_VOTES = 3;
 
@@ -9,7 +9,7 @@ export const usePopularityStore = create((set, get) => ({
   remainingVotes: MAX_VOTES,
   submitting: false,
   ranking: [],
-  rankingMonth: "",
+  rankingMonth: '',
   rankingLoading: false,
   rankingError: null,
 
@@ -18,10 +18,10 @@ export const usePopularityStore = create((set, get) => ({
 
   fetchVoteStatus: async () => {
     try {
-      const res = await api.get("/api/villagers/votes/me");
+      const res = await api.get('/api/villagers/votes/me');
       set({ remainingVotes: res.data.remainingVotes ?? MAX_VOTES });
     } catch (e) {
-      console.error("투표 상태 조회 실패:", e);
+      console.error('투표 상태 조회 실패:', e);
     }
   },
 
@@ -30,7 +30,7 @@ export const usePopularityStore = create((set, get) => ({
 
     if (!checked) {
       set({
-        selectedIds: selectedIds.filter((id) => id !== villager.villagerNo),
+        selectedIds: selectedIds.filter((id) => id !== villager.villagerNo)
       });
       return;
     }
@@ -42,25 +42,34 @@ export const usePopularityStore = create((set, get) => ({
 
     set({
       selectedIds: [...selectedIds, villager.villagerNo],
-      selectedVillagerCache: newCache,
+      selectedVillagerCache: newCache
     });
   },
 
   fetchRanking: async () => {
     set({ rankingLoading: true, rankingError: null });
     try {
-      const res = await api.get("/api/villagers/votes/ranking");
+      const res = await api.get('/api/villagers/votes/ranking');
+
+      const rawMonth = res.data?.voteMonth ?? '';
+      let formattedMonth = '';
+
+      if (rawMonth.includes('-')) {
+        const [year, month] = rawMonth.split('-');
+        formattedMonth = `${year}년 ${parseInt(month, 10)}월`;
+      }
+
       set({
         ranking: Array.isArray(res.data?.items) ? res.data.items : [],
-        rankingMonth: res.data?.voteMonth ?? "",
-        rankingLoading: false,
+        rankingMonth: formattedMonth || rawMonth,
+        rankingLoading: false
       });
     } catch (e) {
       set({
         ranking: [],
-        rankingMonth: "",
+        rankingMonth: '',
         rankingLoading: false,
-        rankingError: e.response?.data?.message ?? e.message,
+        rankingError: e.response?.data?.message ?? e.message
       });
     }
   },
@@ -68,27 +77,27 @@ export const usePopularityStore = create((set, get) => ({
   submitVotes: async () => {
     const { selectedIds } = get();
     if (selectedIds.length === 0)
-      return { success: false, message: "선택한 주민이 없습니다." };
+      return { success: false, message: '선택한 주민이 없습니다.' };
 
     set({ submitting: true });
     try {
-      const res = await api.post("/api/villagers/votes", {
-        villagerNos: selectedIds,
+      const res = await api.post('/api/villagers/votes', {
+        villagerNos: selectedIds
       });
       const data = res.data;
       set({
         remainingVotes: data.remainingVotes ?? 0,
         selectedIds: [],
-        selectedVillagerCache: new Map(),
+        selectedVillagerCache: new Map()
       });
-      return { success: true, message: "투표가 완료되었습니다." };
+      return { success: true, message: '투표가 완료되었습니다.' };
     } catch (e) {
       return {
         success: false,
-        message: e.response?.data?.message ?? e.message,
+        message: e.response?.data?.message ?? e.message
       };
     } finally {
       set({ submitting: false });
     }
-  },
+  }
 }));
