@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Field, Btn, Btn2, Form } from '../../components/login.style';
+import { Field, Btn, Btn2, Form, Input } from '../../components/login.style';
 import { useState } from 'react';
 import { getMyInfo, loginMember } from '../member/memberApi';
 import { useFetchStore } from '../../store/useFetchStore';
@@ -9,14 +9,26 @@ export default function Login() {
   const { setMember } = useFetchStore();
 
   const navigate = useNavigate();
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
+  const [formData, setFormData] = useState({ id: '', pw: '' });
+
+  const inputConfigs = [
+    { name: 'id', type: 'text', label: '아이디' },
+    { name: 'pw', type: 'password', label: '비밀번호' }
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const logIn = async (e) => {
     e.preventDefault();
-    console.log('로그인 시도 : ', { id, pw });
+    console.log('로그인 시도 : ', formData);
     try {
-      const loginRes = await loginMember({ memberId: id, memberPw: pw });
+      const loginRes = await loginMember({
+        memberId: formData.id,
+        memberPw: formData.pw
+      });
       const token = loginRes.data.accessToken;
 
       localStorage.setItem('accessToken', token);
@@ -33,28 +45,20 @@ export default function Login() {
 
   return (
     <>
-      <h2 className="font-extrabold text-2xl">로그인</h2>
-      <Form onSubmit={logIn}>
-        <Field>
-          <input
-            type="text"
-            name="id"
-            placeholder="아이디"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <input
-            type="password"
-            name="pw"
-            placeholder="비밀번호"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-          />
-        </Field>
+      <Form onSubmit={logIn} className='pt-10'>
+        {inputConfigs.map((c) => (
+          <Field key={c.name}>
+            <div className='w-full text-left'>{c.label}</div>
+            <Input
+              type={c.type}
+              name={c.name}
+              value={formData[c.name]}
+              onChange={handleChange}
+            />
+          </Field>
+        ))}
         <Btn>로그인</Btn>
-        <Btn2 to="/sign">회원 가입</Btn2>
+        <Btn2 to='/sign'>회원 가입</Btn2>
       </Form>
     </>
   );

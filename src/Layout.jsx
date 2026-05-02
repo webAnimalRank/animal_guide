@@ -7,25 +7,23 @@ import { Login } from './components/login.style';
 import ScrollTop from './components/ScrollTop';
 
 export function L() {
-	return (
-		<>
-			<ScrollTop />
-			<Header />
-			<Outlet />
-		</>
-	);
+  return (
+    <>
+      <ScrollTop />
+      <Header />
+      <Outlet />
+    </>
+  );
 }
 
 export function L0() {
-	return (
-		<Login>
-			<Link to='/'>
-				<img className='w-80 max-md:w-60 max-sm:w-50' src={Logo} alt='' />
-			</Link>
+  return (
+    <Login>
+      <Link to='/'>
+        <img className='w-80 max-md:w-60 max-sm:w-50' src={Logo} alt='' />
+      </Link>
 
-			<Box className='py-10 px-16 max-sm:px-10 rounded-4xl flex flex-col gap-10'>
-				<Outlet />
-			</Box>
-		</Login>
-	);
+      <Outlet />
+    </Login>
+  );
 }

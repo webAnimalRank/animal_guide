@@ -7,7 +7,7 @@ export default function Confirm({ change, cancel, edit }) {
         <label className='flex flex-col gap-8 items-start'>
           현재 비밀번호를 입력해주세요.
           <input
-            className='w-full bg-white/10 rounded-md p-2 text-white'
+            className='w-full bg-white/10 rounded-md p-2 font-(family-name:--f)'
             type='password'
             name='currentPw'
             onChange={change}

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import tom from '../../assets/img/tom_icon.png';
 import { Loading } from '../../components/style';
 import { usePopularityStore } from './useStore';
+import { VillagerImage } from '../villager/Villager';
 
 export default function Rank() {
   const { ranking, rankingMonth, rankingLoading, rankingError, fetchRanking } =
@@ -39,10 +40,7 @@ export default function Rank() {
               )}
               {!rankingLoading && rankingError && (
                 <tr>
-                  <td
-                    colSpan='4'
-                    className='p-6 text-red-500'
-                  >
+                  <td colSpan='4' className='p-6 text-red-500'>
                     투표 현황을 불러오지 못했습니다.
                   </td>
                 </tr>
@@ -57,13 +55,16 @@ export default function Rank() {
               {!rankingLoading &&
                 !rankingError &&
                 ranking.map((item) => (
-                  <tr key={item.villagerNo} className='border-b-2 border-white/20'>
+                  <tr
+                    key={item.villagerNo}
+                    className='border-b-2 border-white/20'
+                  >
                     <td className='text-center'>{item.rank}</td>
                     <td className='p-4'>
-                      <img
-                        className='w-30 mx-auto'
+                      <VillagerImage
                         src={item.villagerImageIcon || tom}
                         alt={item.villagerName}
+                        className='w-30 mx-auto'
                       />
                     </td>
                     <td className='text-center'>{item.villagerName}</td>

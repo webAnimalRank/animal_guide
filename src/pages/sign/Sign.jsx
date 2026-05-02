@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Field, Btn, Form } from '../../components/login.style';
+import { Field, Btn, Form, Input } from '../../components/login.style';
 import { useState } from 'react';
 import { createMember } from '../member/memberApi';
 import toast from 'react-hot-toast';
@@ -8,50 +8,64 @@ export default function Sign() {
   const [isLoad, setIsLoad] = useState(false);
   const navigate = useNavigate();
 
-  // 입력값 상태 관리
-  const [name, setName] = useState('');
-  const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
-  const [pw, setPw] = useState('');
-  const [pwCheck, setPwCheck] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    id: '',
+    email: '',
+    pw: '',
+    pwCheck: ''
+  });
+
+  const inputConfigs = [
+    { name: 'name', type: 'text', label: '별명' },
+    { name: 'id', type: 'text', label: '아이디' },
+    { name: 'email', type: 'email', label: '이메일' },
+    { name: 'pw', type: 'password', label: '비밀번호' },
+    { name: 'pwCheck', type: 'password', label: '비밀번호 확인' }
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const signUp = async (e) => {
-    e.preventDefault(); // 폼 submit 기본 동작 방지
+    e.preventDefault();
 
     if (isLoad) return;
-    setIsLoad(true);
 
-    // 입력값 검증
-    if (!name.trim() || !id.trim() || !email.trim() || !pw.trim()) {
+    const isAllFill = Object.values(formData).every((v) => v.trim() !== '');
+
+    if (!isAllFill) {
       toast.error('모든 항목을 입력해주세요!', { id: 'empty' });
-      setIsLoad(false);
-      return; // 빈 값 있으면 함수 종료
+      return;
     }
-    if (pw !== pwCheck) {
+    if (formData.pw !== formData.pwCheck) {
       toast.error('비밀번호가 일치하지 않습니다.');
-      setIsLoad(false);
       return;
     }
 
+    setIsLoad(true);
+
     const newMember = {
-      memberName: name,
-      memberId: id,
-      memberEmail: email,
-      memberPw: pw
+      memberName: formData.name,
+      memberId: formData.id,
+      memberEmail: formData.email,
+      memberPw: formData.pw
     };
 
     try {
       const res = await createMember(newMember);
       console.log('회원가입 완료:', res.data);
       toast.success(
-        <span className="text-left">
+        <span className='text-left'>
           회원가입이 완료되었습니다!
           <br />
           잠시 후 로그인 페이지로 이동합니다.
         </span>
       );
       setTimeout(() => {
-        navigate('/login'); // 성공 시 로그인 페이지 이동
+        navigate('/login');
         setIsLoad(false);
       }, 1500);
     } catch (err) {
@@ -63,53 +77,18 @@ export default function Sign() {
 
   return (
     <>
-      <h2 className="font-extrabold text-2xl">회원 가입</h2>
       <Form onSubmit={signUp}>
-        <Field>
-          <input
-            type="text"
-            name="name"
-            placeholder="별명"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <input
-            type="text"
-            name="id"
-            placeholder="아이디"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <input
-            type="email"
-            name="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <input
-            type="password"
-            name="pw"
-            placeholder="비밀번호"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <input
-            type="password"
-            name="pwCheck"
-            placeholder="비밀번호 확인"
-            value={pwCheck}
-            onChange={(e) => setPwCheck(e.target.value)}
-          />
-        </Field>
+        {inputConfigs.map((c) => (
+          <Field key={c.name}>
+            <div className='w-full text-left'>{c.label}</div>
+            <Input
+              type={c.type}
+              name={c.name}
+              value={formData[c.name]}
+              onChange={handleChange}
+            />
+          </Field>
+        ))}
         <Btn disabled={isLoad}>회원 가입</Btn>
       </Form>
     </>
