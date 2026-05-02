@@ -20,7 +20,7 @@ export default function Rank() {
       <div className='w-full min-h-0 flex-1 bg-white/20 rounded-xl overflow-hidden'>
         <div className='h-full overflow-y-scroll'>
           <table className='relative w-full backdrop-blur-xs'>
-            <thead className='sticky top-0 bg-(--cw)'>
+            <thead className='sticky top-0 z-10 bg-(--cw)'>
               <tr>
                 <th className='w-20'>순위</th>
                 <th className='w-30 p-2'>이미지</th>
@@ -64,7 +64,7 @@ export default function Rank() {
                       <VillagerImage
                         src={item.villagerImageIcon || tom}
                         alt={item.villagerName}
-                        className='w-30 mx-auto'
+                        className='w-20 mx-auto max-sm:w-15'
                       />
                     </td>
                     <td className='text-center'>{item.villagerName}</td>
