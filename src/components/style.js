@@ -82,7 +82,7 @@ export const Leaf2 = styled(LeafImg2)`
 `;
 
 export const Head = styled.header.attrs({
-	className: 'z-50 fixed w-full h-17 flex justify-center pb-1 max-sm:h-12 bg-(--c)/80 backdrop-blur-xs'
+	className: 'z-50 fixed top-0 w-full h-17 flex justify-center pb-1 max-sm:h-12 bg-(--c)/80 backdrop-blur-xs'
 })`
 	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
 `;
@@ -156,7 +156,7 @@ export const Box = styled.div.attrs({
 
 export const Wrap = styled.div.attrs({
 	className:
-		'max-w-7xl w-full h-max min-h-full px-6 pt-23 max-sm:pt-16 pb-6 max-sm:pb-4 max-sm:px-4 flex flex-col gap-5'
+		'max-w-7xl w-full h-max min-h-[calc(100vh-6rem)] px-6 pt-23 max-sm:pt-16 pb-6 max-sm:pb-4 max-sm:px-4 flex flex-col gap-5'
 })``;
 
 export const Btn = styled.button.attrs({

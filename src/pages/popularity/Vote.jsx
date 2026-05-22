@@ -65,7 +65,7 @@ export default function Vote({ onVoteSuccess }) {
           </TipText>
         </TipBox>
       </div>
-      <div className='flex-1 min-h-0 bg-white/10 rounded-2xl relative flex flex-col gap-2 p-2'>
+      <div className='h-140 max-sm:h-80 flex-1 bg-white/10 rounded-2xl relative flex flex-col gap-2 p-2'>
         <VillagerFilter />
         <VillagerList villagers={villagers} loading={loading} error={error} />
         {member && remainingVotes === 0 && (

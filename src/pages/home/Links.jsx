@@ -67,7 +67,7 @@ export function Links2({ menu, onClose }) {
   return (
     <nav
       ref={menuRef}
-      className='bg-(--c)/80 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-30 md:hidden backdrop-blur-xs'
+      className='bg-(--c)/80 text-white/60 shadow-(--shadow) flex flex-col gap-5 items-center justify-center fixed inset-0 top-12 z-80 md:hidden backdrop-blur-xs'
     >
       {menus.map((m) => (
         <Menu key={m.link} to={m.link} onClick={handleClick}>

@@ -41,3 +41,9 @@
 	--f: Pretendard;
 	--f2: 'Nexon Lv2 Gothic';
 }
+
+@media (max-width: 480px) {
+	.foot {
+		font-size: 10px;
+	}
+}

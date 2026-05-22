@@ -8,7 +8,7 @@ export default function Popularity() {
   const [tab, setTab] = useState('vote');
 
   return (
-    <Wrap className='h-0! fixed max-sm:inset-0 bg-(--cw)/60'>
+    <Wrap className='bg-(--cw)/60'>
       <div className='flex gap-4 justify-center border-b-2 pb-4 border-white/20'>
         <Tab
           onClick={() => setTab('vote')}

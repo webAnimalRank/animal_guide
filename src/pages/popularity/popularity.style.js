@@ -181,7 +181,7 @@ export const Submit = styled(Btn).attrs({
 
 export const BlurBg = styled.div.attrs({
   className:
-    'absolute rounded-2xl inset-0 bg-(--cw)/80 z-40 p-8 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'
+    'absolute rounded-2xl inset-0 bg-(--cw)/80 z-20 p-8 text-white/60 flex flex-col gap-8 items-center justify-center backdrop-blur-xs'
 })``;
 
 export const LinkBtn = styled(NavLink).attrs({
